@@ -20,3 +20,4 @@ and Tools/Runtime (Git, Gradle, Maven, Java, Bower) ...
 
 Notes:
 - https://resources.jetbrains.com/assets/products/intellij-idea/IntelliJIDEA_ReferenceCard.pdf
+- Since some of the Ubuntu key bindings overlap with Idea binding I decided to disable them automatically with the run script. If you like to restore execute `./edit-gnome-key-bindings.sh restore`.
