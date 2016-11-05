@@ -1,0 +1,43 @@
+---
+version: '2'
+services:
+  base:
+    build: base
+    image: suckowbiz/base
+  base-av:
+    build: base-av
+    image: suckowbiz/base-av
+    depends_on:
+      - base
+  chrome:
+    build: chrome
+    image: suckowbiz/chrome-browser
+    depends_on:
+      - "base-av"
+  gimp:
+    build: gimp
+    image: suckowbiz/gimp
+    depends_on:
+      - "base-av"
+# Disabled because binary must be provided first (see ./idea/README.md)
+#  idea:
+#    build: idea
+#    image: suckowbiz/idea
+#    depends_on:
+#      - "base-av"
+  proxy:
+    build: proxy
+    image: suckowbiz/proxy
+    depends_on:
+      - "base"
+# Disabled because spss binary must be provided first (see ./spss/README.md)
+#  spss:
+#    build: spss
+#    image: suckowbiz/spss
+#    depends_on:
+#      - "base"
+  steam:
+    build: steam
+    image: suckowbiz/steam
+    depends_on:
+      - "base-av"

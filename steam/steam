@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# Run Steam Docker container.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly IMAGE_NAME='suckowbiz/steam'
+readonly CONTAINER_NAME='steam'
+
+# parse command line arguments to grap extra information
+while getopts haw: opt
+do
+  case $opt in
+    h)  echo "Use with '-w' to set your steam path."
+        echo "Example: './steam -w /home/tobias/.steam'"
+        exit 0
+        ;;
+    w)	STEAM_WORKDIR=$OPTARG
+    	;;
+    \?) exit 1
+        ;;
+  esac
+done
+echo -e "Mounting STEAM_WORKDIR: '${STEAM_WORKDIR:=${HOME}/Steam}'.\nTry './steam -h' for more information .."
+
+mkdir -p ${STEAM_WORKDIR}
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker run \
+  --env DISPLAY=${DISPLAY} \
+  --env GIVEN_GROUP=$(id -gn ${USER}) \
+  --ipc="host" \
+  --env GIVEN_GROUP_ID=$(id -g ${USER}) \
+  --env GIVEN_USER=${USER} \
+  --env GIVEN_USER_ID=${UID} \
+  --env PULSE_SERVER=/run/pulse/native \
+  --hostname ${CONTAINER_NAME} \
+  --name ${CONTAINER_NAME} \
+  --privileged=true \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --volume /run/user/${UID}/pulse/native:/run/pulse/native:ro \
+  --volume ${STEAM_WORKDIR}:/Steam \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  ${IMAGE_NAME}

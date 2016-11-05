@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm -f spss >/dev/null 2>&1 || true
+
+# removing previous existing containers to enable start up
+docker run \
+  --detach \
+  --env DISPLAY=${DISPLAY} \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix \
+  --volume $(pwd)/:/SPSS_STORE \
+  suckowbiz/spss

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#
+# Intentionally created to run Google Chrome Browser from Docker image.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly IMAGE_NAME='suckowbiz/chrome'
+readonly CONTAINER_NAME='chrome'
+
+mkdir -p ~/.config/google-chrome
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker run \
+  --device=/dev/snd:/dev/snd \
+  --detach \
+  --env DISPLAY=${DISPLAY} \
+  --env GIVEN_GROUP=$(id -gn ${USER}) \
+  --env GIVEN_GROUP_ID=$(id -g ${USER}) \
+  --env GIVEN_USER=${USER} \
+  --env GIVEN_USER_ID=${UID} \
+  --env PULSE_SERVER=/run/pulse/native \
+  --hostname ${CONTAINER_NAME} \
+  --name ${CONTAINER_NAME} \
+  --net host \
+  --privileged \
+  --volume /dev/shm:/dev/shm \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --volume $HOME/Downloads:/Downloads \
+  --volume $HOME/.config/google-chrome:/data \
+  --volume /run/user/${UID}/pulse/native:/run/pulse/native:ro \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  --volume /var/run/dbus:/var/run/dbus:ro \
+${IMAGE_NAME}
