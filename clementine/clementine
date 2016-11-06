@@ -18,6 +18,7 @@ mkdir -p ~/.config/Clementine
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
+  --detach \
   --device /dev/snd \
   --env DISPLAY \
   --env GIVEN_GROUP=$(id -gn ${USER}) \
