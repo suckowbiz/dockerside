@@ -23,6 +23,6 @@ RUN curl -kfLOSs https://steamcdn-a.akamaihd.net/client/installer/steam.deb \
  && apt-get install --fix-broken --assume-yes
 
 COPY context /
-ENV ENTRYPOINT_GROUPS="games,video"
+ENV ENTRYPOINT_GROUPS="games,video,audio"
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["steam"]

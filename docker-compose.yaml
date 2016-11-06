@@ -11,7 +11,12 @@ services:
       - base
   chrome:
     build: chrome
-    image: suckowbiz/chrome-browser
+    image: suckowbiz/chrome
+    depends_on:
+      - "base-av"
+  clementine:
+    build: clementine
+    image: suckowbiz/clementine
     depends_on:
       - "base-av"
   gimp:

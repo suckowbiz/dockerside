@@ -9,7 +9,6 @@ ENV GRADLE_VERSION=2.14 \
 # Install required dependencies to make the setup work.
 RUN apt-get update --quiet \
  && apt-get install --quiet --yes \
-    fonts-liberation \
     git \
     firefox \
     make \
@@ -17,14 +16,10 @@ RUN apt-get update --quiet \
     openjfx \
     libappindicator1 \
     libcurl3 \
-    libpango1.0-0 \
     libxss1 \
     nodejs \
     nodejs-legacy \
     npm \
-    unzip \
-    vim \
-    xdg-utils \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*

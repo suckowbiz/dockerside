@@ -17,10 +17,13 @@ RUN apt-get --quiet --quiet update \
  && apt-get --quiet --quiet --no-install-recommends --auto-remove upgrade \
  && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     apt-utils \
+    ca-certificates \
     curl \
     dirmngr \
     software-properties-common \
-    ca-certificates \
+    unzip \
+    vim \
+    xz-utils \
  && update-ca-certificates --fresh
 
 # Install gosu to use it for command execution as appropriate user in entrypoint.sh
