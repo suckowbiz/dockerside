@@ -17,6 +17,7 @@ RUN apt-get update --quiet \
     libappindicator1 \
     libcurl3 \
     libxss1 \
+    man \
     nodejs \
     nodejs-legacy \
     npm \
@@ -62,5 +63,5 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64" \
 
 # Add context to provide dependencies.
 COPY context /
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint-ext.sh"]
 CMD ["/start.sh"]

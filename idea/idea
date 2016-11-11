@@ -65,6 +65,7 @@ xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+# Must remain privileged to enable writing system setting in entrypoint-ext.sh.
 docker run \
   --detach \
   --env DISPLAY=${DISPLAY} \
@@ -76,6 +77,7 @@ docker run \
   --env PULSE_SERVER=/run/pulse/native \
   --hostname ${CONTAINER_NAME} \
   --name ${CONTAINER_NAME} \
+  --privileged \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume ${GIT_CONFIG}:/opt/.gitconfig \
   --volume ${IDEA_DIR}:/opt/.IntelliJIdea \
