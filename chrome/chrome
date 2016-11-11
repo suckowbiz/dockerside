@@ -15,7 +15,6 @@ xhost +local:root > /dev/null 2>&1
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
-  --device=/dev/snd:/dev/snd \
   --detach \
   --env DISPLAY=${DISPLAY} \
   --env GIVEN_GROUP=$(id -gn ${USER}) \
