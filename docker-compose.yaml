@@ -24,6 +24,11 @@ services:
     image: suckowbiz/gimp
     depends_on:
       - "base-av"
+  keepass2:
+    build: keepass2
+    image: suckowbiz/keepass2
+    depends_on:
+      - "base-av"
 # Disabled because binary must be provided first (see ./idea/README.md)
 #  idea:
 #    build: idea
@@ -41,6 +46,11 @@ services:
 #    image: suckowbiz/spss
 #    depends_on:
 #      - "base"
+  shotwell:
+    build: shotwell
+    image: suckowbiz/shotwell
+    depends_on:
+      - "base-av"
   steam:
     build: steam
     image: suckowbiz/steam
