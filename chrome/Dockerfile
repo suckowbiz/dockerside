@@ -10,8 +10,7 @@ RUN curl -kfLOSs https://dl.google.com/linux/linux_signing_key.pub \
  && apt-key add linux_signing_key.pub \
  && apt-get --quiet --quiet update \
  && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
-    google-chrome-stable \
-    libcanberra-gtk-module
+    google-chrome-stable
 
 ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh"]
