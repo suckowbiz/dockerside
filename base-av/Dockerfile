@@ -18,6 +18,7 @@ RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     # translates GTK+ widgets signals to event sounds
     libcanberra-gtk3-dev \
     libcanberra-gtk3-module \
+    libcanberra-gtk-module \
     # GStreamer backend for libcanberra
     libcanberra-gstreamer \
     # PulseAudio backend for libcanberra
