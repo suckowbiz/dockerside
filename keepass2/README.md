@@ -1,4 +1,4 @@
-# chrome
+# keepass2
 KeePass2, the free, open source, light-weight and easy-to-use password manager.
 
 # Mounts
