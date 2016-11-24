@@ -3,6 +3,7 @@ FROM suckowbiz/base-av
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
 RUN add-apt-repository ppa:me-davidsansome/clementine \
+ && apt-get --quiet update \
  && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     clementine \
     libclutter-gst-2.0
