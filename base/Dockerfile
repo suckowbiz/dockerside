@@ -14,17 +14,16 @@ ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
 RUN apt-get --quiet --quiet update \
- && apt-get --quiet --quiet --no-install-recommends --auto-remove upgrade \
- && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+ && apt-get --quiet --quiet --no-install-recommends upgrade \
+ && apt-get --quiet --assume-yes --no-install-recommends install \
     apt-utils \
-    ca-certificates \
+    # ca-certificates come with curl
     curl \
     dirmngr \
     software-properties-common \
     unzip \
     vim \
-    xz-utils \
- && update-ca-certificates --fresh
+    xz-utils
 
 # Install gosu to use it for command execution as appropriate user in entrypoint.sh
 WORKDIR /usr/bin

@@ -2,7 +2,7 @@ FROM suckowbiz/base
 
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
-RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+RUN apt-get --quiet --assume-yes --no-install-recommends install \
     dbus-x11 \
     language-pack-gnome-en \
     # audio
