@@ -46,11 +46,6 @@ services:
 #    image: suckowbiz/spss
 #    depends_on:
 #      - "base"
-  shotwell:
-    build: shotwell
-    image: suckowbiz/shotwell
-    depends_on:
-      - "base-av"
   steam:
     build: steam
     image: suckowbiz/steam
