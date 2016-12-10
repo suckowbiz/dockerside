@@ -2,15 +2,15 @@
 version: '2'
 services:
   base:
-    build: base
+    build: base/base
     image: suckowbiz/base
   base-av:
-    build: base-av
+    build: base/av
     image: suckowbiz/base-av
     depends_on:
       - base
   base-builder:
-    build: base-builder
+    build: base/builder
     image: suckowbiz/base-builder
     depends_on:
       - base
