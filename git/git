@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# Run Docker container.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly CONTAINER_NAME='git'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+# ~/.config/git/config is on of the placed git searches for config. Here used to be able to mount a directory into container
+# which is required because git creates .gitlock files there and this fails if the parent is not writable.
+# (source: https://git-scm.com/book/it/v2/Customizing-Git-Git-Configuration)
+readonly GIT_CONFIG_DIR="${HOME}/.config/git"
+readonly GIT_CONFIG_FILE="${GIT_CONFIG_DIR}"/config
+if [ ! -e "${GIT_CONFIG_DIR}" ]
+then
+    mkdir --parents "${GIT_CONFIG_DIR}"
+fi
+if [ ! -e "${GIT_CONFIG_FILE}" ]
+then
+    # Create since the file is expected by git (or it creates a new one inside the container at: ~/.gitconfig)
+    touch "${GIT_CONFIG_FILE}"
+fi
+
+readonly SSH_CONFIG_DIR="${HOME}/.ssh"
+if [ ! -e "${SSH_CONFIG_DIR}" ]
+then
+    mkdir --parents "${SSH_CONFIG_DIR}"
+fi
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
+
+docker run \
+  --env DISPLAY \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --interactive \
+  --name "${CONTAINER_NAME}" \
+  --tty \
+  --volume "${GIT_CONFIG_DIR}":/var/lib/git/config \
+  --volume "${PWD}":/var/lib/git/repository \
+  --volume "${SSH_CONFIG_DIR}":/var/lib/ssh \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  ${IMAGE_NAME} "$@"
