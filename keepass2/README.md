@@ -3,7 +3,7 @@ KeePass2, the free, open source, light-weight and easy-to-use password manager.
 
 # Mounts
 - `~/KeePass` to load Database files
-- `~/.config/KeePass` to persist settings.
+- `~/.config/KeePass` to persist settings
 
 # Run
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:

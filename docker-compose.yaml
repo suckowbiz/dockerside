@@ -9,6 +9,11 @@ services:
     image: suckowbiz/base-av
     depends_on:
       - base
+  base-builder:
+    build: base-builder
+    image: suckowbiz/base-builder
+    depends_on:
+      - base
   chrome:
     build: chrome
     image: suckowbiz/chrome
@@ -24,6 +29,11 @@ services:
     image: suckowbiz/gimp
     depends_on:
       - "base-av"
+  git:
+    build: git
+    image: suckowbiz/git
+    depends_on:
+      - "base-builder"
   keepass2:
     build: keepass2
     image: suckowbiz/keepass2
@@ -55,4 +65,4 @@ services:
     build: supertux
     image: suckowbiz/supertux
     depends_on:
-      - "base-av"
+      - "base-builder"

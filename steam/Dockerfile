@@ -2,6 +2,8 @@ FROM suckowbiz/base-av
 
 MAINTAINER tobias@suckow.biz
 
+ENV USER_DATA=/var/lib/steam
+
 # Steam requires a 32bit architecture.
 RUN dpkg --add-architecture i386 \
  && apt-get update \
@@ -18,11 +20,16 @@ RUN dpkg --add-architecture i386 \
     xserver-xorg-video-intel
 
 # The holy steam himself.
-RUN curl -kfLOSs https://steamcdn-a.akamaihd.net/client/installer/steam.deb \
- && dpkg -i steam.deb || true \
+RUN curl --insecure --location --show-error --silent --remote-name https://steamcdn-a.akamaihd.net/client/installer/steam.deb \
+ && dpkg --install steam.deb || true \
  && apt-get install --fix-broken --assume-yes
 
-COPY context /
+WORKDIR /etc/skel
+RUN mkdir --parent .local/share \
+ && ln -s "${USER_DATA}" .local/share/Steam
+
+VOLUME ["${USER_DATA}"]
+
 ENV ENTRYPOINT_GROUPS="games,video,audio"
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["steam"]

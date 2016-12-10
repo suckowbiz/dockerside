@@ -1,14 +1,11 @@
-FROM suckowbiz/base-av
+FROM suckowbiz/base-builder
 
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
-ENV \
-    # Conventionally named SUPERTUX USER DIRECTORY
-    SUPERTUX2_USER_DIR="/var/games/supertux2"
-RUN mkdir -p "${SUPERTUX2_USER_DIR}"
+# Conventionally named SUPERTUX USER DIRECTORY
+ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
 
 RUN apt-get update && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
-    build-essential \
     cmake \
     git \
     libboost-all-dev \
@@ -29,7 +26,8 @@ RUN git clone --depth 1 --recurse-submodules https://github.com/SuperTux/supertu
  && make \
  && make install
 
-COPY context /
+VOLUME ["${SUPERTUX2_USER_DIR}"]
+
 ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/opt/supertux/build/supertux2", "--fullscreen"]
+CMD ["/opt/supertux/build/supertux2"]

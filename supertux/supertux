@@ -1,34 +1,35 @@
 #!/usr/bin/env bash
 #
-# Run Steam Docker container.
+# Run Docker container.
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
 
 readonly CONTAINER_NAME='supertux'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
-readonly SUPERTUX_USER_DATA="${HOME}/.local/share/supertux2"
-
-mkdir -p ${SUPERTUX_USER_DATA}
+readonly USER_DATA="${HOME}/.config/supertux2"
+if [ ! -e "${USER_DATA}" ]
+then
+    mkdir --parent "${USER_DATA}"
+fi
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
-docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 
 # privileged must remain to avoid issues with i9x graphic driver load
 docker run \
-  --env DISPLAY=${DISPLAY} \
-  --env GIVEN_GROUP=$(id -gn ${USER}) \
-  --env GIVEN_GROUP_ID=$(id -g ${USER}) \
-  --env GIVEN_USER=${USER} \
-  --env GIVEN_USER_ID=${UID} \
-  --env PULSE_SERVER=/run/pulse/native \
-  --hostname ${CONTAINER_NAME} \
+  --detach \
+  --env DISPLAY \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --name "${CONTAINER_NAME}" \
   --privileged \
-  --name ${CONTAINER_NAME} \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /run/user/${UID}/pulse/native:/run/pulse/native:ro \
-  --volume $SUPERTUX_USER_DATA:/var/games/supertux2 \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  --volume "${USER_DATA}":/var/lib/supertux2 \
   ${IMAGE_NAME}

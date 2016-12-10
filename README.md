@@ -8,11 +8,12 @@ and instead dockerize the apps I (temporarily) use on my Ubuntu machine.
 For details see `README.md` in particular subdirectories.
 
 # Why?
-Some of the applications I dockerized are available on public repositories 
+Some of the applications I dockerized are available on public repositories as well
 but usually their authors do not care much about file permissions and/or 
 security. My requirements are:
-- Files created by containers must be owned by the current OS user
-- Availability of Ubuntu based run scripts for simplicity
+- Files created by containers must be owned by the current user
+- Availability of Ubuntu based bin wrapper scripts to run the container having mounted 
+  all required devices/ directories
 - Quality
 
 # Build the Docker Image(s)

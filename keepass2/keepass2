@@ -4,18 +4,26 @@
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
 
-readonly IMAGE_NAME='suckowbiz/keepass2'
 readonly CONTAINER_NAME='keepass2'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+readonly KEEPASS_DATA="${HOME}/KeePass"
+if [ ! -e "${KEEPASS_DATA}" ]
+then
+    mkdir --parent "${KEEPASS_DATA}"
+fi
+
+readonly KEEPASS_CONFIG="${HOME}/.config/KeePass"
+if [ ! -e "${KEEPASS_CONFIG}" ]
+then
+    mkdir --parent "${KEEPASS_CONFIG}"
+fi
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
-readonly KEEPASS_DATA=${HOME}/KeePass
-readonly KEEPASS_CONFIG=${HOME}/.config/KeePass
-mkdir -p $KEEPASS_CONFIG $KEEPASS_DATA
-
 # removing previous existing containers to enable start up
-docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
   --detach \
   --env DISPLAY=${DISPLAY} \
@@ -25,8 +33,8 @@ docker run \
   --env GIVEN_USER_ID=${UID} \
   --hostname ${CONTAINER_NAME} \
   --name ${CONTAINER_NAME} \
-  --volume $KEEPASS_DATA:/opt/KeePass2/data \
-  --volume $KEEPASS_CONFIG:/opt/KeePass2/config \
   --volume /etc/localtime:/etc/localtime:ro \
+  --volume "${KEEPASS_DATA}":/var/lib/keepass2/data \
+  --volume "${KEEPASS_CONFIG}":/var/lib/keepass2/config \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   ${IMAGE_NAME}

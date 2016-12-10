@@ -4,37 +4,38 @@
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
 
-readonly IMAGE_NAME='suckowbiz/clementine'
 readonly CONTAINER_NAME='clementine'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+readonly USER_CONFIG="${HOME}/.config/Clementine"
+if [ ! -e "${USER_CONFIG}" ]
+then
+    mkdir --parent "${USER_CONFIG}"
+fi
+
+readonly USER_MUSIC="${HOME}/Music"
+if [ ! -e "${USER_MUSIC}" ]
+then
+    mkdir --parent "${USER_MUSIC}"
+fi
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
-
-mkdir -p ~/.config/Clementine
-
-# pulseaudio
-# http://stackoverflow.com/questions/28985714/run-apps-using-audio-in-a-docker-container
 
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
   --detach \
-  --device /dev/snd \
   --env DISPLAY \
-  --env GIVEN_GROUP=$(id -gn ${USER}) \
-  --env GIVEN_GROUP_ID=$(id -g ${USER}) \
-  --env GIVEN_USER=${USER} \
-  --env GIVEN_USER_ID=${UID} \
-  --env PULSE_SERVER=/run/pulse/native \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
   --env XDG_RUNTIME_DIR \
-  --hostname ${CONTAINER_NAME} \
-  --name ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
   --privileged \
-  --volume /dev/shm \
-  --volume /run/user/${UID}/pulse \
   --volume /etc/localtime:/etc/localtime:ro \
-  --volume $HOME/Music:/Music \
-  --volume $HOME/.config/Clementine:/data \
-  --volume /run/user/${UID}/pulse/native:/run/pulse/native:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  --volume "${USER_CONFIG}":/var/lib/clementine/config \
+  --volume "${USER_MUSIC}":/var/lib/clementine/music \
 ${IMAGE_NAME}

@@ -3,7 +3,7 @@ Google Chrome browser.
 
 # Mounts
 - `~/Downloads` to persist downloaded files
-- `~/.config/google-chrome` to persist settings.
+- `~/.config/google-chrome` to persist settings
 
 # Run
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:

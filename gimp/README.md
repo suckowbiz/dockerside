@@ -3,6 +3,7 @@ Gimp image editor (with Photoshop look and feel).
 
 # Mounts
 - `~/Pictures` to load and persist image files
+- TODO: Unfortunately gimp mixes system files and config. By now the gimp container is stateless.
 
 # Run
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:

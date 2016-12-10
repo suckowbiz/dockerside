@@ -4,33 +4,38 @@
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
 
-readonly IMAGE_NAME='suckowbiz/chrome'
 readonly CONTAINER_NAME='chrome'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
-mkdir -p ~/.config/google-chrome
+readonly USER_DOWNLOAD_DIR="${HOME}/Downloads"
+if [ ! -e "${USER_DOWNLOAD_DIR}" ]
+then
+    mkdir --parent "${USER_DOWNLOAD_DIR}"
+fi
+
+readonly USER_DATA_DIR="${HOME}/.config/google-chrome"
+if [ ! -e "${USER_DATA_DIR}" ]
+then
+    mkdir --parent "${USER_DATA_DIR}"
+fi
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
-docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 docker run \
   --detach \
-  --env DISPLAY=${DISPLAY} \
-  --env GIVEN_GROUP=$(id -gn ${USER}) \
-  --env GIVEN_GROUP_ID=$(id -g ${USER}) \
-  --env GIVEN_USER=${USER} \
-  --env GIVEN_USER_ID=${UID} \
-  --env PULSE_SERVER=/run/pulse/native \
-  --hostname ${CONTAINER_NAME} \
-  --name ${CONTAINER_NAME} \
+  --env DISPLAY \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --name "${CONTAINER_NAME}" \
   --net host \
   --privileged \
-  --volume /dev/shm:/dev/shm \
   --volume /etc/localtime:/etc/localtime:ro \
-  --volume $HOME/Downloads:/Downloads \
-  --volume $HOME/.config/google-chrome:/data \
-  --volume /run/user/${UID}/pulse/native:/run/pulse/native:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
-  --volume /var/run/dbus:/var/run/dbus:ro \
-${IMAGE_NAME}
+  --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
+  --volume "${USER_DOWNLOAD_DIR}":/var/lib/chrome/downloads \
+  ${IMAGE_NAME} "$@"
