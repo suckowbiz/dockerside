@@ -16,9 +16,8 @@ RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     autoconf \
     docbook \
     gettext \
+    less \
     man \
-    # Install "most" as manpage viewer to have syntax highlighting
-    most \
     ssh \
     tcl \
     tk \
@@ -36,8 +35,9 @@ RUN curl --fail --location --show-error --silent --output git.tar.gz "${URL_GIT_
  && make all doc \
  && make install install-doc install-html
 
-WORKDIR /etc/skel/.config
-RUN ln --symbolic "${GIT_CONFIG_DIR}" git \
+WORKDIR /etc/skel/
+RUN mkdir .config \
+ && ln --symbolic "${GIT_CONFIG_DIR}" .config/git \
  && ln --symbolic "${SSH_CONFIG_DIR}" .ssh
 
 VOLUME ["${SSH_CONFIG_DIR}"]
