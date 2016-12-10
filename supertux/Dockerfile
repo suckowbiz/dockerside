@@ -9,7 +9,6 @@ RUN apt-get update && apt-get --quiet --assume-yes --no-install-recommends --aut
     cmake \
     git \
     libboost-all-dev \
-    libcurl4-openssl-dev \
     libglew-dev \
     libopenal-dev \
     libsdl2-dev \
