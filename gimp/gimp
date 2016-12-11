@@ -7,7 +7,7 @@ set -e
 readonly CONTAINER_NAME='gimp'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 readonly USER_PICTURES="${HOME}/Pictures"
-test ! -e "${USER_PICTUES}" || mkdir --parent "${USER_PICTURES}"
+test -e "${USER_PICTUES}" || mkdir --parent "${USER_PICTURES}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1

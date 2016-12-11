@@ -8,10 +8,10 @@ readonly CONTAINER_NAME='keepass2'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 readonly KEEPASS_DATA="${HOME}/KeePass"
-test ! -e "${KEEPASS_DATA}" || mkdir --parent "${KEEPASS_DATA}"
+test -e "${KEEPASS_DATA}" || mkdir --parent "${KEEPASS_DATA}"
 
 readonly KEEPASS_CONFIG="${HOME}/.config/KeePass"
-test ! -e "${KEEPASS_CONFIG}" || mkdir --parent "${KEEPASS_CONFIG}"
+test -e "${KEEPASS_CONFIG}" || mkdir --parent "${KEEPASS_CONFIG}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1

@@ -11,7 +11,7 @@ readonly USER_CONFIG="${HOME}/.config/Clementine"
 test -e "${USER_CONFIG}" || mkdir --parent "${USER_CONFIG}"
 
 readonly USER_MUSIC="${HOME}/Music"
-test ! -e "${USER_MUSIC}" || mkdir --parent "${USER_MUSIC}"
+test -e "${USER_MUSIC}" || mkdir --parent "${USER_MUSIC}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1

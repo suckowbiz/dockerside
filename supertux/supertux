@@ -7,7 +7,7 @@ set -e
 readonly CONTAINER_NAME='supertux'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 readonly USER_DATA="${HOME}/.config/supertux2"
-test ! -e "${USER_DATA}" || mkdir --parent "${USER_DATA}"
+test -e "${USER_DATA}" || mkdir --parent "${USER_DATA}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1

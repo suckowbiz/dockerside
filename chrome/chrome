@@ -8,10 +8,10 @@ readonly CONTAINER_NAME='chrome'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 readonly USER_DOWNLOAD_DIR="${HOME}/Downloads"
-test ! -e "${USER_DOWNLOAD_DIR}" || mkdir --parent "${USER_DOWNLOAD_DIR}"
+test -e "${USER_DOWNLOAD_DIR}" || mkdir --parent "${USER_DOWNLOAD_DIR}"
 
 readonly USER_DATA_DIR="${HOME}/.config/google-chrome"
-test ! -e "${USER_DATA_DIR}" || mkdir --parent "${USER_DATA_DIR}"
+test -e "${USER_DATA_DIR}" || mkdir --parent "${USER_DATA_DIR}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
