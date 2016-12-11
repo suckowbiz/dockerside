@@ -11,22 +11,13 @@ readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 # which is required because git creates .gitlock files there and this fails if the parent is not writable.
 # (source: https://git-scm.com/book/it/v2/Customizing-Git-Git-Configuration)
 readonly GIT_CONFIG_DIR="${HOME}/.config/git"
+test ! -e "${GIT_CONFIG_DIR}" || mkdir --parents "${GIT_CONFIG_DIR}"
+
 readonly GIT_CONFIG_FILE="${GIT_CONFIG_DIR}"/config
-if [ ! -e "${GIT_CONFIG_DIR}" ]
-then
-    mkdir --parents "${GIT_CONFIG_DIR}"
-fi
-if [ ! -e "${GIT_CONFIG_FILE}" ]
-then
-    # Create since the file is expected by git (or it creates a new one inside the container at: ~/.gitconfig)
-    touch "${GIT_CONFIG_FILE}"
-fi
+test ! -e "${GIT_CONFIG_FILE}" || touch "${GIT_CONFIG_FILE}"
 
 readonly SSH_CONFIG_DIR="${HOME}/.ssh"
-if [ ! -e "${SSH_CONFIG_DIR}" ]
-then
-    mkdir --parents "${SSH_CONFIG_DIR}"
-fi
+test ! -e "${SSH_CONFIG_DIR}" || mkdir --parents "${SSH_CONFIG_DIR}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1

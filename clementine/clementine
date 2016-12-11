@@ -8,16 +8,10 @@ readonly CONTAINER_NAME='clementine'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 readonly USER_CONFIG="${HOME}/.config/Clementine"
-if [ ! -e "${USER_CONFIG}" ]
-then
-    mkdir --parent "${USER_CONFIG}"
-fi
+test -e "${USER_CONFIG}" || mkdir --parent "${USER_CONFIG}"
 
 readonly USER_MUSIC="${HOME}/Music"
-if [ ! -e "${USER_MUSIC}" ]
-then
-    mkdir --parent "${USER_MUSIC}"
-fi
+test ! -e "${USER_MUSIC}" || mkdir --parent "${USER_MUSIC}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
@@ -33,7 +27,7 @@ docker run \
   --env GIVEN_USER_ID="${UID}" \
   --env XDG_RUNTIME_DIR \
   --name "${CONTAINER_NAME}" \
-  --privileged \
+  --device /dev/snd \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USER_CONFIG}":/var/lib/clementine/config \
