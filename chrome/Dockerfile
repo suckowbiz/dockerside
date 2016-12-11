@@ -17,8 +17,7 @@ RUN curl --insecure --fail --location --remote-name --show-error --silent https:
 WORKDIR /etc/skel
 RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
  && mkdir --parent .config/pulse \
- && ln --symbolic "${USER_DATA_DIR}" .config/google-chrome \
- && ln --symbolic /var/lib/pulse/cookie .config/pulse/cookie
+ && ln --symbolic "${USER_DATA_DIR}" .config/google-chrome
 
 VOLUME ["${USER_DOWNLOAD_DIR}"]
 VOLUME ["${USER_DATA_DIR}"]

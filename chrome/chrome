@@ -16,20 +16,24 @@ test -e "${USER_DATA_DIR}" || mkdir --parent "${USER_DATA_DIR}"
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
+# Enable pulseaudio TCP server and propagate credentials (sever, cookie) to X11 to let containre pulseaudio auto-connect to it.
+# Chrome would work with /dev/snd but then it uses sound exclusively and another container is muted.
+pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 1>/dev/null
+pactl load-module module-x11-publish 1>/dev/null
+
 # removing previous existing containers to enable start up
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 docker run \
   --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
   --detach \
   --device /dev/dri `# Direct GPU access improves gfx rendering to avoid fail e.g. on google maps usage.` \
-  --device /dev/snd \
   --env DISPLAY \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
   --env GIVEN_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
+  --net "host" `# Required to connect pulseaudio` \
   --name "${CONTAINER_NAME}" \
-  --net "host" \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
