@@ -44,5 +44,7 @@ VOLUME ["${SSH_CONFIG_DIR}"]
 VOLUME ["${GIT_CONFIG_DIR}"]
 VOLUME ["${GIT_WORK_TREE}"]
 
+# Workdir must remain in the work tree to "help" git to resolve paths e.g. for 'git diff <path>'.
+WORKDIR "${GIT_WORK_TREE}"
 ENTRYPOINT ["/entrypoint.sh", "git"]
 CMD ["--help"]
