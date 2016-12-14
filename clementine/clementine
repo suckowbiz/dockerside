@@ -8,10 +8,14 @@ readonly CONTAINER_NAME='clementine'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 readonly USER_CONFIG="${HOME}/.config/Clementine"
-test -e "${USER_CONFIG}" || mkdir --parent "${USER_CONFIG}"
+if [[ ! -e "${USER_CONFIG}" ]]; then
+    mkdir --parent "${USER_CONFIG}"
+fi
 
 readonly USER_MUSIC="${HOME}/Music"
-test -e "${USER_MUSIC}" || mkdir --parent "${USER_MUSIC}"
+if [[ ! -e "${USER_MUSIC}" ]]; then
+    mkdir --parent "${USER_MUSIC}"
+fi
 
 # Enable pulseaudio tcp protocol and propagate pulseaudio server credentials to X11 to connect automatically.
 pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 1>/dev/null

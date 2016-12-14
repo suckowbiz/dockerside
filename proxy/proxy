@@ -3,7 +3,7 @@
 CONTAINER_NAME="proxy"
 DOCKER=`which docker`
 
-$DOCKER rm -f $CONTAINER_NAME >/dev/null 2>&1 || true
+$DOCKER rm --force --volumes $CONTAINER_NAME >/dev/null 2>&1 || true
 $DOCKER run \
  --detach=true \
  --env TOR_EXCLUDE_EXIT_NODES="{de}" \
