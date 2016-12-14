@@ -6,9 +6,9 @@ ENV VERSION_GIT=2.11.0 \
     GIT_HOME="/var/lib/git"
 
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
-    # Git specific. Required since GIT_WORK_TREE is utilized.
+    # Tell git where the .git repository is located since the work tree is customized.
     GIT_DIR="${GIT_HOME}/repository/.git" \
-    # Git specific. Utilized to set the repository to work with.
+    # Tell git where the work tree is located to consider the correct directory.
     GIT_WORK_TREE="${GIT_HOME}/repository" \
     SSH_CONFIG_DIR=/var/lib/ssh \
     URL_GIT_SOURCES_TAR_GZ="https://github.com/git/git/archive/v${VERSION_GIT}.tar.gz"
