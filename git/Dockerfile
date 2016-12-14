@@ -2,12 +2,14 @@ FROM suckowbiz/base-builder
 
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
-ENV VERSION_GIT=2.11.0
-ENV GIT_CONFIG_DIR=/var/lib/git/config \
+ENV VERSION_GIT=2.11.0 \
+    GIT_HOME="/var/lib/git"
+
+ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
     # Git specific. Required since GIT_WORK_TREE is utilized.
-    GIT_DIR=/var/lib/git/repository/.git \
+    GIT_DIR="${GIT_HOME}/repository/.git" \
     # Git specific. Utilized to set the repository to work with.
-    GIT_WORK_TREE=/var/lib/git/repository \
+    GIT_WORK_TREE="${GIT_HOME}/repository" \
     SSH_CONFIG_DIR=/var/lib/ssh \
     URL_GIT_SOURCES_TAR_GZ="https://github.com/git/git/archive/v${VERSION_GIT}.tar.gz"
 
@@ -44,7 +46,5 @@ VOLUME ["${SSH_CONFIG_DIR}"]
 VOLUME ["${GIT_CONFIG_DIR}"]
 VOLUME ["${GIT_WORK_TREE}"]
 
-# Workdir must remain in the work tree to "help" git to resolve paths e.g. for 'git diff <path>'.
-WORKDIR "${GIT_WORK_TREE}"
 ENTRYPOINT ["/entrypoint.sh", "git"]
 CMD ["--help"]

@@ -7,26 +7,72 @@ set -e
 readonly CONTAINER_NAME='git'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
+#######################################
+# Create directory if not exists (respects existing links).
+# Globals:
+#   None
+# Arguments:
+#   $1 - PATH to check
+# Returns:
+#   None
+#######################################
+create_if_not_exists() {
+    if [[ ! -e "${1}" ]]; then
+        mkdir --parents "${1}"
+    fi
+}
+
+#######################################
+# Locates the root of a git repository by searching for .git/index upwards.
+# Globals:
+#   None
+# Arguments:
+#   $1 - Absolute Path inside a git repository
+# Returns:
+#   repository root
+#######################################
+locate_git_repository_root() {
+    local result=$1
+    local readonly marker=".git/index"
+    while [[ ! -e "${result}/${marker}" ]]; do
+        if [[ -e "${result}/../" ]]; then
+            result=$(dirname "${result}")
+        else
+            break
+        fi
+    done
+    echo ${result}
+}
+
+########################################################################################################################
+# To make everything work it is required to let GIT know where to find the repository root, the repository itself (.git)
+# and the current location within the repository.
+
 # ~/.config/git/config is on of the placed git searches for config. Here used to be able to mount a directory into container
 # which is required because git creates .gitlock files there and this fails if the parent is not writable.
 # (source: https://git-scm.com/book/it/v2/Customizing-Git-Git-Configuration)
-readonly GIT_CONFIG_DIR="${HOME}/.config/git"
-test -e "${GIT_CONFIG_DIR}" || mkdir --parents "${GIT_CONFIG_DIR}"
+readonly USER_GIT_CONFIG_ROOT="${HOME}/.config/git"
+create_if_not_exists "${USER_GIT_CONFIG_ROOT}"
+touch "${USER_GIT_CONFIG_ROOT}/config"
 
-readonly GIT_CONFIG_FILE="${GIT_CONFIG_DIR}"/config
-test -e "${GIT_CONFIG_FILE}" || touch "${GIT_CONFIG_FILE}"
+readonly USER_SSH_CONFIG_ROOT="${HOME}/.ssh"
+create_if_not_exists "${USER_SSH_CONFIG_ROOT}"
 
-readonly SSH_CONFIG_DIR="${HOME}/.ssh"
-test -e "${SSH_CONFIG_DIR}" || mkdir --parents "${SSH_CONFIG_DIR}"
+readonly GIT_REPO_ROOT=$(locate_git_repository_root $PWD)
+GIT_REPO_WORKDIR=""
+if [[ ! "${GIT_REPO_ROOT}" = "${PWD}" ]]; then
+    GIT_REPO_WORKDIR="${PWD##$GIT_REPO_ROOT/}"
+fi
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
-
+readonly CONTAINER_MOUNT_POINT="/var/lib/git"
 docker run \
   --env DISPLAY \
+  --env ENTRYPOINT_WORKDIR="${CONTAINER_MOUNT_POINT}/repository/${GIT_REPO_WORKDIR}" \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
   --env GIVEN_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
@@ -34,9 +80,9 @@ docker run \
   --interactive \
   --name "${CONTAINER_NAME}" \
   --tty \
-  --volume "${GIT_CONFIG_DIR}":/var/lib/git/config \
-  --volume "${PWD}":/var/lib/git/repository \
-  --volume "${SSH_CONFIG_DIR}":/var/lib/ssh \
+  --volume "${GIT_REPO_ROOT}":"${CONTAINER_MOUNT_POINT}/repository" \
+  --volume "${USER_GIT_CONFIG_ROOT}":"${CONTAINER_MOUNT_POINT}/config" \
+  --volume "${USER_SSH_CONFIG_ROOT}":/var/lib/ssh \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
-  ${IMAGE_NAME} "$@"
+  "${IMAGE_NAME}" "$@"
