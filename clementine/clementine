@@ -17,15 +17,19 @@ if [[ ! -e "${USER_MUSIC}" ]]; then
     mkdir --parent "${USER_MUSIC}"
 fi
 
-# Enable pulseaudio tcp protocol and propagate pulseaudio server credentials to X11 to connect automatically.
-readonly PA_TCP_ENABLED=$(pactl list modules |grep --silent 'module-native-protocol-tcp'; echo $?)
-if [[ "$PA_TCP_ENABLED" = "1" ]]; then
-    pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 1>/dev/null
+# Enable pulse audio TCP server to connect to and have sound on every container (which is not the case for native socket).
+readonly DOCKER_BRIDGE_IP=$(ip --family inet --oneline address show docker0 |grep --extended-regexp --only-matching '([0-9]{1,3}\.){3}[0-9]{1,3}')
+readonly PULSE_AUDIO_TCP_MODULE='module-native-protocol-tcp'
+readonly PULSE_AUDIO_TCP=$(pactl list modules |grep --silent "${PULSE_AUDIO_TCP_MODULE}"; echo $?)
+if [[ "$PULSE_AUDIO_TCP" = "1" ]]; then
+    pactl load-module "${PULSE_AUDIO_TCP_MODULE}" auth-ip-acl="${DOCKER_BRIDGE_IP}" 1>/dev/null
 fi
 
-readonly PA_X11_PUBLISHED=$(pactl list modules |grep --silent 'module-x11-publish'; echo $?)
+# Populate X11 variables PULSE_SERVER and PULSE_COOKIE automatically using a module.
+readonly PA_X11_PUBLISH_MODULE='module-x11-publish'
+readonly PA_X11_PUBLISHED=$(pactl list modules |grep --silent "${PA_X11_PUBLISH_MODULE}"; echo $?)
 if [[ "$PA_X11_PUBLISHED" = "1" ]]; then
-    pactl load-module module-x11-publish 1>/dev/null
+    pactl load-module "${PA_X11_PUBLISH_MODULE}" 1>/dev/null
 fi
 
 # enable passing display to be able to run any GUI
@@ -33,7 +37,6 @@ xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
-readonly DOCKER_BRIDGE_IP=$(ip --family inet --oneline address show docker0 |grep --extended-regexp --only-matching '([0-9]{1,3}\.){3}[0-9]{1,3}')
 docker run \
   --device /dev/dri \
   --env DISPLAY \
