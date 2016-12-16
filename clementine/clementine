@@ -18,14 +18,22 @@ if [[ ! -e "${USER_MUSIC}" ]]; then
 fi
 
 # Enable pulseaudio tcp protocol and propagate pulseaudio server credentials to X11 to connect automatically.
-pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 1>/dev/null
-pactl load-module module-x11-publish 1>/dev/null
+readonly PA_TCP_ENABLED=$(pactl list modules |grep --silent 'module-native-protocol-tcp'; echo $?)
+if [[ "$PA_TCP_ENABLED" = "1" ]]; then
+    pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 1>/dev/null
+fi
+
+readonly PA_X11_PUBLISHED=$(pactl list modules |grep --silent 'module-x11-publish'; echo $?)
+if [[ "$PA_X11_PUBLISHED" = "1" ]]; then
+    pactl load-module module-x11-publish 1>/dev/null
+fi
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+readonly DOCKER_BRIDGE_IP=$(ip --family inet --oneline address show docker0 |grep --extended-regexp --only-matching '([0-9]{1,3}\.){3}[0-9]{1,3}')
 docker run \
   --device /dev/dri \
   --env DISPLAY \
@@ -33,8 +41,8 @@ docker run \
   --env GIVEN_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
+  --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" \
   --env XDG_RUNTIME_DIR \
-  --net "host" `# Required to connect pulseaudio` \
   --name "${CONTAINER_NAME}" \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
