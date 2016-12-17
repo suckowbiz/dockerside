@@ -38,6 +38,7 @@ xhost +local:root > /dev/null 2>&1
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
+  --detach \
   --device /dev/dri \
   --env DISPLAY \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
@@ -51,4 +52,4 @@ docker run \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USER_CONFIG}":/var/lib/clementine/config \
   --volume "${USER_MUSIC}":/var/lib/clementine/music \
-${IMAGE_NAME}
+  ${IMAGE_NAME}
