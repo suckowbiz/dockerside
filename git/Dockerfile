@@ -8,8 +8,6 @@ ENV VERSION_GIT=2.11.0 \
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
     # Tell git where the .git repository is located since the work tree is customized.
     GIT_DIR="${GIT_HOME}/repository/.git" \
-    # Tell git where the work tree is located to consider the correct directory.
-    GIT_WORK_TREE="${GIT_HOME}/repository" \
     SSH_CONFIG_DIR=/var/lib/ssh \
     URL_GIT_SOURCES_TAR_GZ="https://github.com/git/git/archive/v${VERSION_GIT}.tar.gz"
 
@@ -29,8 +27,8 @@ RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
 
 WORKDIR /opt
 RUN curl --fail --location --show-error --silent --output git.tar.gz "${URL_GIT_SOURCES_TAR_GZ}" \
- && tar -xf git.tar.gz \
- && rm -f git.tar.gz \
+ && tar --extract --file git.tar.gz \
+ && rm --force git.tar.gz \
  && cd "git-${VERSION_GIT}" \
  && make configure \
  && ./configure --prefix=/usr \
@@ -48,7 +46,6 @@ RUN mkdir .config \
 
 VOLUME ["${SSH_CONFIG_DIR}"]
 VOLUME ["${GIT_CONFIG_DIR}"]
-VOLUME ["${GIT_WORK_TREE}"]
 
 ENTRYPOINT ["/entrypoint.sh", "git"]
 CMD ["--help"]
