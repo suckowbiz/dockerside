@@ -64,6 +64,7 @@ if [[ ! "${GIT_REPO_ROOT}" = "${PWD}" ]]; then
 fi
 
 # Tell GIT where to expect the repository sources to operate on. In case of 'git init' or 'git clone' there is no.
+readonly CONTAINER_MOUNT_POINT="/var/lib/git"
 POSSIBLE_GIT_WORK_TREE_ENV=""
 if [[ -d "${GIT_REPO_ROOT}/.git" ]]; then
     POSSIBLE_GIT_WORK_TREE_ENV="--env GIT_WORK_TREE=${CONTAINER_MOUNT_POINT}/repository"
@@ -72,7 +73,6 @@ fi
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
-readonly CONTAINER_MOUNT_POINT="/var/lib/git"
 docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
   --env DISPLAY \
