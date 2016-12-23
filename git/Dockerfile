@@ -37,6 +37,10 @@ RUN curl --fail --location --show-error --silent --output git.tar.gz "${URL_GIT_
  && make all doc \
  && make install install-doc install-html
 
+WORKDIR /opt/"git-${VERSION_GIT}"/contrib/subtree
+RUN make \
+ && make install install-doc
+
 WORKDIR /etc/skel/
 RUN mkdir .config \
  && ln --symbolic "${GIT_CONFIG_DIR}" .config/git \
