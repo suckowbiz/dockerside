@@ -10,6 +10,8 @@ readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 readonly USER_CONFIG="${HOME}/.config/Clementine"
 if [[ ! -e "${USER_CONFIG}" ]]; then
     mkdir --parent "${USER_CONFIG}"
+    touch "${USER_CONFIG}/Clementine.conf"
+    echo -e "[MainWindow]\nkeeprunning=false\n" >> "${USER_CONFIG}/Clementine.conf"
 fi
 
 readonly USER_MUSIC="${HOME}/Music"
