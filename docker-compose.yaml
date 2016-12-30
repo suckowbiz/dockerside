@@ -1,6 +1,16 @@
 ---
 version: '2'
 services:
+  ansible:
+    build: ansible/control
+    image: suckowbiz/ansible
+    depends_on:
+      - "base"
+  ansible-node:
+    build: ansible/node
+    image: suckowbiz/ansible-node
+    depends_on:
+      - "base"
   base:
     build: base/base
     image: suckowbiz/base

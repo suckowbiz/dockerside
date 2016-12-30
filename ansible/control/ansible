@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Runs Docker container as stated below.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly CONTAINER_NAME='ansible'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+docker run \
+  --tty \
+  --interactive \
+  --rm \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --name "${CONTAINER_NAME}" \
+  --volume $PWD:/opt \
+  --net host \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  "${IMAGE_NAME}" "$@"
