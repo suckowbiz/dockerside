@@ -5,7 +5,17 @@ services:
     build: ansible/control
     image: suckowbiz/ansible
     depends_on:
+      - "ansible-base"
+  ansible-base:
+    build: ansible/base
+    image: suckowbiz/ansible-base
+    depends_on:
       - "base"
+  ansible-playbook:
+    build: ansible/playbook
+    image: suckowbiz/ansible-playbook
+    depends_on:
+      - "ansible-base"
   ansible-node:
     build: ansible/node
     image: suckowbiz/ansible-node
