@@ -16,11 +16,6 @@ services:
     image: suckowbiz/ansible-playbook
     depends_on:
       - "ansible-base"
-  ansible-node:
-    build: ansible/node
-    image: suckowbiz/ansible-node
-    depends_on:
-      - "base"
   base:
     build: base/base
     image: suckowbiz/base
