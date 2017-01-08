@@ -60,6 +60,11 @@ services:
 #    image: suckowbiz/idea
 #    depends_on:
 #      - "base-av"
+  nginx-php:
+    build: nginx-php
+    image: suckowbiz/nginx-php
+    depends_on:
+      - "base"
   proxy:
     build: proxy
     image: suckowbiz/proxy

@@ -22,5 +22,5 @@ RUN \
  && echo "daemon off;" >> /etc/nginx/nginx.conf
 
 COPY context /
-ENV ENTRYPOINT_AS_ROOT=YES
+ENV ENTRYPOINT_AS_ROOT=yes
 ENTRYPOINT ["/entrypoint.sh", "/start.sh"]
