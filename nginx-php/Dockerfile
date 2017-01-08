@@ -2,6 +2,7 @@ FROM suckowbiz/base
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
 RUN apt-get install --quiet --yes --no-install-recommends \
+    imagemagick \
     nginx \
     php-fpm \
     supervisor
