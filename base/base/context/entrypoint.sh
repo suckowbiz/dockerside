@@ -27,4 +27,8 @@ fi
 
 # 'gosu' is used to run the executable on behalf of the just created user. (gosu has 1:1 parity with "docker --user")
 # (idea.sh itself runs a foreground process utilizing 'exec')
-gosu "${GIVEN_USER_ID}" "$@"
+if [[ "${ENTRYPOINT_AS_ROOT:=no}" = "yes" ]]; then
+    gosu root "$@"
+else
+    gosu "${GIVEN_USER_ID}" "$@"
+fi
