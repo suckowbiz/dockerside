@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# Run Docker container.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly CONTAINER_NAME='nginx-php'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+readonly DOCUMENT_ROOT="${PWD}"
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker run \
+  --detach \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --publish 80:80 \
+  --name "${CONTAINER_NAME}" \
+  --volume "${DOCUMENT_ROOT}":/usr/share/nginx/html \
+  ${IMAGE_NAME}
