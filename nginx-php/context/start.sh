@@ -3,7 +3,7 @@
 # Intentionally added to override entrypoint.sh to enable post processing of user names.
 
 # Set the nginx workers user to preserver file rights.
-sed --in-place "s/user www-data;/user ${GIVEN_USER};/g" /etc/nginx/nginx.conf
+sed --in-place "s/user www-data;/user ${GIVEN_USER} ${GIVEN_GROUP};/g" /etc/nginx/nginx.conf
 
 # Set the user php processor runs with to preserver file rights.
 sed --in-place "s/user = www-data/user = ${GIVEN_USER}/g" /etc/php/7.0/fpm/pool.d/www.conf

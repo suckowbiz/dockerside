@@ -5,6 +5,8 @@ RUN apt-get install --quiet --yes --no-install-recommends \
     imagemagick \
     nginx \
     php-fpm \
+    # Fixes error: Uncaught Error: Call to undefined function utf8_decode()
+    php-xml \
     supervisor
 
 RUN \

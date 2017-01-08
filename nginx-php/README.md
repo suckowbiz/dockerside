@@ -2,7 +2,7 @@
 NGINX with PHP 7 support.
 
 # Mounts
-TODO
+- `<current working directory>`as DOCUMENT_ROOT
 
 # Run
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:

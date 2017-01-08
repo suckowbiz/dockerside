@@ -6,6 +6,7 @@ set -e
 
 readonly CONTAINER_NAME='nginx-php'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+readonly DOCUMENT_ROOT="${PWD}"
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
@@ -20,4 +21,5 @@ docker run \
   --env GIVEN_USER_ID="${UID}" \
   --publish 80:80 \
   --name "${CONTAINER_NAME}" \
+  --volume "${DOCUMENT_ROOT}":/usr/share/nginx/html \
   ${IMAGE_NAME}
