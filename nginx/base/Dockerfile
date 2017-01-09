@@ -1,7 +1,10 @@
 FROM suckowbiz/base
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
-RUN apt-get install --quiet --yes --no-install-recommends \
+RUN add-apt-repository "deb http://nginx.org/packages/ubuntu/ xenial nginx" \
+ && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \ 
+ && apt-get update --quiet \
+ && apt-get install --quiet --yes --no-install-recommends \
     nginx
 
 RUN \

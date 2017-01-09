@@ -61,12 +61,12 @@ services:
 #    depends_on:
 #      - "base-av"
   nginx:
-    build: nginx
+    build: nginx/base
     image: suckowbiz/nginx
     depends_on:
       - "base"
   nginx-php:
-    build: nginx-php
+    build: nginx/php
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
