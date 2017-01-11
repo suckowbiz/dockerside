@@ -5,6 +5,9 @@ The caddy webserver.
 - `<current working directory>/Caddyfile`as Caddyfile
 - `<current working directory>/.caddyfile`as CADDYPATH
 
+# Ports
+- 2015 to expose the default port
+
 # Run
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
