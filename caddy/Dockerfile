@@ -15,7 +15,9 @@ ENV CADDY_DOWNLOAD_URL="${CADDY_DOWNLOAD_ROOT}/v${CADDY_VERSION}/${CADDY_TARBALL
 RUN curl --fail --location --remote-name --show-error --silent "${CADDY_DOWNLOAD_URL}" \
  && tar --extract --file "${CADDY_TARBALL}" \
  && rm --force "${CADDY_TARBALL}" \
- && mv "${CADDY_REMOTE_NAME}" caddy
+ && mv "${CADDY_REMOTE_NAME}" caddy \
+ # allow caddy to bind to :80 and :443
+ && setcap CAP_NET_BIND_SERVICE=+eip /var/lib/caddy/caddy 
 ENV PATH="${PATH}:/var/lib/caddy"
 
 VOLUME ["${CADDYPATH}"}]
