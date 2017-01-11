@@ -16,6 +16,11 @@ services:
     image: suckowbiz/ansible-playbook
     depends_on:
       - "ansible-base"
+  ansible-vault:
+    build: ansible/vault
+    image: suckowbiz/ansible-vault
+    depends_on:
+      - "ansible-base"
   base:
     build: base/base
     image: suckowbiz/base
