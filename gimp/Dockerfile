@@ -18,7 +18,7 @@ WORKDIR /etc/skel
 RUN ln --symbolic "${USER_PICTURES}" Pictures
 
 # Added to make GIMP look like PS.
-WORKDIR /var/lig/gimp
+WORKDIR /var/lib/gimp
 RUN curl --fail --location --remote-name --show-error --silent https://github.com/doctormo/GimpPs/archive/master.zip \
  && unzip master.zip \
  && rm master.zip \
