@@ -29,6 +29,11 @@ services:
     image: suckowbiz/base-builder
     depends_on:
       - base
+  caddy:
+    build: caddy
+    image: suckowbiz/caddy
+    depends_on:
+      - base
   chrome:
     build: chrome
     image: suckowbiz/chrome
