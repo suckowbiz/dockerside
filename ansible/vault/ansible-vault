@@ -4,7 +4,7 @@
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
 
-readonly CONTAINER_NAME='ansible-playbook'
+readonly CONTAINER_NAME='ansible-vault'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 # enable passing display to be able to run any GUI
