@@ -17,9 +17,9 @@ RUN curl --fail --location --remote-name --show-error --silent "${CADDY_DOWNLOAD
  && rm --force "${CADDY_TARBALL}" \
  && mv "${CADDY_REMOTE_NAME}" caddy \
  # allow caddy to bind to :80 and :443
- && setcap CAP_NET_BIND_SERVICE=+eip /var/lib/caddy/caddy 
+ && setcap CAP_NET_BIND_SERVICE=+eip caddy 
 ENV PATH="${PATH}:/var/lib/caddy"
 
 VOLUME ["${CADDYPATH}"}]
-ENTRYPOINT ["/entrypoint.sh", "caddy"]
+ENTRYPOINT ["/entrypoint.sh", "/var/lib/caddy/caddy"]
 CMD ["-agree", "-log", "stdout" ]
