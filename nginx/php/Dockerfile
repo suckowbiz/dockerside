@@ -4,6 +4,8 @@ MAINTAINER Tobias Suckow <tobias@suckow.biz>
 RUN apt-get install --quiet --yes --no-install-recommends \
     imagemagick \
     php-fpm \
+    php-gd \
+    php-mbstring \
     # Fixes error: Uncaught Error: Call to undefined function utf8_decode()
     php-xml \
     supervisor
