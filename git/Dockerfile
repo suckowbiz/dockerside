@@ -2,7 +2,7 @@ FROM suckowbiz/base-builder
 
 MAINTAINER Tobias Suckow <tobias@suckow.biz>
 
-ENV VERSION_GIT=2.12.0 \
+ENV VERSION_GIT=2.12.2 \
     GIT_HOME="/var/lib/git"
 
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
