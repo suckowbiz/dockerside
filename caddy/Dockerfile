@@ -8,7 +8,7 @@ ENV CADDY_VERSION=0.9.5 \
     CADDY_REMOTE_NAME=caddy_linux_amd64 \
     CADDY_TARBALL=caddy_linux_amd64.tar.gz \
     # if set, Caddy will use this folder to store assets instead of the default $HOME/.caddy.
-    CADDYPATH=/var/lib/caddy/.caddy
+    CADDYPATH=/var/lib/caddy/.caddy \
     PATH="${PATH}:/var/lib/caddy"
 RUN mkdir --parent "${CADDYPATH}"
 
