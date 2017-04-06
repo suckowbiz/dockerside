@@ -1,6 +1,7 @@
 FROM suckowbiz/base-av
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 RUN add-apt-repository ppa:jtaylor/keepass
 RUN apt-get update \
