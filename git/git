@@ -56,7 +56,7 @@ touch "${USER_GIT_CONFIG_ROOT}/config"
 
 readonly USER_SSH_CONFIG_ROOT="${HOME}/.ssh"
 create_if_not_exists "${USER_SSH_CONFIG_ROOT}"
-readonly GIT_REPO_ROOT=$(locate_git_repository_root $PWD)
+readonly GIT_REPO_ROOT=$(locate_git_repository_root "${PWD}")
 
 GIT_REPO_WORKDIR="."
 if [[ ! "${GIT_REPO_ROOT}" = "${PWD}" ]]; then
@@ -74,11 +74,12 @@ fi
 xhost +local:root > /dev/null 2>&1
 
 docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
+# shellcheck disable=SC2140,SC2086
 docker run \
   --env DISPLAY \
   --env ENTRYPOINT_WORKDIR="${CONTAINER_MOUNT_POINT}/repository/${GIT_REPO_WORKDIR}" \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   ${POSSIBLE_GIT_WORK_TREE_ENV} \

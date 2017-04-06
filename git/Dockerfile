@@ -1,6 +1,7 @@
 FROM suckowbiz/base-builder
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV VERSION_GIT=2.12.2 \
     GIT_HOME="/var/lib/git"
