@@ -1,5 +1,8 @@
 FROM suckowbiz/base
 
+LABEL maintainer=tobias@suckow.biz \
+      name=base
+
 RUN apt-get install --quiet --assume-yes --no-install-recommends \
     bc \
     libstdc++5 \
