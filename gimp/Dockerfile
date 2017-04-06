@@ -1,6 +1,7 @@
 FROM suckowbiz/base-av
 
-MAINTAINER tobias@suckow.biz
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV GIMP_VERSION=2.8 \
     USER_PICTURES=/var/lib/gimp/pictures
