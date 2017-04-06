@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
+set -e
 CONTAINER_NAME="proxy"
-DOCKER=`which docker`
+DOCKER=$(which docker)
 
 $DOCKER rm --force --volumes $CONTAINER_NAME >/dev/null 2>&1 || true
 $DOCKER run \
