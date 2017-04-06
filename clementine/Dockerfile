@@ -1,6 +1,7 @@
 FROM suckowbiz/base-av
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV USER_MUSIC=/var/lib/clementine/music \
     USER_CONFIG=/var/lib/clementine/config
@@ -23,5 +24,4 @@ ENV ENTRYPOINT_GROUPS="audio,video" \
 VOLUME ["${USER_MUSIC}"]
 VOLUME ["${USER_CONFIG}"]
 
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["clementine"]
+ENTRYPOINT ["/entrypoint.sh", "clementine"]
