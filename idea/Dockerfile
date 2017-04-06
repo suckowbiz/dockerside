@@ -1,6 +1,8 @@
-## These instructions serve the purpose to run Intellij IDEA.
+# These instructions serve the purpose to run Intellij IDEA.
 FROM suckowbiz/base-av
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV GRADLE_VERSION=2.14 \
     IDEA_TARBALL=idea.tar.gz \

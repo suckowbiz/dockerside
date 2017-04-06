@@ -13,9 +13,9 @@
 #   None
 #######################################
 restore_gnome_binding() {
-    CURRENT_VALUE=$(gsettings get $1 $2)
-    gsettings reset $1 $2
-    RESET_VALUE=$(gsettings get $1 $2)
+    CURRENT_VALUE=$(gsettings get "$1" "$2")
+    gsettings reset "$1" "$2"
+    RESET_VALUE=$(gsettings get "$1" "$2")
     echo "Reset '$2' from $CURRENT_VALUE to $RESET_VALUE ..."
 }
 
@@ -29,9 +29,9 @@ restore_gnome_binding() {
 #   None
 #######################################
 disable_gnome_binding() {
-    CURRENT_VALUE=$(gsettings get $1 $2)
+    CURRENT_VALUE=$(gsettings get "$1" "$2")
     echo "Setting '$2' from $CURRENT_VALUE to '' ..."
-    gsettings set $1 $2 ''
+    gsettings set "$1" "$2" ''
 }
 
 declare -A SCHEMAS_AND_KEYS
@@ -40,14 +40,14 @@ SCHEMAS_AND_KEYS[org.gnome.settings-daemon.plugins.media-keys]=screensaver
 
 for SCHEMA in "${!SCHEMAS_AND_KEYS[@]}"
 do
-    if [ "$1" = "disable" ]
+    if [ "$1" = 'disable' ]
     then
         disable_gnome_binding $SCHEMA ${SCHEMAS_AND_KEYS[$SCHEMA]}
-    elif [ "$1" = "restore" ]
+    elif [ "$1" = 'restore' ]
     then
         restore_gnome_binding $SCHEMA ${SCHEMAS_AND_KEYS[$SCHEMA]}
     else
-        echo "Invoke with: $0 [--disable|--restore] to mute or reset gnome key bindings that overlay with idea ones."
+        echo Invoke with: "$0" [--disable|--restore] to mute or reset gnome key bindings that overlay with idea ones.
         exit 0
     fi
 done

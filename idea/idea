@@ -6,7 +6,7 @@ set -e
 readonly IMAGE_NAME='suckowbiz/idea'
 readonly CONTAINER_NAME='idea'
 
-HERE=$(dirname $(readlink -f $0))
+HERE=$(dirname "$(readlink -f "$0")")
 # parse command line arguments to grap extra information
 while getopts ahw:k opt
 do
@@ -30,10 +30,10 @@ done
 
 GIT_CONFIG="${HOME}/.gitconfig"
 mkdir -p \
-  ${PROJECTS_DIR:=${HOME}/IdeaProjects} \
-  ${IDEA_DIR:=${HOME}/.IntelliJIdea} \
-  ${M2_DIR:=${HOME}/.m2} \
-  ${SSH_DIR:=${HOME}/.ssh}
+  "${PROJECTS_DIR:=${HOME}/IdeaProjects}" \
+  "${IDEA_DIR:=${HOME}/.IntelliJIdea}" \
+  "${M2_DIR:=${HOME}/.m2}" \
+  "${SSH_DIR:=${HOME}/.ssh}"
 
 # http://patorjk.com/software/taag/#p=display&c=echo&f=Doom&t=Running%20IDEA...
 echo "______                  _               ___________ _____  ___        ";
@@ -56,7 +56,7 @@ echo "Build in:"
 echo "========="
 echo "Idea Settings ............: '${IDEA_DIR}'"
 echo "Maven Home ...............: '${M2_DIR}'"
-echo "SSH Settings .............: '${SSH_DIR}'" 
+echo "SSH Settings .............: '${SSH_DIR}'"
 echo "Git config ...............: '${GIT_CONFIG}'"
 echo ""
 
@@ -69,8 +69,8 @@ docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
   --detach \
   --env DISPLAY \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --env LICENSE_ACCEPTED=${LICENSE_ACCEPTED:=false} \
