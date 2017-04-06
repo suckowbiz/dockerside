@@ -1,13 +1,15 @@
 FROM suckowbiz/base
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
-ENV CADDY_VERSION=0.9.4 \
+ENV CADDY_VERSION=0.9.5 \
     CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download/ \
     CADDY_REMOTE_NAME=caddy_linux_amd64 \
     CADDY_TARBALL=caddy_linux_amd64.tar.gz \
     # if set, Caddy will use this folder to store assets instead of the default $HOME/.caddy.
     CADDYPATH=/var/lib/caddy/.caddy
+    PATH="${PATH}:/var/lib/caddy"
 RUN mkdir --parent "${CADDYPATH}"
 
 WORKDIR /var/lib/caddy
@@ -20,6 +22,7 @@ RUN curl --fail --location --remote-name --show-error --silent "${CADDY_DOWNLOAD
  && setcap CAP_NET_BIND_SERVICE=+eip caddy 
 ENV PATH="${PATH}:/var/lib/caddy"
 
-VOLUME ["${CADDYPATH}"}]
-ENTRYPOINT ["/entrypoint.sh", "/var/lib/caddy/caddy"]
+VOLUME ["${CADDYPATH}"]
+
+ENTRYPOINT ["/entrypoint.sh", "/caddy"]
 CMD ["-agree", "-log", "stdout" ]
