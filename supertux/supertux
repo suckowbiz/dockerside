@@ -35,8 +35,8 @@ docker run \
   --detach \
   --device /dev/dri \
   --env DISPLAY \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" \

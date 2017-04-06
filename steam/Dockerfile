@@ -1,6 +1,7 @@
 FROM suckowbiz/base-av
 
-MAINTAINER tobias@suckow.biz
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV USER_DATA=/var/lib/steam
 

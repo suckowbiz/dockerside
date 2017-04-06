@@ -1,6 +1,7 @@
 FROM suckowbiz/base-builder
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 # Conventionally named SUPERTUX USER DIRECTORY
 ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
