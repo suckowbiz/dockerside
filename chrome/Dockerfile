@@ -1,6 +1,7 @@
 FROM suckowbiz/base-av
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV USER_DATA_DIR="/var/lib/chrome/data" \
     USER_DOWNLOAD_DIR="/var/lib/chrome/downloads"
@@ -22,6 +23,6 @@ RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
 VOLUME ["${USER_DOWNLOAD_DIR}"]
 VOLUME ["${USER_DATA_DIR}"]
 
-WORKDIR "/var/lib/chrome/downloads"
+WORKDIR "${USER_DOWNLOAD_DIR}"
 ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh", "google-chrome"]

@@ -37,6 +37,7 @@ xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+# shellcheck disable=SC2006,SC2046
 docker run \
   --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
   --detach \
