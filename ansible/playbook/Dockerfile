@@ -1,6 +1,7 @@
 FROM suckowbiz/ansible-base
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 WORKDIR /opt
 ENTRYPOINT ["/entrypoint.sh", "ansible-playbook"]

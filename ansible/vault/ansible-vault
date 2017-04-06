@@ -16,12 +16,12 @@ docker run \
   --tty \
   --interactive \
   --rm \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
-  --volume $PWD:/opt \
+  --volume "${PWD}":/opt \
   --net host \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \

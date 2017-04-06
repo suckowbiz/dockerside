@@ -1,6 +1,7 @@
 FROM suckowbiz/base
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 RUN apt-add-repository ppa:ansible/ansible
 RUN apt-get update \
