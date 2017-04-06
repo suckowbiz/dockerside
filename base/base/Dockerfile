@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
-MAINTAINER Tobias Suckow <tobias@suckow.biz>
+LABEL maintainer=tobias@suckow.biz \
+      name=base
 
 ENV DEBCONF_NONINTERACTIVE_SEEN=true \
     DEBIAN_FRONTEND=noninteractive \
@@ -8,10 +9,8 @@ ENV DEBCONF_NONINTERACTIVE_SEEN=true \
     VERSION_GOSU=1.10
 
 # Set default language to satisfy (debconf) xorg.
-RUN locale-gen en_US.UTF-8
-ENV LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8
+RUN locale-gen en_US.UTF-8 \
+ && update-locale en_US.UTF-8
 
 RUN apt-get --quiet --quiet update \
  && apt-get --quiet --quiet --no-install-recommends upgrade \

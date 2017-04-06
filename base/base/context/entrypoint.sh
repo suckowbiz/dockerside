@@ -21,7 +21,8 @@ if [[ "${GIVEN_USER_ID}" = "0" ]]; then
     fi
 fi
 
-if [[ ! "ENTRYPOINT_WORKDIR" = "" ]]; then
+if [[ ! "${ENTRYPOINT_WORKDIR}" = "" ]]; then
+    # Intentionally added to set a WORKDIR on Container start.
     cd "${ENTRYPOINT_WORKDIR}"
 fi
 
