@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# Run Intellij Idea Docker container.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+readonly IMAGE_NAME='suckowbiz/vscode'
+readonly CONTAINER_NAME='code'
+
+readonly GIT_CONFIG="${HOME}/.gitconfig"
+readonly SSH_ROOT="${HOME}/.ssh"
+mkdir --parents \
+    "${PROJECTS_ROOT:=${HOME}/VSCodeProjects}" \
+    "${USERDATA_ROOT:=${HOME}/.config/vscode/userdata}" \
+    "${LOCAL_ROOT:=${HOME}/.local}" \
+    "${EXTENSIONS_ROOT:=${HOME}/.config/vscode/extensions}" \
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker run \
+  --detach \
+  --device /dev/dri \
+  --env DISPLAY \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --ipc=host \
+  --name "${CONTAINER_NAME}" \
+  --privileged \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --volume "${EXTENSIONS_ROOT}":/opt/vscode/extensions \
+  --volume "${GIT_CONFIG}":/opt/git/.gitconfig \
+  --volume "${LOCAL_ROOT}":/Local \
+  --volume "${PWD}":/Code \
+  --volume "${SSH_ROOT}":/opt/SSH \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  --volume "${USERDATA_ROOT}":/opt/vscode/userdata \
+  ${IMAGE_NAME}

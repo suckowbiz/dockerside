@@ -1,0 +1,43 @@
+## These instructions serve the purpose to run Intellij IDEA.
+FROM suckowbiz/base-av
+
+LABEL maintainer=tobias@suckow.biz \
+      name=base
+
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
+ && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
+ && sh -c 'echo "deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+RUN apt-get update --quiet \
+ && apt-get install --quiet --yes \
+    code \
+    git \
+    gvfs-bin \
+    shellcheck \
+    libxss1 \
+    libgconf-2-4 \
+    # This avoids having non printable chars like "[]"" in menu.
+    rxvt-unicode-256color \
+ && apt-get clean --quiet \
+ && apt-get autoremove --quiet \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /etc/skel
+RUN ln --symbolic /Code Code \
+ && ln --symbolic /opt/git/.gitconfig .gitconfig \
+ && ln --symbolic /opt/SSH .ssh
+
+ENV ENTRYPOINT_GROUPS="audio,video"
+
+VOLUME ["/opt/git/.gitconfig"]
+VOLUME ["/opt/vscode/userdata"]
+VOLUME ["/Code"]
+VOLUME ["/Local"]
+
+WORKDIR /Code
+ENTRYPOINT ["/entrypoint.sh", "code"]
+CMD ["--locale", "en-US", \
+     "--user-data-dir", "/opt/vscode/userdata", \
+     "--extensions-dir", "/opt/vscode/extensions", \
+     "--wait", \
+     "/Code"]
