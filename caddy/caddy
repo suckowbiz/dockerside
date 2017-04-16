@@ -9,7 +9,6 @@ readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 readonly CADDYFILE="${PWD}/Caddyfile"
 readonly CADDYPATH="${PWD}/.caddy"
 
-
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
