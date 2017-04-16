@@ -3,10 +3,6 @@ FROM ubuntu:16.04
 LABEL maintainer=tobias@suckow.biz \
       name=base
 
-# Set default language to satisfy (debconf) xorg.
-RUN locale-gen en_US.UTF-8 \
- && update-locale en_US.UTF-8
-
 ENV DEBCONF_NONINTERACTIVE_SEEN=true \
     DEBIAN_FRONTEND=noninteractive \
     KEY_SERVER=hkp://p80.pool.sks-keyservers.net:80 \
@@ -22,10 +18,15 @@ RUN apt-get --quiet --quiet update \
     # ca-certificates come with curl
     curl \
     dirmngr \
+    language-pack-en \
     software-properties-common \
     unzip \
     vim \
     xz-utils
+
+# Set default language to provide a default. Will have effect only after login of user.
+RUN locale-gen en_US.UTF-8 \
+ && update-locale en_US.UTF-8
 
 # Install gosu to use it for command execution as appropriate user in entrypoint.sh
 WORKDIR /usr/bin
