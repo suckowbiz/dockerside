@@ -24,5 +24,5 @@ ENV PATH="${PATH}:/var/lib/caddy"
 
 VOLUME ["${CADDYPATH}"]
 
-ENTRYPOINT ["/entrypoint.sh", "/caddy"]
+ENTRYPOINT ["/entrypoint.sh", "caddy"]
 CMD ["-agree", "-log", "stdout" ]
