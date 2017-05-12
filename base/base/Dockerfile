@@ -1,7 +1,10 @@
 FROM ubuntu:16.04
+LABEL maintainer=tobias@suckow.biz
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+RUN apt-get update --quiet \
+ && apt-get upgrade --no-install-recommends --quiet --quiet \
+ && apt-get install --assume-yes \
+    language-pack-en
 
 ENV DEBCONF_NONINTERACTIVE_SEEN=true \
     DEBIAN_FRONTEND=noninteractive \
@@ -11,9 +14,7 @@ ENV DEBCONF_NONINTERACTIVE_SEEN=true \
     LC_ALL=en_US.UTF-8 \
     VERSION_GOSU=1.10
 
-RUN apt-get --quiet --quiet update \
- && apt-get --quiet --quiet --no-install-recommends upgrade \
- && apt-get --quiet --assume-yes --no-install-recommends install \
+RUN apt-get install --assume-yes \
     apt-utils \
     # ca-certificates come with curl
     curl \

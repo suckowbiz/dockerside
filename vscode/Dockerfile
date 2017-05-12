@@ -13,9 +13,13 @@ RUN apt-get update --quiet \
     code \
     git \
     gvfs-bin \
+    # E.g. plantuml Plugin requires Graphviz
+    graphviz \
     shellcheck \
     libxss1 \
     libgconf-2-4 \
+    # E.g. plantuml Plugin requires JAVA
+    openjdk-8-* \
     # This avoids having non printable chars like "[]"" in menu.
     rxvt-unicode-256color \
  && apt-get clean --quiet \
