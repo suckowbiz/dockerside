@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Runs Docker container as stated below.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+remote_directory=${1////-}
+remote_directory=${remote_directory/:/}
+readonly CONTAINER_NAME="nfs-hub-${remote_directory}"
+readonly IMAGE_NAME="suckowbiz/nfs-hub"
+readonly NAMED_VOLUME="/nfs"
+
+# Soft shutdown to proppagate signal to entrypoint. RM would just kill the process without singal propagation.
+docker stop --time=60 "${CONTAINER_NAME}"
+docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+docker run \
+  --detach \
+  --env NFS_URI="$1" \
+  --env NFS_UID="$2" \
+  --env NFS_GID="$3" \
+  --env GIVEN_GID="$(id -g "${USER}")" \
+  --env GIVEN_UID="${UID}" \
+  --name "${CONTAINER_NAME}" \
+  --privileged \
+  --tty \
+  --volume "$4":"${NAMED_VOLUME}":shared \
+  "${IMAGE_NAME}" "$@"

@@ -85,6 +85,11 @@ services:
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
+  nfs-hub:
+    build: nfs-hub
+    image: suckowbiz/nfs-hub
+    depends_on:
+      - "base"
   proxy:
     build: proxy
     image: suckowbiz/proxy
