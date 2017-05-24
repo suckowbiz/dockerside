@@ -17,7 +17,9 @@ Note: ID and GUID of given User are taken to map between NFS and local host.
 
 ### Using public image from Docker registry
 
-Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run `./nfs-hub <nfs uri> <nfs uid> <nfs gid> <mount point>`
+Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run `./nfs-hub <nfs uri> <nfs uid> <nfs gid> <mount point>`.
+
+Example: `./nfs-hub "192.168.178.28:/volume1/archive" 1026 100 "$HOME/Archive"`
 
 ### (Or Build from scratch) 
 
