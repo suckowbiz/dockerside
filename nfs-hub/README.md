@@ -1,30 +1,23 @@
 # nfs-hub
 
-Mounts NFS shares and maps uid/gid between NFS and local user to get rid of NFS file ownership issues.
+## Problem solved
+
+My home NAS (Synology DiskStation DS313+) does not support Kerberos. To provide minimal security I can use flavour "AUTH_SYS" (see <https://www.synology.com/en-us/knowledgebase/DSM/tutorial/File_Sharing/How_to_access_files_on_Synology_NAS_within_the_local_network_NFS>).
+
+The drawback of this method is that one has to mount the remote NFS shares having a local user with equal uid/gid as the owner of the files.
+
+This Dockerfile makes it superfluous to do so by letting the current user see the remote NFS files as his own.
 
 ## Run
 
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
-Variables:
+### Using public Docker Image (hub.docker.com)
 
-- `<nfs uri>` - e.g. 192.168.178.28:/volume1/archive
-- `<nfs uid>` - user id of NFS user that owns the files on NFS, e.g. 1025
-- `<nfs gid>` - group id of NFS user that owns the files on NFS, e.g. 100
-- `<mount point>` - path to local directory to mount the NFS share to
+Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run: `./nfs-hub <nfs uri> <nfs domain> <nfs uid> <nfs gid> <local mount point>`.
 
-Note: ID and GUID of given User are taken to map between NFS and local host.
+Example to mount my NAS `archive` directory to the existing directory `~/Archive`
 
-### Using public image from Docker registry
-
-Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run `./nfs-hub <nfs uri> <nfs uid> <nfs gid> <mount point>`.
-
-Example: `./nfs-hub "192.168.178.28:/volume1/archive" 1026 100 "$HOME/Archive"`
-
-### (Or Build from scratch) 
-
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build nfs-hub`.
-- `dockerside/nfs-hub/nfs-hub <nfs uri> <nfs uid> <nfs gid> <mount point>`.
-
-
+```bash
+./nfs-hub "192.168.178.28:/volume1/archive" nas 1026 100 "$HOME/Archive"
+```

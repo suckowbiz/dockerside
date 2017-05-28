@@ -14,14 +14,15 @@ docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 docker run \
   --detach \
   --env NFS_URI="$1" \
-  --env NFS_UID="$2" \
-  --env NFS_GID="$3" \
+  --env NFS_DOMAIN="$2" \
+  --env NFS_UID="$3" \
+  --env NFS_GID="$4" \
   --env GIVEN_GID="$(id -g "${USER}")" \
   --env GIVEN_UID="${UID}" \
   --name "${CONTAINER_NAME}" \
   --env GIVEN_USER="${USER}" \
   --tty \
-  --volume "$4":"${NAMED_VOLUME}":shared \
+  --volume "$5":"${NAMED_VOLUME}":shared \
   --cap-add SYS_ADMIN \
   --device /dev/fuse \
   --security-opt apparmor:unconfined \
