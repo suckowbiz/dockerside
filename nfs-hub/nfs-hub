@@ -10,8 +10,6 @@ readonly CONTAINER_NAME="nfs-hub-${remote_directory}"
 readonly IMAGE_NAME="suckowbiz/nfs-hub"
 readonly NAMED_VOLUME="/nfs"
 
-# Soft shutdown to proppagate signal to entrypoint. RM would just kill the process without singal propagation.
-docker stop --time=60 "${CONTAINER_NAME}"
 docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 docker run \
   --detach \
@@ -21,7 +19,10 @@ docker run \
   --env GIVEN_GID="$(id -g "${USER}")" \
   --env GIVEN_UID="${UID}" \
   --name "${CONTAINER_NAME}" \
-  --privileged \
+  --env GIVEN_USER="${USER}" \
   --tty \
   --volume "$4":"${NAMED_VOLUME}":shared \
+  --cap-add SYS_ADMIN \
+  --device /dev/fuse \
+  --security-opt apparmor:unconfined \
   "${IMAGE_NAME}" "$@"

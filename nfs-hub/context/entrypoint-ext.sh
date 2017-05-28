@@ -9,15 +9,25 @@
 #   GIVEN_UID   user id to translate NFS directory ownership into
 #   GIVEN_GID   group id to translate NFS directory ownership into
 
-echo "Adding interceptor for SIGHUP, SIGINT or SIGTERM to gracefully shutdown .."
+echo "Adding user ${NFS_USER} to provide UID for NFS UID mapping .."
+useradd --create-home --non-unique --uid "${NFS_UID}" --gid "${NFS_GID}" "nfs-hub"
+
+echo "Setting NFS domain and clearing the keyring of all the keys to updae NFS UID mapping .."
+sed --in-place "s/.*Domain.*/Domain = nas/g" /etc/idmapd.conf 
+/usr/sbin/nfsidmap -c 2>/dev/null
+
+echo "Adding interceptor for SIGHUP, SIGINT or SIGTERM to umount on container stop .."
 trap "echo Umounting ..; umount --force /nfs /mnt; echo Done.; exit" SIGHUP SIGINT SIGTERM
 
 echo "Mounting ${NFS_URI} .."
-mount --verbose --types nfs4 --options nolock,exec "${NFS_URI}" /mnt
+# _netdev - device is a network share, wait with mounting until networking established
+# exec - can execute binary files
+# soft - in interruptions wait for timout and stop then 
+mount --verbose --types nfs4 --options _netdev,exec,soft "${NFS_URI}" /mnt
 
-echo "Mirroring contents to map between ${NFS_UID}:${NFS_GID} and ${GIVEN_UID}:${GIVEN_GID} .."
-# Runs in foreground and put to background to be able to catch PID via $! which otherwise would be empty! 
-bindfs -f -d --map="${NFS_UID}/${GIVEN_UID}:@${NFS_GID}/@${GIVEN_GID}" /mnt "${BINDFS_TARGET_ROOT}" &
+echo "Letting host user seeing files of NFS user as his own .."
+bindfs --version
+bindfs -d --map="${NFS_UID}/${GIVEN_UID}:@${NFS_GID}/@${GIVEN_GID}" /mnt "${BINDFS_TARGET_ROOT}" &
 PID=$!
 
 echo "Waiting for bindfs to change state to exit .."
