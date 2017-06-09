@@ -6,7 +6,7 @@ My home NAS (Synology DiskStation DS313+) does not support Kerberos. To provide 
 
 The drawback of this method is that one has to mount the remote NFS shares having a local user with equal uid/gid as the owner of the files.
 
-This Dockerfile makes it superfluous to do so by letting the current user see the remote NFS files as his own.
+This Dockerfile makes it superfluous to do so by letting the current user see the remote NFS files as his own. (Actually the origin user has to be exist on host since Docker passes the uid/username mapping via kernel ;( )
 
 ## Run
 
