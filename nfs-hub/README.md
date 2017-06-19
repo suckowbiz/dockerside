@@ -6,7 +6,7 @@ My home NAS (Synology DiskStation DS313+) does not support Kerberos. To provide 
 
 The drawback of this method is that one has to mount the remote NFS shares having a local user with equal uid/gid as the owner of the files.
 
-This Dockerfile makes it superfluous to do so by letting the current user see the remote NFS files as his own. (Actually the origin user has to be exist on host since Docker passes the uid/username mapping via kernel ;( )
+This Dockerfile makes it superfluous to be logged on as a user with remote uid/gid since ownwership is mapped.
 
 ## Run
 
@@ -14,10 +14,17 @@ This Dockerfile makes it superfluous to do so by letting the current user see th
 
 ### Using public Docker Image (hub.docker.com)
 
-Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run: `./nfs-hub <nfs uri> <nfs domain> <nfs uid> <nfs gid> <local mount point>`.
+Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run:
+`./nfs-hub <nfs uri> <nfs domain> <nfs uid> <nfs user> <nfs gid> <nfs group> <local mount point>`.
 
 Example to mount my NAS `archive` directory to the existing directory `~/Archive`
 
 ```bash
-./nfs-hub "192.168.178.28:/volume1/archive" nas 1026 100 "$HOME/Archive"
+./nfs-hub "192.168.178.28:/volume1/archive" nas 1026 tobias 100 users "$HOME/Archive"
 ```
+
+=======
+
+Notes:
+
+<https://www.kernel.org/doc/Documentation/filesystems/nfs/idmapper.txt>

@@ -29,10 +29,7 @@ exit_for_previous_failue() {
 echo "Adding interceptor for SIGHUP, SIGINT or SIGTERM to graceful shutdown."
 trap "echo Gracefully shutting down ..; umount --force /nfs /mnt 2>/dev/null; exit" SIGHUP SIGINT SIGTERM
 
-echo "Adding system user that corresponds with NFS uid to enable NFS uid mapping."
-useradd --system --non-unique --uid "${NFS_UID}" --gid "${NFS_GID}" "nfs-hub"
-
-echo "Setting NFS domain and clearing the keyring of all the keys to updae NFS UID mapping."
+echo "Setting NFS domain and clearing the keyring of all the keys to update NFS UID mapping."
 sed --in-place "s/.*Domain.*/Domain = ${NFS_DOMAIN}/g" /etc/idmapd.conf 
 /usr/sbin/nfsidmap -c 2>/dev/null
 

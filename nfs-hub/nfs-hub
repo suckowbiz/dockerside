@@ -10,19 +10,40 @@ readonly CONTAINER_NAME="nfs-hub-${remote_directory}"
 readonly IMAGE_NAME="suckowbiz/nfs-hub"
 readonly NAMED_VOLUME="/nfs"
 
+readonly NFS_URI="$1"
+readonly NFS_DOMAIN="$2"
+readonly NFS_UID="$3"
+readonly NFS_USER="$4"
+readonly NFS_GID="$5"
+readonly NFS_GROUP="$6"
+readonly NFS_MOUNT="$7"
+
+# Add user/group to enable NFS uid mapping.
+readonly NO_SUCH_GROUP_EXISTS=$(grep "^${NFS_GROUP}" /etc/group |grep ":${NFS_GID}:"; echo $?)
+if [[ "${NO_SUCH_GROUP_EXISTS}" = "1" ]]; then
+    sudo groupadd --gid "${NFS_GID}" --non-unique "${NFS_GROUP}"
+fi
+readonly NO_SUCH_USER_EXISTS=$(grep "^${NFS_USER}" /etc/passwd |grep ":${NFS_UID}:"; echo $?)
+if [[ "${NO_SUCH_USER_EXISTS}" = "1" ]]; then
+    sudo useradd --system --non-unique --uid "${NFS_UID}" --gid "${NFS_GID}" "${NFS_USER}"
+fi
+sudo /usr/sbin/nfsidmap -c 2>/dev/null
+# FIXME: Make sure the nfs user is member of the required nfs group.
+
 docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+# Appropriate privilege (Linux: the CAP_SYS_ADMIN capability) is required to mount filesystems.
 docker run \
   --detach \
-  --env NFS_URI="$1" \
-  --env NFS_DOMAIN="$2" \
-  --env NFS_UID="$3" \
-  --env NFS_GID="$4" \
+  --env NFS_URI="${NFS_URI}" \
+  --env NFS_DOMAIN="$${NFS_DOMAIN}" \
+  --env NFS_UID="${NFS_UID}" \
+  --env NFS_GID="${NFS_GID}" \
   --env GIVEN_GID="$(id -g "${USER}")" \
   --env GIVEN_UID="${UID}" \
   --name "${CONTAINER_NAME}" \
   --env GIVEN_USER="${USER}" \
   --tty \
-  --volume "$5":"${NAMED_VOLUME}":shared \
+  --volume "${NFS_MOUNT}":"${NAMED_VOLUME}":shared \
   --cap-add SYS_ADMIN \
   --device /dev/fuse \
   --security-opt apparmor:unconfined \
