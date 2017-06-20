@@ -4,6 +4,7 @@ LABEL maintainer=tobias@suckow.biz \
       name=base
 
 ENV VERSION_GIT=2.13.1 \
+    VERSION_GIT_LFS=2.1.1 \
     GIT_HOME="/var/lib/git"
 
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
@@ -36,9 +37,21 @@ RUN curl --fail --location --show-error --silent --output git.tar.gz "${URL_GIT_
  && make all doc \
  && make install install-doc install-html
 
-WORKDIR /opt/"git-${VERSION_GIT}"/contrib/subtree
+WORKDIR /opt/git-${VERSION_GIT}/contrib/subtree
 RUN make \
  && make install install-doc
+
+WORKDIR /var/tmp
+RUN curl \
+    --fail \
+    --location \
+    --show-error \
+    --silent \
+    --remote-name \
+    https://github.com/git-lfs/git-lfs/releases/download/v${VERSION_GIT_LFS}/git-lfs-linux-amd64-${VERSION_GIT_LFS}.tar.gz \
+ && tar --extract --file git-lfs-linux-amd64-${VERSION_GIT_LFS}.tar.gz \
+ && git-lfs-${VERSION_GIT_LFS}/install.sh \
+ && rm --recursive --force git-lfs*
 
 WORKDIR /etc/skel/
 RUN mkdir .config \
