@@ -27,7 +27,7 @@ readonly NO_SUCH_USER_EXISTS=$(grep "^${NFS_USER}" /etc/passwd |grep ":${NFS_UID
 if [[ "${NO_SUCH_USER_EXISTS}" = "1" ]]; then
     sudo useradd --system --non-unique --uid "${NFS_UID}" --gid "${NFS_GID}" "${NFS_USER}"
 fi
-sudo /usr/sbin/nfsidmap -c 2>/dev/null
+sudo /usr/sbin/nfsidmap -c 2>/dev/null || true
 # FIXME: Make sure the nfs user is member of the required nfs group.
 
 docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
@@ -35,7 +35,7 @@ docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 docker run \
   --detach \
   --env NFS_URI="${NFS_URI}" \
-  --env NFS_DOMAIN="$${NFS_DOMAIN}" \
+  --env NFS_DOMAIN="${NFS_DOMAIN}" \
   --env NFS_UID="${NFS_UID}" \
   --env NFS_GID="${NFS_GID}" \
   --env GIVEN_GID="$(id -g "${USER}")" \
