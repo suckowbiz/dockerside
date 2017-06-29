@@ -3,8 +3,8 @@ FROM suckowbiz/base-builder
 LABEL maintainer=tobias@suckow.biz \
       name=base
 
-ENV VERSION_GIT=2.13.1 \
-    VERSION_GIT_LFS=2.1.1 \
+ENV VERSION_GIT=2.13.2 \
+    VERSION_GIT_LFS=2.2.0 \
     GIT_HOME="/var/lib/git"
 
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
