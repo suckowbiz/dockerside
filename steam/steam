@@ -14,21 +14,17 @@ fi
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
-# Enable pulseaudio tcp protocol and propagate pulseaudio server credentials to X11 to connect automatically.
-pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 1>/dev/null
-pactl load-module module-x11-publish 1>/dev/null
-
 # removing previous existing containers to enable start up
 docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
   --detach \
   --device /dev/dri \
+  --device /dev/snd \
   --env DISPLAY \
   --env GIVEN_GROUP="$(id -gn "${USER}")" \
   --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
-  --env PULSE_SERVER=/run/pulse/native \
   --name "${CONTAINER_NAME}" \
   --ipc host \
   --net host \

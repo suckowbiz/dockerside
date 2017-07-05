@@ -68,13 +68,13 @@ docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 # Must remain privileged to enable writing system setting in entrypoint-ext.sh.
 docker run \
   --detach \
+  --device /dev/snd \
   --env DISPLAY \
   --env GIVEN_GROUP="$(id -gn "${USER}")" \
   --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --env LICENSE_ACCEPTED=${LICENSE_ACCEPTED:=false} \
-  --env PULSE_SERVER=/run/pulse/native \
   --name "${CONTAINER_NAME}" \
   --privileged \
   --volume /etc/localtime:/etc/localtime:ro \
@@ -83,6 +83,5 @@ docker run \
   --volume "${M2_DIR}":/opt/.m2 \
   --volume "${PROJECTS_DIR}":/opt/IdeaProjects \
   --volume "${SSH_DIR}":/opt/.ssh:ro \
-  --volume "/run/user/${UID}/pulse/native":/run/pulse/native:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   ${IMAGE_NAME}
