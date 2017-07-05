@@ -10,6 +10,7 @@ readonly CONTAINER_NAME="nfs-hub-${remote_directory}"
 readonly IMAGE_NAME="suckowbiz/nfs-hub"
 readonly NAMED_VOLUME="/nfs"
 
+# Usage, e.g. nfs-hub 192.168.178.28:/volume1/homes/duke nas 1026 duke 100 users /home/duke/Mount/home
 readonly NFS_URI="$1"
 readonly NFS_DOMAIN="$2"
 readonly NFS_UID="$3"
@@ -33,18 +34,18 @@ sudo /usr/sbin/nfsidmap -c 2>/dev/null || true
 docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 # Appropriate privilege (Linux: the CAP_SYS_ADMIN capability) is required to mount filesystems.
 docker run \
+  --cap-add SYS_ADMIN \
   --detach \
-  --env NFS_URI="${NFS_URI}" \
-  --env NFS_DOMAIN="${NFS_DOMAIN}" \
-  --env NFS_UID="${NFS_UID}" \
-  --env NFS_GID="${NFS_GID}" \
+  --device /dev/fuse \
   --env GIVEN_GID="$(id -g "${USER}")" \
   --env GIVEN_UID="${UID}" \
-  --name "${CONTAINER_NAME}" \
   --env GIVEN_USER="${USER}" \
+  --env NFS_DOMAIN="${NFS_DOMAIN}" \
+  --env NFS_GID="${NFS_GID}" \
+  --env NFS_UID="${NFS_UID}" \
+  --env NFS_URI="${NFS_URI}" \
+  --name "${CONTAINER_NAME}" \
+  --security-opt apparmor:unconfined \
   --tty \
   --volume "${NFS_MOUNT}":"${NAMED_VOLUME}":shared \
-  --cap-add SYS_ADMIN \
-  --device /dev/fuse \
-  --security-opt apparmor:unconfined \
   "${IMAGE_NAME}" "$@"
