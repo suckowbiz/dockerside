@@ -85,6 +85,7 @@ docker run \
   ${POSSIBLE_GIT_WORK_TREE_ENV} \
   --interactive \
   --name "${CONTAINER_NAME}" \
+  --rm \
   --tty \
   --volume "${GIT_REPO_ROOT}":"${CONTAINER_MOUNT_POINT}/repository" \
   --volume "${USER_GIT_CONFIG_ROOT}":"${CONTAINER_MOUNT_POINT}/config" \
