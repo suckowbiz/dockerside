@@ -24,31 +24,42 @@ Distributed version control system.
 
 ## Bash Prompt
 
-Add to `~/.bashrc`:
+To add git branch name to your `PS1` prompt add to `~/.bashrc`:
 
 ```bash
-function is_git_directory {
-  local result=0
-
-  local possible_git_root="$PWD"
-  until [[ -e "${possible_git_root}/.git/index" ]] || [[ "${possible_git_root}" = "/" ]]; do
-    possible_git_root=$(dirname "${possible_git_root}")
-    if [[ "${possible_git_root}" == "/" ]]; then
-      result=1
-    fi
-  done
-
-  return $result
-}
-
-function get_git_branch {
-  if is_git_directory; then
-    local branch=$(git branch 2>/dev/null | grep "\*" 2>/dev/null | sed "s/\*//" | tr --delete --complement "[:alpha:]" | sed "s/^m//" | sed "s/m$//")
-    if [[ "${branch}" = "" ]]; then
-      return
-    fi
-    echo "[${branch}] "
+#######################################
+# Returns the git root directory of given directory.
+# Globals:
+# Arguments:
+#   $1 - directory to check from
+# Returns:
+#   the git root directory or empty string
+#######################################
+function get_git_root {
+  local result="$1" 
+  if [[ "${result}" = "/" ]]; then
+    echo ""
+  elif [[ -e "${result}/.git/index" ]]; then
+    echo "${result}"
+  else
+    get_git_root "$(dirname "${result}")"
   fi
 }
-export PS1="$PS1\[\033[01;32m\]\$(parse_git_branch)\[\033[00m\]"
+
+#######################################
+# Returns the git branch name.
+# Globals:
+# Arguments:
+# Returns:
+#   the git branch name or nothing or empty string
+#######################################
+function get_git_branch {
+  local git_root="$(get_git_root "${PWD}")"
+  if [[ "${git_root}" = "" ]]; then
+    return
+  fi
+  local branch=$(sed "s/.*heads\///" 2>/dev/null < "${git_root}"/.git/HEAD)
+  [[ "${branch}" = "" ]] && echo "" || echo "[${branch}] "
+}
+export PS1="$PS1\[\033[01;32m\]\$(get_git_branch)\[\033[00m\]"
 ```
