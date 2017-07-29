@@ -24,8 +24,8 @@ RUN curl \
  && rm --force "bindfs-${VERSION_BINDFS}.tar.gz" \
  && cd "bindfs-${VERSION_BINDFS}" \
  && ./configure \
- &&  make \
- &&  make install
+ && make \
+ && make install
 
 COPY context /
 VOLUME "${BINDFS_TARGET_ROOT}"
