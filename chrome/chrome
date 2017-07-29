@@ -17,6 +17,8 @@ if [[ ! -e "${USER_DATA_DIR}" ]]; then
     mkdir --parent "${USER_DATA_DIR}"
 fi
 
+readonly DEV_VIDEO=$(test -e /dev/video0 && echo "--device /dev/video0" || echo "")
+
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
@@ -28,6 +30,7 @@ docker run \
   --detach \
   --device /dev/dri `# Direct GPU access improves gfx rendering to avoid fail e.g. on google maps usage.` \
   --device /dev/snd \
+  ${DEV_VIDEO} \
   --env DISPLAY \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
   --env GIVEN_GROUP_ID=$(id -g "${USER}") \
