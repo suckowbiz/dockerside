@@ -1,12 +1,11 @@
 # These instructions serve the purpose to run Intellij IDEA.
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer=tobias@suckow.biz
 
-ENV GRADLE_VERSION=2.14 \
+ENV GRADLE_VERSION=4.0.2 \
     IDEA_TARBALL=idea.tar.gz \
-    MAVEN_VERSION=3.3.9
+    MAVEN_VERSION=3.5.0
 
 # Install required dependencies to make the setup work.
 RUN apt-get update --quiet \
@@ -20,24 +19,19 @@ RUN apt-get update --quiet \
     libcurl3 \
     libxss1 \
     man \
-    nodejs \
-    nodejs-legacy \
-    npm \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
 # Download latest maven version to install it and avoid all the issues with bundled maven version(s)
-RUN curl -LOSs https://www.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.{gz,gz.asc} \
- && gpg --keyserver $KEY_SERVER --recv-keys BB617866 \
+RUN curl -fLOSs https://www.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.{gz,gz.asc} \
+ && gpg --keyserver $KEY_SERVER --recv-keys B620D787 \
  && gpg --verify apache-maven-$MAVEN_VERSION-bin.tar.gz.asc apache-maven-$MAVEN_VERSION-bin.tar.gz \
  && tar -xf apache-maven-$MAVEN_VERSION-bin.tar.gz \
  && rm -f apache-maven-$MAVEN_VERSION-bin.tar.gz apache-maven-$MAVEN_VERSION-bin.tar.gz.asc \
  && mv apache-maven-$MAVEN_VERSION maven \
  && ln -s /opt/maven /usr/share/
-
-RUN npm install -g bower
 
 # Download Gradle to install it afterwards.
 RUN curl -LOSs https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip \
@@ -53,9 +47,6 @@ RUN tar -axf $IDEA_TARBALL \
  && mv idea* idea \
  && sed -i "/MaxPermSize/d" idea/bin/idea64.vmoptions \
  && update-ca-certificates -f
-
-# Download and install liquid prompt
-RUN git clone https://github.com/nojhan/liquidprompt.git
 
 ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64" \
     MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.allowall=true" \
