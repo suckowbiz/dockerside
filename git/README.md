@@ -28,7 +28,7 @@ sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/mast
 
 ## Bash Prompt
 
-To add git branch name to your `PS1` prompt add to `~/.bashrc`:
+To add git branch name to your `PS1` prompt add to end of `~/.bashrc`:
 
 ```bash
 #######################################
