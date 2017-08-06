@@ -9,7 +9,11 @@ KeePass2, the free, open source, light-weight and easy-to-use password manager.
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
 ## Using public image from Docker registry
-- Download and execute: https://raw.githubusercontent.com/suckowbiz/dockerside/master/keepass2/keepass2
+Download and execute:
+
+```bash
+sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/keepass2/keepass2 > /usr/bin/keepass2 && sudo chmod +x /usr/bin/keepass2
+```
 
 ## (Build from scratch) 
 - `git clone https://github.com/suckowbiz/dockerside.git`

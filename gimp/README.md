@@ -9,7 +9,11 @@ Gimp image editor (with Photoshop look and feel).
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
 ## Using public image from Docker registry
-- Download and execute: https://raw.githubusercontent.com/suckowbiz/dockerside/master/gimp/gimp
+Download and execute:
+ 
+```bash
+sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/gimp/gimp > /usr/bin/gimp && sudo chmod +x /usr/bin/gimp
+```
 
 ## (Build from scratch) 
 - `git clone https://github.com/suckowbiz/dockerside.git`

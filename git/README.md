@@ -14,7 +14,8 @@ Distributed version control system.
 
 ### Using public image from Docker registry
 
-- Download and execute to be able to run `git` from anywhere: 
+Download and execute to be able to run `git` from anywhere:
+
 ```bash
 sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/git/git > /usr/bin/git && sudo chmod +x /usr/bin/git
 ```

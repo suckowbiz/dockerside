@@ -95,12 +95,6 @@ services:
     image: suckowbiz/proxy
     depends_on:
       - "base"
-# Disabled because spss binary must be provided first (see ./spss/README.md)
-#  spss:
-#    build: spss
-#    image: suckowbiz/spss
-#    depends_on:
-#      - "base"
   steam:
     build: steam
     image: suckowbiz/steam

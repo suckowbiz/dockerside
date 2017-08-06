@@ -8,7 +8,11 @@ NGINX with PHP 7 support.
 ...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
 ## Using public image from Docker registry
-- Download and execute: https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/php/nginx-php
+Download and execute:
+
+```bash
+sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/php/nginx-php > /usr/bin/nginx-php && sudo chmod +x /usr/bin/nginx-php
+```
 
 ## (Build from scratch) 
 - `git clone https://github.com/suckowbiz/dockerside.git`

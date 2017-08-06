@@ -26,7 +26,7 @@ docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
-  --ipc host \
+  --ipc=host `# Added to enable shared sound` \
   --net host \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \

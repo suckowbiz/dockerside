@@ -14,13 +14,22 @@ This Dockerfile makes it superfluous to be logged on as a user with remote uid/g
 
 ### Using public Docker Image (hub.docker.com)
 
-Download <https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub> then run:
-`./nfs-hub <nfs uri> <nfs domain> <nfs uid> <nfs user> <nfs gid> <nfs group> <local mount point>`.
+Download:
+
+```bash
+sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub > /usr/bin/nfs-hub && sudo chmod +x /usr/bin/nfs-hub
+```
+
+Then run: 
+
+```bash
+nfs-hub <nfs uri> <nfs domain> <nfs uid> <nfs user> <nfs gid> <nfs group> <local mount point>
+```
 
 Example to mount my NAS `archive` directory to the existing directory `~/Archive`
 
 ```bash
-./nfs-hub "192.168.178.28:/volume1/archive" nas 1026 tobias 100 users "$HOME/Archive"
+nfs-hub "192.168.178.28:/volume1/archive" nas 1026 tobias 100 users "$HOME/Archive"
 ```
 
 =======
