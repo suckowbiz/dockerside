@@ -23,6 +23,7 @@ fi
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
+# shared sound usage requires --i
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
   --detach \
@@ -34,6 +35,7 @@ docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --env XDG_RUNTIME_DIR \
+  --ipc=host `# Added to enable shared sound` \
   --name "${CONTAINER_NAME}" \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
