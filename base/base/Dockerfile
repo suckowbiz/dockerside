@@ -1,5 +1,6 @@
 FROM ubuntu:16.04
-LABEL maintainer=tobias@suckow.biz
+
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN apt-get update --quiet \
  && apt-get upgrade --no-install-recommends --quiet --quiet \

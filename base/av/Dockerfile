@@ -1,7 +1,6 @@
 FROM suckowbiz/base
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN apt-get --quiet --assume-yes --no-install-recommends install \
     dbus-x11 \
