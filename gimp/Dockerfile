@@ -1,14 +1,14 @@
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV GIMP_VERSION=2.8 \
     USER_PICTURES=/var/lib/gimp/pictures
 
 RUN add-apt-repository --yes ppa:otto-kesselgulasch/gimp \
+ && apt-get update --quiet \
  && apt-get install --quiet --yes --no-install-recommends \
-    # FIXME: install gimp 2.8 explicitely since ps relies on it
+    # FIXME: Fix to 2.8 since gimpps relies on it
     gimp \
     gimp-ufraw \
     gimp-help-en \
@@ -25,7 +25,7 @@ RUN curl --fail --location --remote-name --show-error --silent https://github.co
  && rm master.zip \
  && mv GimpPs-master "/etc/skel/.gimp-${GIMP_VERSION}"
 
-VOLUME ["${USER_PICTURES}"]
+VOLUME "${USER_PICTURES}"
 
 # FIXME: Remember settings
 # VOLUME ["${USER_CONFIG}"]
