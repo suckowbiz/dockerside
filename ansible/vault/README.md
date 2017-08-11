@@ -1,20 +1,20 @@
 # ansible-vault
+
 Ansible vault executor.
 
 # Volumes
+
 - `<current working directory>` is assumed to contain the root of an ansible project to work with
 
-# Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
+## Run
 
-## Using public image from Docker registry
-Download and execute:
+Download run script to have `ansible-vault` available:
 
 ```bash
-sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/ansible/vault/ansible-vault > /usr/bin/ansible-vault && sudo chmod +x /usr/bin/ansible-vault
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/ansible/vault/ansible-vault > /var/tmp/ansible-vault && sudo mv /var/tmp/ansible-vault /usr/local/bin/ && sudo chmod +x /usr/local/bin/ansible-vault
 ```
+### Usage Example
 
-## (Build from scratch) 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build ansible-vault`.
-- `dockerside/ansible/vault/ansible-vault`.
+```bash
+ansible-vault --version
+```
