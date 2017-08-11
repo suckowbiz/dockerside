@@ -1,39 +1,40 @@
 # nfs-hub
 
-## Problem solved
+Mounts a remote Network File System (NFS) to local user having bidirectional ownership mapping.
+
+## Problem Solved
 
 My home NAS (Synology DiskStation DS313+) does not support Kerberos. To provide minimal security I can use flavour "AUTH_SYS" (see <https://www.synology.com/en-us/knowledgebase/DSM/tutorial/File_Sharing/How_to_access_files_on_Synology_NAS_within_the_local_network_NFS>).
 
 The drawback of this method is that one has to mount the remote NFS shares having a local user with equal uid/gid as the owner of the files.
 
-This Dockerfile makes it superfluous to be logged on as a user with remote uid/gid since ownwership is mapped.
+This Dockerfile makes it superfluous to be logged on as a user with remote uid/gid since ownership is mapped.
 
-## Run
+## Usage Example
 
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
-
-### Using public Docker Image (hub.docker.com)
-
-Download:
+Download run script to have `nfs-hub` available:
 
 ```bash
-sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub > /usr/bin/nfs-hub && sudo chmod +x /usr/bin/nfs-hub
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nfs-hub/nfs-hub > /var/tmp/nfs-hub && sudo mv /var/tmp/nfs-hub /usr/local/bin/ && sudo chmod +x /usr/local/bin/nfs-hub
 ```
 
-Then run: 
+Example to mount a remote Network File System (NFS):
+
+1. Remote NFS uri: `192.168.178.28:/volume1/archive`
+1. Remote NFS domain name (setup of your NAS): `nas` 
+1. Remote NFS user id: `1026`, username: `tobias`
+1. Remote NFS group id: `100`, groupname: `users`
+1. Local mount point: `/mnt`
+
+Run¹: 
 
 ```bash
-nfs-hub <nfs uri> <nfs domain> <nfs uid> <nfs user> <nfs gid> <nfs group> <local mount point>
+nfs-hub '192.168.178.28:/volume1/archive' nas 1026 tobias 100 users '/mnt'
 ```
 
-Example to mount my NAS `archive` directory to the existing directory `~/Archive`
+¹: Will create the remote user on your local machine to enable ownership mapping.
 
-```bash
-nfs-hub "192.168.178.28:/volume1/archive" nas 1026 tobias 100 users "$HOME/Archive"
-```
+References:
 
-=======
-
-Notes:
-
-<https://www.kernel.org/doc/Documentation/filesystems/nfs/idmapper.txt>
+- <https://www.kernel.org/doc/Documentation/filesystems/nfs/idmapper.txt>
+- <http://bindfs.org/>

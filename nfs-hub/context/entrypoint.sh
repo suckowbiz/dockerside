@@ -19,7 +19,7 @@
 # Returns:
 #   None
 #######################################
-exit_for_previous_failue() {
+exit_for_previous_failure() {
     if [[ ! "$?" = "0" ]]; then
         echo "Exiting for previous failure."
         exit
@@ -37,9 +37,9 @@ sed --in-place "s/.*Domain.*/Domain = ${NFS_DOMAIN}/g" /etc/idmapd.conf
 # exec - can execute binary files
 # soft - in interruptions wait for timout and stop then 
 mount --verbose --types nfs4 --options _netdev,exec,soft "${NFS_URI}" /mnt
-exit_for_previous_failue
+exit_for_previous_failure
 
 bindfs --version
 bindfs -d --map="${NFS_UID}/${GIVEN_UID}:@${NFS_GID}/@${GIVEN_GID}" /mnt "${BINDFS_TARGET_ROOT}" &
-exit_for_previous_failue
+exit_for_previous_failure
 wait $!
