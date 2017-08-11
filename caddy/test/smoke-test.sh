@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+readonly HERE=$(dirname "$(readlink -f "$0")")
+cd $HERE
 ../caddy
 sleep 1
 
