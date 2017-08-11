@@ -2,33 +2,35 @@
 
 Distributed version control system.
 
-## Mounts
+## Volumes
 
-- `~/.config/git` to read/write global configuration
-- `~/.ssh` to read SSH settings
-- `<current working directory>` to mount as git repository
+- `~/.config/git` to persist global configuration.
+- `~/.ssh` to provide SSH settings.
+- `<current working directory>` to mount as git repository.
 
 ## Run
 
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
-
-### Using public image from Docker registry
-
-Download and execute to be able to run `git` from anywhere:
+Download run script to have `git` available:
 
 ```bash
-sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/git/git > /usr/bin/git && sudo chmod +x /usr/bin/git
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/git/git > /var/tmp/git && sudo mv /var/tmp/git /usr/local/bin/ && sudo chmod +x /usr/local/bin/git
 ```
 
-### (Build from scratch) 
+## Usage Example
 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build git`.
-- `dockerside/git/git`.
+```bash
+git --version
+```
 
-## Bash Prompt
+## (optional) Bash Prompt
 
-To add git branch name to your `PS1` prompt add to `~/.bashrc`:
+Example:
+
+```bash
+tobias@T430s:~/Workspace/Docker/github.com/suckowbiz/dockerside$ [master] 
+```
+
+Add `git branch` name to your `PS1` prompt just add to `~/.bashrc`:
 
 ```bash
 #######################################
