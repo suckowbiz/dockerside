@@ -1,12 +1,12 @@
 FROM suckowbiz/base-builder
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Conventionally named SUPERTUX USER DIRECTORY
 ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
 
-RUN apt-get update && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+RUN apt-get update --quiet \
+ && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     cmake \
     git \
     libboost-all-dev \
@@ -26,7 +26,7 @@ RUN git clone --depth 1 --recurse-submodules https://github.com/SuperTux/supertu
  && make \
  && make install
 
-VOLUME ["${SUPERTUX2_USER_DIR}"]
+VOLUME "${SUPERTUX2_USER_DIR}"
 
 ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh"]

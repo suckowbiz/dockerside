@@ -1,7 +1,6 @@
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_DATA=/var/lib/steam
 
@@ -29,7 +28,7 @@ WORKDIR /etc/skel
 RUN mkdir --parent .local/share \
  && ln -s "${USER_DATA}" .local/share/Steam
 
-VOLUME ["${USER_DATA}"]
+VOLUME "${USER_DATA}"
 
 ENV ENTRYPOINT_GROUPS="games,video,audio"
 ENTRYPOINT ["/entrypoint.sh"]

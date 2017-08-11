@@ -1,7 +1,9 @@
 # vscode
+
 The vscode IDE.
 
-# Mounts
+## Volumes
+
 - `<current working directory>` as code PATH
 - `<home>/.gitconfig` as .gitconfig
 - `<home>/.ssh` as .ssh
@@ -9,17 +11,11 @@ The vscode IDE.
 - `<home>/.config/vscode/user-data` as user data dir
 - `<home>/.local` to persist other settings
 
-# Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
-## Using public image from Docker registry
-Download and execute:
+## Run
+
+Download run script to have `code` available:
  
 ```bash
-sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/vscode/code > /usr/bin/code && sudo chmod +x /usr/bin/code
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/vscode/code > /var/tmp/code && sudo mv /var/tmp/code /usr/local/bin/ && sudo chmod +x /usr/local/bin/code
 ```
-
-## (Build from scratch) 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build vscode`.
-- `dockerside/vscode/code`.

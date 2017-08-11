@@ -1,16 +1,14 @@
 # nginx
 NGINX.
 
-# Mounts
+## Volumes
+
 - `<current working directory>`as DOCUMENT_ROOT
 
-# Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
+## Run
 
-## Using public image from Docker registry
-- Download and execute: https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/base/nginx
-
-## (Build from scratch) 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build nginx`.
-- `dockerside/nginx/base/nginx`.
+Download run script to have `nginx` available:
+ 
+```bash
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/base/nginx > /var/tmp/nginx && sudo mv /var/tmp/nginx /usr/local/bin/ && sudo chmod +x /usr/local/bin/nginx
+```

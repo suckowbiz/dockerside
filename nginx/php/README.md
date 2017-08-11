@@ -1,20 +1,16 @@
 # nginx-php
+
 NGINX with PHP 7 support.
 
-# Mounts
+## Volumes
+
 - `<current working directory>`as DOCUMENT_ROOT
 
-# Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
 
-## Using public image from Docker registry
-Download and execute:
+## Run
 
+Download run script to have `nginx-php` available:
+ 
 ```bash
-sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/php/nginx-php > /usr/bin/nginx-php && sudo chmod +x /usr/bin/nginx-php
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/php/nginx-php > /var/tmp/nginx-php && sudo mv /var/tmp/nginx-php /usr/local/bin/ && sudo chmod +x /usr/local/bin/nginx-php
 ```
-
-## (Build from scratch) 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build nginx-php`.
-- `dockerside/nginx/php/nginx-php`.

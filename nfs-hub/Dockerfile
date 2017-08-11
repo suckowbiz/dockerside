@@ -1,7 +1,6 @@
 FROM suckowbiz/base-builder
 
-LABEL maintainer=tobias@suckow.biz \
-      name=nfs-hub
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV BINDFS_TARGET_ROOT=/nfs \
     VERSION_BINDFS=1.13.7

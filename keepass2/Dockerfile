@@ -1,10 +1,9 @@
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN add-apt-repository ppa:jtaylor/keepass
-RUN apt-get update \
+RUN apt-get update --quiet \
  && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     keepass2
 
@@ -17,8 +16,7 @@ RUN mkdir --parent .config "${KEEPASS2_HOME}/data" "${KEEPASS2_HOME}/config" \
  && ln --symbolic "${KEEPASS2_CONFIG}" .config/KeePass \
  && ln --symbolic "${KEEPASS2_DATA}" KeePass
 
-VOLUME ["${KEEPASS2_DATA}"]
-VOLUME ["${KEEPASS2_CONFIG}"]
+VOLUME ["${KEEPASS2_DATA}", "${KEEPASS2_CONFIG}"]
 
 ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh"]

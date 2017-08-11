@@ -1,21 +1,15 @@
 # keepass2
 KeePass2, the free, open source, light-weight and easy-to-use password manager.
 
-# Mounts
+## Volumes
+
 - `~/KeePass` to load Database files
 - `~/.config/KeePass` to persist settings
 
-# Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
+## Run
 
-## Using public image from Docker registry
-Download and execute:
-
+Download run script to have `keepass2` available:
+ 
 ```bash
-sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/keepass2/keepass2 > /usr/bin/keepass2 && sudo chmod +x /usr/bin/keepass2
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/keepass2/keepass2 > /var/tmp/keepass2 && sudo mv /var/tmp/keepass2 /usr/local/bin/ && sudo chmod +x /usr/local/bin/keepass2
 ```
-
-## (Build from scratch) 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build keepass2`.
-- `dockerside/keepass2/keepass2`.

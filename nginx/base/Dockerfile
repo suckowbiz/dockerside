@@ -1,7 +1,6 @@
 FROM suckowbiz/base
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN apt-get install --quiet --yes --no-install-recommends \
     nginx

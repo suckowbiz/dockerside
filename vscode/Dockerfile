@@ -1,8 +1,7 @@
 ## These instructions serve the purpose to run Intellij IDEA.
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
  && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
@@ -33,11 +32,7 @@ RUN ln --symbolic /Code Code \
 
 ENV ENTRYPOINT_GROUPS="audio,video"
 
-VOLUME ["/opt/git/.gitconfig"]
-VOLUME ["/opt/vscode/userdata"]
-VOLUME ["/Code"]
-VOLUME ["/Local"]
-
+VOLUME ["/opt/git/.gitconfig", "/opt/vscode/userdata", "/Code", "/Local"]
 WORKDIR /Code
 ENTRYPOINT ["/entrypoint.sh", "code"]
 CMD ["--locale", "en-US", \
