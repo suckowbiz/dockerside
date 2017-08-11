@@ -64,17 +64,21 @@ services:
     image: suckowbiz/git
     depends_on:
       - "base-builder"
+  gogland:
+    build: gogland
+    image: suckowbiz/gogland
+    depends_on:
+      - "base-av"
   keepass2:
     build: keepass2
     image: suckowbiz/keepass2
     depends_on:
       - "base-av"
-# Disabled because binary must be provided first (see ./idea/README.md)
-#  idea:
-#    build: idea
-#    image: suckowbiz/idea
-#    depends_on:
-#      - "base-av"
+  idea:
+    build: idea
+    image: suckowbiz/idea
+    depends_on:
+      - "base-av"
   nginx:
     build: nginx/base
     image: suckowbiz/nginx

@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+#
+# Run Intellij Gogland Docker container.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly IMAGE_NAME='suckowbiz/gogland'
+readonly CONTAINER_NAME='gogland'
+
+readonly GIT_CONFIG="${HOME}/.gitconfig"
+mkdir --parent \
+  "${PROJECTS_DIR:=${HOME}/GoglandProjects}" \
+  "${GOGLAND_DIR:=${HOME}/.Gogland}" \
+  "${SSH_DIR:=${HOME}/.ssh}" \
+  "${JAVA_DIR:=${HOME}/.java}" || true
+
+# http://patorjk.com/software/taag/#p=display&f=Doom&t=Running%20Gogland...
+cat <<"END-OF-HEREDOC"
+______                  _               _____             _                 _
+| ___ \                (_)             |  __ \           | |               | |
+| |_/ /   _ _ __  _ __  _ _ __   __ _  | |  \/ ___   __ _| | __ _ _ __   __| |
+|    / | | | '_ \| '_ \| | '_ \ / _` | | | __ / _ \ / _` | |/ _` | '_ \ / _` |
+| |\ \ |_| | | | | | | | | | | | (_| | | |_\ \ (_) | (_| | | (_| | | | | (_| |_ _ _
+\_| \_\__,_|_| |_|_| |_|_|_| |_|\__, |  \____/\___/ \__, |_|\__,_|_| |_|\__,_(_|_|_)
+                                 __/ |               __/ |
+                                |___/               |___/
+
+END-OF-HEREDOC
+
+cat <<END-OF-HEREDOC
+=========
+Build in:
+=========
+Gogland Settings : '${GOGLAND_DIR}'
+Java Settings ...: '${JAVA_DIR}'
+Projects ........: '${PROJECTS_DIR}'
+SSH Settings ....: '${SSH_DIR}'
+Git config ......: '${GIT_CONFIG}'
+
+END-OF-HEREDOC
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+docker run \
+  --detach \
+  --env DISPLAY \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  --name "${CONTAINER_NAME}" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --volume "${GIT_CONFIG}":/opt/.gitconfig \
+  --volume "${GOGLAND_DIR}":/opt/.Gogland \
+  --volume "${JAVA_DIR}":/opt/.java \
+  --volume "${PROJECTS_DIR}":/opt/GoglandProjects \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  ${IMAGE_NAME}
