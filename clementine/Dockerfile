@@ -1,7 +1,6 @@
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_MUSIC=/var/lib/clementine/music \
     USER_CONFIG=/var/lib/clementine/config
