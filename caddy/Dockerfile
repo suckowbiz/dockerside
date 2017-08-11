@@ -1,7 +1,6 @@
 FROM suckowbiz/base
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV CADDY_VERSION=v0.10.6
 ENV CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download \

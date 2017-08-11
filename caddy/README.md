@@ -1,25 +1,20 @@
 # caddy
+
 The caddy webserver.
 
-# Mounts
+## Volumes
+
 - `<current working directory>/Caddyfile`as Caddyfile
 - `<current working directory>/.caddyfile`as CADDYPATH
 
-# Ports
+## Ports
+
 - 2015 to expose the default port
 
-# Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
+## Run
 
-## Using public image from Docker registry
-Download and execute:
+Download run script to have `caddy` available:
  
-
- 
- 
- https://raw.githubusercontent.com/suckowbiz/dockerside/master/caddy/caddy
-
-## (Build from scratch) 
-- `git clone https://github.com/suckowbiz/dockerside.git`
-- `docker-compose --file dockerside/docker-compose.yaml build caddy`.
-- `dockerside/caddy/caddy`.
+```bash
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/caddy/caddy > /var/tmp/caddy && sudo mv /var/tmp/caddy /usr/local/bin/ && sudo chmod +x /usr/local/bin/caddy
+```
