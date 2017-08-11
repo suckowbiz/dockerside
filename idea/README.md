@@ -2,16 +2,7 @@
 
 [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/#section=linux) **free trial** version baked together with Java development related dependencies such as Git, Maven, Java Runtime.
 
-## Volumes
-
-- `~/IdeaProjects` to persist/ load IDEA workspace.
-- `~/.IntelliJIdea` to persist IDEA settings.
-- `~/.java` to persist e.g. license acceptance.
-- `/home/tobias/.m2` to persist Maven dependencies.
-- `/home/tobias/.ssh` to use local SSH configuration.
-- `/home/tobias/.gitconfig` to use local Git configuration.
-
-# Run
+## Run
 
 Download run script to have `idea` available:
 

@@ -11,6 +11,28 @@ if [[ ! -e "${USER_PICTURES}" ]]; then
     mkdir --parent "${USER_PICTURES}"
 fi
 
+# http://patorjk.com/software/taag/#p=display&f=Doom&t=Running%20Gimp...
+cat <<"END-OF-HEREDOC"
+
+______                  _               _____ _
+| ___ \                (_)             |  __ (_)
+| |_/ /   _ _ __  _ __  _ _ __   __ _  | |  \/_ _ __ ___  _ __
+|    / | | | '_ \| '_ \| | '_ \ / _` | | | __| | '_ ` _ \| '_ \
+| |\ \ |_| | | | | | | | | | | | (_| | | |_\ \ | | | | | | |_) | _ _
+\_| \_\__,_|_| |_|_| |_|_|_| |_|\__, |  \____/_|_| |_| |_| .__(_|_|_)
+                                 __/ |                   | |
+                                |___/                    |_|
+
+END-OF-HEREDOC
+
+cat <<END-OF-HEREDOC
+=========
+Volumes:
+=========
+Pictures: '${USER_PICTURES}'
+
+END-OF-HEREDOC
+
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 

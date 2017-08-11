@@ -11,8 +11,33 @@ readonly SSH_ROOT="${HOME}/.ssh"
 mkdir --parents \
     "${PROJECTS_ROOT:=${HOME}/VSCodeProjects}" \
     "${USERDATA_ROOT:=${HOME}/.config/vscode/userdata}" \
-    "${LOCAL_ROOT:=${HOME}/.local}" \
     "${EXTENSIONS_ROOT:=${HOME}/.config/vscode/extensions}" \
+
+# http://patorjk.com/software/taag/#p=display&f=Doom&t=Running%20VS%20Code...
+cat <<"END-OF-HEREDOC"
+
+______                  _               _   _ _____   _____           _
+| ___ \                (_)             | | | /  ___| /  __ \         | |
+| |_/ /   _ _ __  _ __  _ _ __   __ _  | | | \ `--.  | /  \/ ___   __| | ___
+|    / | | | '_ \| '_ \| | '_ \ / _` | | | | |`--. \ | |    / _ \ / _` |/ _ \
+| |\ \ |_| | | | | | | | | | | | (_| | \ \_/ /\__/ / | \__/\ (_) | (_| |  __/_ _ _
+\_| \_\__,_|_| |_|_| |_|_|_| |_|\__, |  \___/\____/   \____/\___/ \__,_|\___(_|_|_)
+                                 __/ |
+                                |___/
+
+END-OF-HEREDOC
+
+cat <<END-OF-HEREDOC
+========
+Volumes:
+========
+Code......: '${PWD}'
+Extensions: '${EXTENSIONS_ROOT}'
+Git Config: '${GIT_CONFIG}'
+SSH Config: '${SSH_ROOT}'
+User Data.: '${USERDATA_ROOT}'
+
+END-OF-HEREDOC
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
@@ -33,7 +58,6 @@ docker run \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume "${EXTENSIONS_ROOT}":/opt/vscode/extensions \
   --volume "${GIT_CONFIG}":/opt/git/.gitconfig \
-  --volume "${LOCAL_ROOT}":/Local \
   --volume "${PWD}":/Code \
   --volume "${SSH_ROOT}":/opt/SSH \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \

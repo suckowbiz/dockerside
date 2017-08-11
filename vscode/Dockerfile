@@ -8,7 +8,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
  && sh -c 'echo "deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 RUN apt-get update --quiet \
- && apt-get install --quiet --yes \
+ && apt-get install --quiet --yes --no-install-recommends --auto-remove \
     code \
     git \
     gvfs-bin \
@@ -32,7 +32,7 @@ RUN ln --symbolic /Code Code \
 
 ENV ENTRYPOINT_GROUPS="audio,video"
 
-VOLUME ["/opt/git/.gitconfig", "/opt/vscode/userdata", "/Code", "/Local"]
+VOLUME ["/opt/git/.gitconfig", "/opt/SSH", "/opt/vscode/extensions", "/opt/vscode/userdata", "/Code"]
 WORKDIR /Code
 ENTRYPOINT ["/entrypoint.sh", "code"]
 CMD ["--locale", "en-US", \

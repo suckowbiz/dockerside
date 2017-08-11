@@ -28,14 +28,14 @@ ______                  _               _____             _                 _
 END-OF-HEREDOC
 
 cat <<END-OF-HEREDOC
-=========
-Build in:
-=========
-Gogland Settings : '${GOGLAND_DIR}'
-Java Settings ...: '${JAVA_DIR}'
-Projects ........: '${PROJECTS_DIR}'
-SSH Settings ....: '${SSH_DIR}'
-Git config ......: '${GIT_CONFIG}'
+=======
+Volumes:
+=======
+Gogland Settings: '${GOGLAND_DIR}'
+Java Settings...: '${JAVA_DIR}'
+Projects........: '${PROJECTS_DIR}'
+SSH Settings....: '${SSH_DIR}'
+Git config......: '${GIT_CONFIG}'
 
 END-OF-HEREDOC
 

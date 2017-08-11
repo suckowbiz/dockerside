@@ -1,10 +1,6 @@
 # gimp
-Gimp image editor (with Photoshop look and feel).
 
-## Volumes
-
-- `~/Pictures` to load and persist image files
-- TODO: Unfortunately gimp mixes system files and config. By now the gimp container is stateless.
+Gimp image editor (with [doctormo Photoshop look and feel](https://github.com/doctormo/GimpPs)).
 
 ## Run
 

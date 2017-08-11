@@ -2,11 +2,6 @@
 
 Clementine free audio player.
 
-## Volumes
-
-- `~/Music` to persist/ load Music files.
-- `~/.config/Clementine` to persist settings.
-
 ## Run
 
 Download run script to have `clementine` available:

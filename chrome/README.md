@@ -2,11 +2,6 @@
 
 Google Chrome browser.
 
-## Volumes
-
-- `~/Downloads` to persist downloaded files
-- `~/.config/google-chrome` to persist settings
-
 ## Run
 
 Download run script to have `chrome` available:
