@@ -1,24 +1,23 @@
 # idea
-A [Dockerfile](http://docs.docker.com/engine/reference/builder/) to serve 
-an [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) installation 
-baked together with all required dependencies such as a Browser (Firefox) 
-and Tools/Runtime (Git, Gradle, Maven, Java).
 
-## Docker Volumes
-- `~/IdeaProjects` to persist/ load workspace
-- `~/.IntelliJIdea` to persist settings
-- `/home/tobias/.m2` to persist Maven
-- `/home/tobias/.ssh` to use local SSH configuration
-- `/home/tobias/.gitconfig` to use local GIT configuration
+[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/#section=linux) **free trial** version baked together with Java development related dependencies such as Git, Maven, Java Runtime.
+
+## Volumes
+
+- `~/IdeaProjects` to persist/ load IDEA workspace.
+- `~/.IntelliJIdea` to persist IDEA settings.
+- `~/.java` to persist e.g. license acceptance.
+- `/home/tobias/.m2` to persist Maven dependencies.
+- `/home/tobias/.ssh` to use local SSH configuration.
+- `/home/tobias/.gitconfig` to use local Git configuration.
 
 # Run
-...  on an [Ubuntu](http://www.ubuntu.com/download/desktop) machine:
-- Clone (and change into): `git clone https://github.com/suckowbiz/dockerside.git && cd dockerside`
-- [Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/) and place it as `idea.tar.gz` within `./idea/` directory
-- Enable the *idea* part in `dockerside/docker-compose.yaml` and run `docker-compose --file dockerside/docker-compose.yaml build idea`.
-- Execute `dockerside/idea/idea`.
-- (Optional) Download and install run script: `sudo curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/idea/idea > /usr/bin/idea && sudo chmod +x /usr/bin/idea`
+
+Download run script to have `idea` available:
+
+```bash
+curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/idea/idea > /var/tmp/idea && sudo mv /var/tmp/idea /usr/local/bin/ && sudo chmod +x /usr/local/bin/idea
+```
 
 Notes: 
 - https://resources.jetbrains.com/assets/products/intellij-idea/IntelliJIDEA_ReferenceCard.pdf
-- Since some of the Ubuntu key bindings overlap with Idea binding I decided to disable them automatically with the run script. If you like to restore execute `./edit-gnome-key-bindings.sh restore`.

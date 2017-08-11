@@ -3,37 +3,18 @@
 # Run Intellij Idea Docker container.
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
+
 readonly IMAGE_NAME='suckowbiz/idea'
 readonly CONTAINER_NAME='idea'
+readonly HERE=$(dirname "$(readlink -f "$0")")
 
-HERE=$(dirname "$(readlink -f "$0")")
-# parse command line arguments to grap extra information
-while getopts ahw:k opt
-do
-  case $opt in
-    a)  LICENSE_ACCEPTED=true
-    	;;
-    h)  echo "Use with '-w' to set your workspace path, '-a' to accept license, '-k' to disable gnome key bindings that overlay idea ones."
-        echo "Example: './idea -a -w /home/tobias/Workspace'"
-        exit 0
-        ;;
-    k)  "${HERE}/edit-gnome-key-bindings.sh" disable
-	GNOME_BINDINGS_DISABLED=true
-        echo "To restore GNOME key bindings run '$HERE/edit-gnome-key-bindings.sh restore'."
-	;;
-    w)	PROJECTS_DIR=$OPTARG
-	;;
-    \?) exit 1
-        ;;
-  esac
-done
-
-GIT_CONFIG="${HOME}/.gitconfig"
-mkdir -p \
+readonly GIT_CONFIG="${HOME}/.gitconfig"
+mkdir --parent \
   "${PROJECTS_DIR:=${HOME}/IdeaProjects}" \
   "${IDEA_DIR:=${HOME}/.IntelliJIdea}" \
   "${M2_DIR:=${HOME}/.m2}" \
-  "${SSH_DIR:=${HOME}/.ssh}"
+  "${SSH_DIR:=${HOME}/.ssh}" \
+  "${JAVA_DIR:=${HOME}/.java}" || true
 
 # http://patorjk.com/software/taag/#p=display&c=echo&f=Doom&t=Running%20IDEA...
 echo "______                  _               ___________ _____  ___        ";
@@ -44,17 +25,11 @@ echo "| |\ \ |_| | | | | | | | | | | | (_| |  _| |_| |/ /| |___| | | |_ _ _ ";
 echo "\_| \_\__,_|_| |_|_| |_|_|_| |_|\__, |  \___/|___/ \____/\_| |_(_|_|_)";
 echo "                                 __/ |                                ";
 echo "                                |___/                                 ";
-echo "========"
-echo "Options:"
-echo "========"
-echo "(-a) Accept license ........................: '${LICENSE_ACCEPTED:=false}'"
-echo "(-k) Disable overlaying GNOME key bindings .: '${GNOME_BINDINGS_DISABLED:=false}'"
-echo "(-w <path>) Customize IDEA Workspace .......: '${PROJECTS_DIR:=${HOME}/IdeaProjects}'"
-echo ""
 echo "========="
 echo "Build in:"
 echo "========="
 echo "Idea Settings ............: '${IDEA_DIR}'"
+echo "Java Settings ............: '${JAVA_DIR}'"
 echo "Maven Home ...............: '${M2_DIR}'"
 echo "SSH Settings .............: '${SSH_DIR}'"
 echo "Git config ...............: '${GIT_CONFIG}'"
@@ -64,11 +39,9 @@ echo ""
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
-docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
-# Must remain privileged to enable writing system setting in entrypoint-ext.sh.
+docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 docker run \
   --detach \
-  --device /dev/snd \
   --env DISPLAY \
   --env GIVEN_GROUP="$(id -gn "${USER}")" \
   --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
@@ -76,10 +49,10 @@ docker run \
   --env GIVEN_USER_ID="${UID}" \
   --env LICENSE_ACCEPTED=${LICENSE_ACCEPTED:=false} \
   --name "${CONTAINER_NAME}" \
-  --privileged \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume "${GIT_CONFIG}":/opt/.gitconfig \
   --volume "${IDEA_DIR}":/opt/.IntelliJIdea \
+  --volume "${JAVA_DIR}":/opt/.java \
   --volume "${M2_DIR}":/opt/.m2 \
   --volume "${PROJECTS_DIR}":/opt/IdeaProjects \
   --volume "${SSH_DIR}":/opt/.ssh:ro \
