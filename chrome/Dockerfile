@@ -25,7 +25,7 @@ RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
  && mkdir --parent .config/pulse \
  && ln --symbolic "${USER_DATA_DIR}" .config/google-chrome
 
-VOLUME [ "${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}" ]
+VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]
 
 WORKDIR "${USER_DOWNLOAD_DIR}"
 ENV ENTRYPOINT_GROUPS="audio,video"
