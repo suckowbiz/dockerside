@@ -6,7 +6,7 @@ LABEL maintainer=tobias@suckow.biz \
 ENV USER_DATA_DIR="/var/lib/chrome/data" \
     USER_DOWNLOAD_DIR="/var/lib/chrome/downloads"
 
-# Install Google Chrome from third party ppa.
+# Install Google Chrome from third party ppa to have latest version.
 # (source: http://www.ubuntuupdates.org/ppa/google_chrome, https://www.google.com/linuxrepositories/)
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
 RUN curl --insecure --fail --location --remote-name --show-error --silent https://dl.google.com/linux/linux_signing_key.pub \
