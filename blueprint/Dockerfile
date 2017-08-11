@@ -1,7 +1,6 @@
 FROM suckowbiz/base-av
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 COPY context /
 RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
