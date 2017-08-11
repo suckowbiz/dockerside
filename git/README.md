@@ -27,10 +27,10 @@ git --version
 Example:
 
 ```bash
-tobias@T430s:~/Workspace/Docker/github.com/suckowbiz/dockerside$ [master] 
+tobias@T430s:~/Workspace/Docker/github.com/suckowbiz/dockerside$ [master]
 ```
 
-Add `git branch` name to your `PS1` prompt just add to `~/.bashrc`:
+To add git branch name to your `PS1` prompt add to end of `~/.bashrc`:
 
 ```bash
 #######################################
