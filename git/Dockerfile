@@ -1,7 +1,6 @@
 FROM suckowbiz/base-builder
 
-LABEL maintainer=tobias@suckow.biz \
-      name=base
+LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV VERSION_GIT=2.14.0 \
     VERSION_GIT_LFS=2.2.1 \
@@ -58,8 +57,7 @@ RUN mkdir .config \
  && ln --symbolic "${GIT_CONFIG_DIR}" .config/git \
  && ln --symbolic "${SSH_CONFIG_DIR}" .ssh
 
-VOLUME ["${SSH_CONFIG_DIR}"]
-VOLUME ["${GIT_CONFIG_DIR}"]
+VOLUME ["${SSH_CONFIG_DIR}", "${GIT_CONFIG_DIR}"]
 
 ENTRYPOINT ["/entrypoint.sh", "git"]
 CMD ["--help"]
