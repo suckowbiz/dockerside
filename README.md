@@ -9,7 +9,7 @@ Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfil
 
 ## Build
 
-Run `docker-compose build` or `docker-compose build <service>` from repository root to build the Docker Image(s). (Parts of the required `docker-compose.yaml` file are disabled since e.g. IntelliJ Idea or SPSS binaries are not shipped with this repository for license/ legacy reason.)
+Run `docker-compose build` or `docker-compose build <service>` from repository root to build the Docker Image(s).
 
 Note: Some of these Images are available at <https://hub.docker.com/u/suckowbiz/>.
 
