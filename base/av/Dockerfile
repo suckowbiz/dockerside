@@ -2,7 +2,7 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-RUN apt-get --quiet --assume-yes --no-install-recommends install \
+RUN apt-get install --assume-yes --no-install-recommends \
     dbus-x11 \
     language-pack-gnome-en \
     # audio
