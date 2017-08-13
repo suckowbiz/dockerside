@@ -2,7 +2,7 @@ FROM suckowbiz/base-builder
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GIT=2.14.0 \
+ENV VERSION_GIT=2.14.1 \
     VERSION_GIT_LFS=2.2.1 \
     GIT_HOME="/var/lib/git"
 
