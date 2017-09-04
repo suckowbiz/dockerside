@@ -22,6 +22,7 @@ RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     ssh \
     tcl \
     tk \
+    vim \
     xsltproc \
     xmlto \
     zlib1g-dev
