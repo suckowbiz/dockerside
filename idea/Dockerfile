@@ -3,7 +3,7 @@ FROM suckowbiz/base-av
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV IDEA_TARBALL="ideaIU-2017.2.1-no-jdk.tar.gz" \
+ENV IDEA_TARBALL="ideaIU-2017.2.3-no-jdk.tar.gz" \
     JAVA_HOME="/etc/alternatives/java" \
     M2_HOME=/usr/local/maven \
     MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.allowall=true" \
@@ -59,7 +59,7 @@ RUN curl \
  # Update SSL certificate cache to fix: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty.
  && update-ca-certificates --fresh
 
-VOLUME ["/opt/.gitconfig", "/opt/.IntelliJIdea", "/opt/.java", "/opt/.m2", "/opt/.ssh", "/opt/IdeaProjects"]
+VOLUME ["/opt/.IntelliJIdea", "/opt/.java", "/opt/.m2", "/opt/.ssh", "/opt/IdeaProjects"]
 
 WORKDIR /etc/skel
 RUN ln --symbolic /opt/.gitconfig \
