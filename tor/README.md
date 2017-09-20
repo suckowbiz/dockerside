@@ -1,6 +1,6 @@
 # tor
 
-([Tor](https://www.torproject.org/)) Socks Proxy.
+([Tor](https://www.torproject.org/)) Socks 5 Proxy.
 
 ## Run
 
