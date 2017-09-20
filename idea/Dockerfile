@@ -3,8 +3,8 @@ FROM suckowbiz/base-av
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV IDEA_TARBALL="ideaIU-2017.2.3-no-jdk.tar.gz" \
-    JAVA_HOME="/etc/alternatives/java" \
+ENV IDEA_TARBALL="ideaIU-2017.2.4-no-jdk.tar.gz" \
+    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/" \
     M2_HOME=/usr/local/maven \
     MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.allowall=true" \
     MAVEN_VERSION=3.5.0 \
@@ -15,7 +15,9 @@ RUN apt-get update --quiet \
     git \
     firefox \
     make \
-    openjdk-8-* \
+    openjdk-8-jdk \
+    openjdk-8-doc \
+    openjdk-8-source \
     openjfx \
     libappindicator1 \
     libcurl3 \
