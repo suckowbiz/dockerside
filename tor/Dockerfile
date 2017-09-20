@@ -9,5 +9,5 @@ RUN apt-get install --quiet --assume-yes --no-install-recommends \
 
 EXPOSE 9095
 
-ENTRYPOINT ["/entrypoint.sh", "tor", "SocksPort", "0.0.0.0:9050"]
+ENTRYPOINT ["tor", "SocksPort", "0.0.0.0:9050"]
 CMD ["ExcludeExitNodes", "{de}"]

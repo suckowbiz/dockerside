@@ -11,9 +11,5 @@ docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 docker run \
  --detach=true \
  --name tor \
- --env GIVEN_GROUP="$(id -gn "${USER}")" \
- --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
- --env GIVEN_USER="${USER}" \
- --env GIVEN_USER_ID="${UID}" \
  --publish 0.0.0.0:9050:9050 \
  suckowbiz/tor "ExcludeExitNodes" "{de}"
