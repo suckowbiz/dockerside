@@ -94,11 +94,6 @@ services:
     image: suckowbiz/nfs-hub
     depends_on:
       - "base"
-  proxy:
-    build: proxy
-    image: suckowbiz/proxy
-    depends_on:
-      - "base"
   steam:
     build: steam
     image: suckowbiz/steam
@@ -109,3 +104,8 @@ services:
     image: suckowbiz/supertux
     depends_on:
       - "base-builder"
+  tor:
+    build: tor
+    image: suckowbiz/tor
+    depends_on:
+      - "base"
