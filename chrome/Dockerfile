@@ -18,7 +18,8 @@ RUN curl \
  && apt-key add linux_signing_key.pub \
  && apt-get --quiet --quiet update \
  && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
-    google-chrome-stable
+    google-chrome-stable \
+ && apt-get clean
 
 WORKDIR /etc/skel
 RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
@@ -29,4 +30,4 @@ VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]
 
 WORKDIR "${USER_DOWNLOAD_DIR}"
 ENV ENTRYPOINT_GROUPS="audio,video"
-ENTRYPOINT ["/entrypoint.sh", "google-chrome"]
+ENTRYPOINT ["/entrypoint.sh", "google-chrome", "--no-referrers", "--start-maximized"]

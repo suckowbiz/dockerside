@@ -65,4 +65,4 @@ docker run \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
   --volume "${USER_DOWNLOAD_DIR}":/var/lib/chrome/downloads \
-  "${IMAGE_NAME}" "$@"
+  "${IMAGE_NAME}" "--incognito"
