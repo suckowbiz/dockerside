@@ -34,9 +34,7 @@ ENV ENTRYPOINT_GROUPS="audio,video"
 
 VOLUME ["/opt/git/.gitconfig", "/opt/SSH", "/opt/vscode/extensions", "/opt/vscode/userdata", "/Code"]
 WORKDIR /Code
-ENTRYPOINT ["/entrypoint.sh", "code"]
+ENTRYPOINT ["/entrypoint.sh", "code",  "--user-data-dir", "/opt/vscode/userdata", "--extensions-dir", "/opt/vscode/extensions"]
 CMD ["--locale", "en-US", \
-     "--user-data-dir", "/opt/vscode/userdata", \
-     "--extensions-dir", "/opt/vscode/extensions", \
      "--wait", \
      "/Code"]

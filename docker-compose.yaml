@@ -89,9 +89,9 @@ services:
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
-  nfs-hub:
-    build: nfs-hub
-    image: suckowbiz/nfs-hub
+  nfs:
+    build: nfs
+    image: suckowbiz/nfs
     depends_on:
       - "base"
   steam:
