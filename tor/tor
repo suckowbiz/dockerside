@@ -21,4 +21,4 @@ docker run \
  --detach=true \
  --name tor \
  --publish 0.0.0.0:9050:9050 \
- suckowbiz/tor "ExcludeExitNodes" "{de}"
+ suckowbiz/tor "ExcludeExitNodes" "{de},{at},{ch}"
