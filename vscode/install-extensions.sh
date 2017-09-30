@@ -47,6 +47,13 @@ install_extension SolarLiner.linux-themes
 install_extension PKief.material-icon-theme
 install_extension k--kato.intellij-idea-keybindings
 
+# NGINX
+install_extension shanoor.vscode-nginx
+install_extension hangxingliu.vscode-nginx-conf-hint
+
+# elastic
+install_extension RandomChance.logstash
+
 # Other
 install_extension abusaidm.html-snippets
 

@@ -41,7 +41,7 @@ To add git branch name to your `PS1` prompt add to end of `~/.bashrc`:
 # Returns:
 #   the git root directory or empty string
 #######################################
-function get_git_root {
+get_git_root() {
   local result="$1" 
   if [[ "${result}" = "/" ]]; then
     echo ""
@@ -59,7 +59,7 @@ function get_git_root {
 # Returns:
 #   the git branch name or nothing or empty string
 #######################################
-function get_git_branch {
+get_git_branch() {
   local git_root="$(get_git_root "${PWD}")"
   if [[ "${git_root}" = "" ]]; then
     return

@@ -1,6 +1,9 @@
 ---
 version: '3'
 services:
+  skype-legacy:
+    build: skype-legacy
+    image: suckowbiz/skype-legacy
   ansible:
     build: ansible/control
     image: suckowbiz/ansible
