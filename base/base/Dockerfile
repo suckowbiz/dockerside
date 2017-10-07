@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:17.04
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
