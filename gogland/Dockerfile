@@ -3,8 +3,8 @@ FROM suckowbiz/base-av
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV GO_TARBALL="go1.8.3.linux-amd64.tar.gz" \
-    GOGLAND_TARBALL="gogland-172.3968.45.tar.gz" \
+ENV GO_TARBALL="go1.9.1.linux-amd64.tar.gz" \
+    GOGLAND_TARBALL="gogland-173.2696.28.tar.gz" \
     GOPATH="/opt/GoglandProjects" \
     PATH="${PATH}:/usr/local/go/bin:/usr/local/gogland/bin:/opt/GoglandProjects/bin"
 
