@@ -2,7 +2,7 @@
 
 [Jet Brains Gogland IDE](https://www.jetbrains.com/go/) **Early Build** version baked together with Go development related dependencies such as Go Runtime.
 
-# Run
+## Run
 
 Download run script to have `gogland` available:
 

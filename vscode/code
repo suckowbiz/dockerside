@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
-# Run Intellij Idea Docker container.
-# (follows https://google.github.io/styleguide/shell.xml)
+# Runs Docker container as stated below.
 set -e
 readonly IMAGE_NAME='suckowbiz/vscode'
 readonly CONTAINER_NAME='code'

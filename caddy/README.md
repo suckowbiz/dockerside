@@ -14,7 +14,7 @@ The caddy webserver.
 ## Run
 
 Download run script to have `caddy` available:
- 
+
 ```bash
 curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/caddy/caddy > /var/tmp/caddy && sudo mv /var/tmp/caddy /usr/local/bin/ && sudo chmod +x /usr/local/bin/caddy
 ```

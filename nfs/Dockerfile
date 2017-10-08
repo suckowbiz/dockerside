@@ -2,7 +2,7 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     nfs-common \
     pkg-config \
  && apt-get clean

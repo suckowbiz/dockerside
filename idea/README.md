@@ -10,5 +10,6 @@ Download run script to have `idea` available:
 curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/idea/idea > /var/tmp/idea && sudo mv /var/tmp/idea /usr/local/bin/ && sudo chmod +x /usr/local/bin/idea
 ```
 
-Notes: 
+Notes:
+
 - https://resources.jetbrains.com/assets/products/intellij-idea/IntelliJIDEA_ReferenceCard.pdf

@@ -1,18 +1,27 @@
-FROM ubuntu:17.04
+FROM ubuntu:16.04
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV DEBCONF_NONINTERACTIVE_SEEN=true \
-    DEBIAN_FRONTEND=noninteractive \
-    KEY_SERVER="hkp://keyserver.ubuntu.com:80" \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8 \
-    LC_ALL=en_US.UTF-8 \
-    VERSION_GOSU=1.10
+ENV KEY_SERVER="hkp://keyserver.ubuntu.com:80"\
+    VERSION_GOSU=1.10 \
+    # Avoid selection dialogs such as required when run `dpkg-reconfigure locales` by setting Debian globals.
+    DEBCONF_NONINTERACTIVE_SEEN=true \
+    DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update --quiet \
- && apt-get install --assume-yes --no-install-recommends --quiet\
+# Avoid "debconf: delaying package configuration, since apt-utils is not installed" by installing apt-utils first. 
+RUN apt-get update --quiet --quiet \
+ && apt-get install --quiet --quiet --yes --no-install-recommends \
     apt-utils \
+    language-pack-en
+
+# Setting locales must happen after installation of language-pack-en since it 
+# generates and configurates locales first and avoids:
+# /bin/bash: warning: setlocale: LC_ALL: cannot change locale 
+ENV LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8
+
+RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     # ca-certificates come with curl
     curl \
     dirmngr \
@@ -21,18 +30,14 @@ RUN apt-get update --quiet \
     unzip \
     xz-utils
 
-# Set default language to provide a default. Will have effect only after login of user.
-RUN locale-gen en_US.UTF-8 \
- && update-locale en_US.UTF-8
-
 # Install gosu to use it for command execution as appropriate user in entrypoint.sh
 WORKDIR /usr/bin
 RUN curl \
-        --fail \
-        --location \
-        --show-error \
-        --remote-name \
-        https://github.com/tianon/gosu/releases/download/${VERSION_GOSU}/gosu-amd64{,.asc} \
+    --fail \
+    --location \
+    --show-error \
+    --remote-name \
+    https://github.com/tianon/gosu/releases/download/${VERSION_GOSU}/gosu-amd64{,.asc} \
  && gpg --keyserver "${KEY_SERVER}" --recv-keys BF357DD4 \
  && gpg --verify gosu-amd64.asc gosu-amd64 \
  && rm --force gosu-amd64.asc \

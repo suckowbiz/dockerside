@@ -10,7 +10,8 @@ ENV CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download \
     PATH="${PATH}:/var/lib/caddy"
 ENV CADDY_TARBALL=${CADDY_REMOTE_NAME}.tar.gz
 
-RUN apt-get install --yes --no-install-recommends libcap2-bin
+RUN apt-get install --quiet --quiet --yes --no-install-recommends \
+    libcap2-bin
 RUN mkdir --parent "${CADDYPATH}"
 
 WORKDIR /var/lib/caddy

@@ -3,15 +3,14 @@ FROM suckowbiz/base-av
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV IDEA_TARBALL="ideaIU-2017.2.4-no-jdk.tar.gz" \
+ENV IDEA_TARBALL="ideaIU-2017.2.5-no-jdk.tar.gz" \
     JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/" \
     M2_HOME=/usr/local/maven \
     MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.allowall=true" \
     MAVEN_VERSION=3.5.0 \
     PATH="${PATH}:/usr/local/maven/bin:/usr/local/idea/bin"
 
-RUN apt-get update --quiet \
- && apt-get install --auto-remove --assume-yes --no-install-recommends  --quiet \
+RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     git \
     firefox \
     make \
@@ -30,11 +29,11 @@ RUN apt-get update --quiet \
 WORKDIR /usr/local
 # Download maven to install it.
 RUN curl \
-        --fail \
-        --location \
-        --remote-name \
-        --show-error \
-        https://www.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz{,.asc} \
+    --fail \
+    --location \
+    --remote-name \
+    --show-error \
+    https://www.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz{,.asc} \
  && gpg --keyserver "${KEY_SERVER}" --recv-keys B620D787 \
  && gpg --verify apache-maven-${MAVEN_VERSION}-bin.tar.gz.asc apache-maven-${MAVEN_VERSION}-bin.tar.gz \
  && tar -xf apache-maven-${MAVEN_VERSION}-bin.tar.gz \
@@ -44,11 +43,11 @@ RUN curl \
 
 # Install and set up IDEA to have the binary in place for execution.
 RUN curl \
-        --fail \
-        --location \
-        --remote-name \
-        --show-error \
-        https://download.jetbrains.com/idea/${IDEA_TARBALL}{,.sha256} \
+    --fail \
+    --location \
+    --remote-name \
+    --show-error \
+    https://download.jetbrains.com/idea/${IDEA_TARBALL}{,.sha256} \
  && sha256sum --check ${IDEA_TARBALL}.sha256 || false \
  && tar --extract --file ${IDEA_TARBALL} \
  && rm --force --recursive ${IDEA_TARBALL} ${IDEA_TARBALL}.sha256 \

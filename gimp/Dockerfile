@@ -6,8 +6,8 @@ ENV GIMP_VERSION=2.8 \
     USER_PICTURES=/var/lib/gimp/pictures
 
 RUN add-apt-repository --yes ppa:otto-kesselgulasch/gimp \
- && apt-get update --quiet \
- && apt-get install --quiet --yes --no-install-recommends \
+ && apt-get update --quiet --quiet \
+ && apt-get install --quiet --quiet --yes --no-install-recommends \
     # FIXME: Fix to 2.8 since gimpps relies on it
     gimp \
     gimp-ufraw \

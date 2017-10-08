@@ -3,9 +3,8 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 COPY context /
-RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     TODO
 
-ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["TODO"]

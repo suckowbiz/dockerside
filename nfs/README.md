@@ -16,7 +16,7 @@ Example to mount a remote Network File System (NFS):
 1. Remote NFS domain name (setup of your NAS): `nas` 
 1. Local mount point: `/mnt`
 
-Run: 
+Run:
 
 ```bash
 nfs '192.168.178.28:/volume1/archive' nas '/mnt'

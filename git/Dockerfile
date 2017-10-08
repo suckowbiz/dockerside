@@ -12,7 +12,7 @@ ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
     SSH_CONFIG_DIR=/var/lib/ssh \
     URL_GIT_SOURCES_TAR_GZ="https://github.com/git/git/archive/v${VERSION_GIT}.tar.gz"
 
-RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     asciidoc \
     autoconf \
     docbook \

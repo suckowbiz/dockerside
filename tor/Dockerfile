@@ -2,7 +2,7 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-RUN apt-get install --quiet --assume-yes --no-install-recommends \
+RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     tor \
     tor-geoipdb \
  && apt-get clean

@@ -6,9 +6,9 @@ ENV USER_DATA=/var/lib/steam
 
 # Steam requires a 32bit architecture.
 RUN dpkg --add-architecture i386 \
- && apt-get update \
- && apt-get upgrade --yes \
- && apt-get install --yes \
+ && apt-get update --quiet --quiet \
+ && apt-get upgrade --quiet --quiet --yes \
+ && apt-get install --quiet --quiet --yes \
     build-essential \
     libc6:i386 \
     libgpg-error-dev:i386 \

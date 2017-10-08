@@ -2,7 +2,12 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-RUN apt-get install --assume-yes --no-install-recommends \
+# GUI rendering requires libGL permissions:
+# libGL error: failed to open drm device: Permission denied
+# libGL error: failed to load driver: i965
+ARG ENTRYPOINT_GROUPS="audio,video"
+
+RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     dbus-x11 \
     language-pack-gnome-en \
     # audio
@@ -10,7 +15,6 @@ RUN apt-get install --assume-yes --no-install-recommends \
     alsa-base \
     alsa-oss \
     alsa-tools \
-    alsa-utils \
     # GStreamer: open source multimedia framework
     gstreamer1.0 \
     # simple abstract interface for playing event sounds

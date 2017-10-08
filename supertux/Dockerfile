@@ -6,7 +6,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
 
 RUN apt-get update --quiet \
- && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+ && apt-get --quiet --quiet --yes --no-install-recommends install \
     cmake \
     git \
     libboost-all-dev \
