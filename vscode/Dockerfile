@@ -38,4 +38,5 @@ WORKDIR /Code
 ENTRYPOINT ["/entrypoint.sh", "code",  "--user-data-dir", "/opt/vscode/userdata", "--extensions-dir", "/opt/vscode/extensions"]
 CMD ["--locale", "en-US", \
      "--wait", \
+     "--verbose", \
      "/Code"]

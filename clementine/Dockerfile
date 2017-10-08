@@ -5,7 +5,9 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 ENV USER_MUSIC=/var/lib/clementine/music \
     USER_CONFIG=/var/lib/clementine/config
 
-RUN apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
+RUN add-apt-repository ppa:me-davidsansome/clementine \
+ && apt-get --quiet --quiet update \ 
+ && apt-get --quiet --assume-yes --no-install-recommends --auto-remove install \
     clementine \
     libclutter-gst-2.0
 
