@@ -15,11 +15,6 @@ cat <<EOH
 ╩ ╩┘└┘└─┘┴└─┘┴─┘└─┘  ╩  ┴─┘┴ ┴ ┴ └─┘└─┘└─┘┴ ┴
 ${IMAGE_NAME}
 
-========
-Volumes:
-========
-Document Root: '${DOCUMENT_ROOT}'
-
 EOH
 
 # enable passing display to be able to run any GUI

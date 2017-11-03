@@ -46,6 +46,7 @@ docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
+  --net=host \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume "${GIT_CONFIG}":/opt/.gitconfig \
   --volume "${GOGLAND_DIR}":/opt/.Gogland \
