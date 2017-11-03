@@ -39,8 +39,8 @@ services:
     image: suckowbiz/caddy
     depends_on:
       - base
-  vscode:
-    build: vscode
+  code:
+    build: code
     image: suckowbiz/vscode
     depends_on:
       - "base-av"
