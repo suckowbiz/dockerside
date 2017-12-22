@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for app in chrome code gimp gogland keepass2 nfs steam tor caddy clementine git idea supertux; do
+for app in chrome code gimp goland keepass2 nfs pixum steam tor caddy clementine git idea supertux; do
   sudo ln --force --symbolic "${PWD}/${app}/${app}" "/usr/local/bin/${app}"
 done
 
