@@ -3,7 +3,8 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_DATA_DIR="/var/lib/chrome/data" \
-    USER_DOWNLOAD_DIR="/var/lib/chrome/downloads"
+    USER_DOWNLOAD_DIR="/var/lib/chrome/downloads" \
+    INSTALL_CANDIDATE=google-chrome-beta
 
 # Install Google Chrome from third party ppa to have latest version.
 # (source: http://www.ubuntuupdates.org/ppa/google_chrome, https://www.google.com/linuxrepositories/)
@@ -18,13 +19,13 @@ RUN curl \
  && apt-key add linux_signing_key.pub \
  && apt-get --quiet --quiet update \
  && apt-get --quiet --quiet --assume-yes --no-install-recommends install \
-    google-chrome-stable \
+    "${INSTALL_CANDIDATE}" \
  && apt-get clean
 
 WORKDIR /etc/skel
 RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
  && mkdir --parent .config/pulse \
- && ln --symbolic "${USER_DATA_DIR}" .config/google-chrome
+ && ln --symbolic "${USER_DATA_DIR}" ".config/${INSTALL_CANDIDATE}"
 
 VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]
 
