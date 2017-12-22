@@ -7,7 +7,7 @@ ENV IDEA_TARBALL="ideaIU-2017.2.5-no-jdk.tar.gz" \
     JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/" \
     M2_HOME=/usr/local/maven \
     MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.allowall=true" \
-    MAVEN_VERSION=3.5.0 \
+    MAVEN_VERSION=3.5.2 \
     PATH="${PATH}:/usr/local/maven/bin:/usr/local/idea/bin"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
