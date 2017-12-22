@@ -64,9 +64,9 @@ services:
     image: suckowbiz/git
     depends_on:
       - "base-builder"
-  gogland:
-    build: gogland
-    image: suckowbiz/gogland
+  goland:
+    build: goland
+    image: suckowbiz/goland
     depends_on:
       - "base-av"
   keepass2:
@@ -89,6 +89,11 @@ services:
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
+  pixum:
+    build: pixum
+    image: suckowbiz/pixum
+    depends_on:
+      - "base-av"
   nfs:
     build: nfs
     image: suckowbiz/nfs
