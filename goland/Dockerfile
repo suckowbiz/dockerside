@@ -1,12 +1,8 @@
-# These instructions serve the purpose to run Intellij IDEA.
 FROM suckowbiz/base-av
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV GO_TARBALL="go1.9.2.linux-amd64.tar.gz" \
-    GOLAND_TARBALL="goland-2017.3.tar.gz" \
-    GOPATH="/opt/GolandProjects" \
-    PATH="${PATH}:/usr/local/go/bin:/usr/local/goland/bin:/opt/GolandProjects/bin"
+ENV VERSION_GOLAND="2017.3" \
+    VERSION_GOLANG="1.9.2"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     git \
@@ -20,34 +16,47 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
 
+# Install go to have golang toolset available.
+WORKDIR /usr/local
+RUN curl \
+    --fail \
+    --location \
+    --show-error \
+    "https://storage.googleapis.com/golang/go${VERSION_GOLANG}.linux-amd64.tar.gz" | tar --extract --gzip
+ENV PATH="${PATH}:/usr/local/go/bin"
+
+# Build and run a go binary to verify go toolset is installed properly.
+WORKDIR /root/go/src/hello
+RUN echo "package main\n\nimport \"fmt\"\n\nfunc main() {\nfmt.Printf(\"hello, world\")\n}" > hello.go \
+ && go build hello \
+ && test "$(./hello)" = 'hello, world' \
+ && rm --force --recursive /volume/go/src/hello
+
+# Install goland to provide entrypoint of this Dockerfile.
 WORKDIR /usr/local
 RUN curl \
     --fail \
     --location \
     --remote-name \
     --show-error \
-    https://storage.googleapis.com/golang/${GO_TARBALL} \
- && tar --extract --file ${GO_TARBALL} \
- && rm --force ${GO_TARBALL}
-
-RUN curl \
-    --fail \
-    --location \
-    --remote-name \
-    --show-error \
-    https://download.jetbrains.com/go/${GOLAND_TARBALL}{,.sha256} \
- && sha256sum --check ${GOLAND_TARBALL}.sha256 || false \
- && tar --extract --file ${GOLAND_TARBALL} \
- && rm --force ${GOLAND_TARBALL} ${GOLAND_TARBALL}.sha256 \
+    "https://download.jetbrains.com/go/goland-${VERSION_GOLAND}.tar.gz{,.sha256}" \
+ && sha256sum --check "goland-${VERSION_GOLAND}.tar.gz.sha256" | grep "OK" \
+ && tar --extract --file "goland-${VERSION_GOLAND}.tar.gz" \
+ && rm --force "goland-${VERSION_GOLAND}.tar.gz" "goland-${VERSION_GOLAND}.tar.gz.sha256" \
  && mv GoLand-* goland \
  && sed --in-place "s/.*idea.config.path=.*/idea.config.path=\~\/\.GoLand\/config\//" /usr/local/goland/bin/idea.properties \
  && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" /usr/local/goland/bin/idea.properties
+ENV PATH="${PATH}:/usr/local/goland/bin"
 
+# Prepare user home to link runtime data to persisted volumes.
 WORKDIR /etc/skel
-RUN ln --symbolic /opt/.gitconfig \
- && ln --symbolic /opt/GoLandProjects \
- && ln --symbolic /opt/.GoLand \
- && ln --symbolic /opt/.java \
- && ln --symbolic /opt/.ssh
+ENV GOPATH="/volume/go" \
+    VOL_GIT_CONF="/volume/.gitconfig" \
+    VOL_GO="/volume/go" \
+    VOL_GOLAND_CONF="/volume/.GoLand" \
+    VOL_JAVA_CONF="/volume/.java"
+RUN for volume in ${VOL_GIT_CONF} ${VOL_GO} ${VOL_GOLAND_CONF} ${VOL_JAVA_CONF}; do ln --symbolic "${volume}"; done
 
+VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
+WORKDIR "${GOPATH}"
 ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
