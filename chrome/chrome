@@ -43,6 +43,7 @@ docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 # shellcheck disable=SC2006,SC2046
 docker run \
   --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
+  --cpuset-cpus=1 \
   --detach \
   --device /dev/dri `# Direct GPU access improves gfx rendering to avoid fail e.g. on google maps usage.` \
   --device /dev/snd \
