@@ -6,7 +6,6 @@ readonly IMAGE_NAME='suckowbiz/vscode'
 readonly CONTAINER_NAME='code'
 
 readonly GIT_CONFIG="${HOME}/.gitconfig"
-readonly SSH_ROOT="${HOME}/.ssh"
 mkdir --parents \
     "${PROJECTS_ROOT:=${HOME}/VSCodeProjects}" \
     "${USERDATA_ROOT:=${HOME}/.config/vscode/userdata}" \
@@ -26,7 +25,6 @@ Volumes:
 Code......: '${PWD}'
 Extensions: '${EXTENSIONS_ROOT}'
 Git Config: '${GIT_CONFIG}'
-SSH Config: '${SSH_ROOT}'
 User Data.: '${USERDATA_ROOT}'
 
 EOH
@@ -51,7 +49,6 @@ docker run \
   --volume "${EXTENSIONS_ROOT}":/opt/vscode/extensions \
   --volume "${GIT_CONFIG}":/opt/git/.gitconfig \
   --volume "${PWD}":/Code \
-  --volume "${SSH_ROOT}":/opt/SSH \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USERDATA_ROOT}":/opt/vscode/userdata \
   ${IMAGE_NAME} "$@"
