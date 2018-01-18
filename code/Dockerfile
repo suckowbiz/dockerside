@@ -20,6 +20,7 @@ RUN apt-get update --quiet \
     libxss1 \
     libgconf-2-4 \
     openjdk-8-* \
+    php \
     rxvt-unicode-256color \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
@@ -34,7 +35,9 @@ ENV ENTRYPOINT_GROUPS="audio,video"
 VOLUME ["/opt/git/.gitconfig", "/opt/vscode/extensions", "/opt/vscode/userdata", "/Code"]
 WORKDIR /Code
 
-ENTRYPOINT ["/entrypoint.sh", "code",  "--user-data-dir", "/opt/vscode/userdata", "--extensions-dir", "/opt/vscode/extensions"]
-CMD ["--locale", "en-US", \
-     "--wait", \
+ENTRYPOINT ["/entrypoint.sh", "code"]
+CMD ["--user-data-dir=/opt/vscode/userdata", \
+     "--extensions-dir=/opt/vscode/extensions", \
+     "--locale=en-US", \
+     "--verbose", \
      "/Code"]
