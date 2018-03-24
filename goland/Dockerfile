@@ -1,10 +1,11 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GOLAND="2017.3" \
-    VERSION_GOLANG="1.9.2"
+ENV VERSION_GOLAND="2017.3.3" \
+    VERSION_GOLANG="1.10"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
+    build-essential \
     git \
     openjdk-8-* \
     openjfx \
@@ -24,6 +25,14 @@ RUN curl \
     --show-error \
     "https://storage.googleapis.com/golang/go${VERSION_GOLANG}.linux-amd64.tar.gz" | tar --extract --gzip
 ENV PATH="${PATH}:/usr/local/go/bin"
+
+# Get important development tools to improve development.
+ENV GOBIN="/usr/bin/"
+RUN go get -t golang.org/x/tools/cmd/goimports \
+ && go get -u github.com/alecthomas/gometalinter \
+ && gometalinter --install \
+ && chmod 755 "/usr/bin/"
+ENV GOBIN=""
 
 # Build and run a go binary to verify go toolset is installed properly.
 WORKDIR /root/go/src/hello
@@ -55,6 +64,7 @@ ENV GOPATH="/volume/go" \
     VOL_GO="/volume/go" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
     VOL_JAVA_CONF="/volume/.java"
+
 RUN for volume in ${VOL_GIT_CONF} ${VOL_GO} ${VOL_GOLAND_CONF} ${VOL_JAVA_CONF}; do ln --symbolic "${volume}"; done
 
 VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]

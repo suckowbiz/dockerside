@@ -45,6 +45,7 @@ docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
+  --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${GIT_CONF}:/volume/.gitconfig" \
