@@ -35,18 +35,36 @@ Settings.: '${USER_DATA_DIR}'
 
 EOH
 
+# on tcp usage pulseaudio fails for unkown reason and a restart is required
+pulseaudio --kill
+
+# Enable pulse audio TCP server to connect to and have sound on every container (which is not the case for native socket).
+readonly DOCKER_BRIDGE_IP='172.17.0.1'
+readonly PULSE_AUDIO_TCP_MODULE='module-native-protocol-tcp'
+readonly PULSE_AUDIO_TCP=$(pactl list modules |grep --silent "${PULSE_AUDIO_TCP_MODULE}"; echo $?)
+if [[ "$PULSE_AUDIO_TCP" = "1" ]]; then
+    pactl load-module "${PULSE_AUDIO_TCP_MODULE}" auth-ip-acl="${DOCKER_BRIDGE_IP}" 1>/dev/null
+fi
+
+# Populate X11 variables PULSE_SERVER and PULSE_COOKIE automatically using a module.
+readonly PA_X11_PUBLISH_MODULE='module-x11-publish'
+readonly PA_X11_PUBLISHED=$(pactl list modules |grep --silent "${PA_X11_PUBLISH_MODULE}"; echo $?)
+if [[ "$PA_X11_PUBLISHED" = "1" ]]; then
+    pactl load-module "${PA_X11_PUBLISH_MODULE}" 1>/dev/null
+fi
+
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
-# shellcheck disable=SC2006,SC2046
+# shellcheck disable=SC2006,SC2046,SC2086
 docker run \
   --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
   --cpuset-cpus=1 \
   --detach \
+  --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" `#using /dev/snd in compbination with ipc=host failed the hosts sound!` \
   --device /dev/dri `# Direct GPU access improves gfx rendering to avoid fail e.g. on google maps usage.` \
-  --device /dev/snd \
   ${DEV_VIDEO} \
   --env DISPLAY \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
