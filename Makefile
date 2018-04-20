@@ -7,6 +7,6 @@ base:
 	$(COMPOSE) base base-av base-builder
 
 dev:  
-	$(COMPOSE) git code goland
+	$(COMPOSE) code goland
 
 .PHONY: all base dev
