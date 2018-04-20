@@ -1,14 +1,12 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GOLAND="2017.3.3" \
-    VERSION_GOLANG="1.10"
+ENV VERSION_GO="1.10" \
+    VERSION_GOLAND="2018.1.1"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     git \
-    openjdk-8-* \
-    openjfx \
     libappindicator1 \
     libcurl3 \
     libxss1 \
@@ -17,32 +15,23 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
 
-# Install go to have golang toolset available.
-WORKDIR /usr/local
+# Install the go tools to provide golang environment: https://golang.org/doc/install#install
 RUN curl \
     --fail \
     --location \
     --show-error \
-    "https://storage.googleapis.com/golang/go${VERSION_GOLANG}.linux-amd64.tar.gz" | tar --extract --gzip
+    "https://storage.googleapis.com/golang/go${VERSION_GO}.linux-amd64.tar.gz" | tar --directory /usr/local --extract --gzip
 ENV PATH="${PATH}:/usr/local/go/bin"
 
-# Get important development tools to improve development.
-ENV GOBIN="/usr/bin/"
+# Get important development tools to help finding issues when coding in go.
+ENV GOBIN="/usr/local/go/bin"
 RUN go get -t golang.org/x/tools/cmd/goimports \
  && go get -u github.com/alecthomas/gometalinter \
  && gometalinter --install \
- && chmod 755 "/usr/bin/"
 ENV GOBIN=""
 
-# Build and run a go binary to verify go toolset is installed properly.
-WORKDIR /root/go/src/hello
-RUN echo "package main\n\nimport \"fmt\"\n\nfunc main() {\nfmt.Printf(\"hello, world\")\n}" > hello.go \
- && go build hello \
- && test "$(./hello)" = 'hello, world' \
- && rm --force --recursive /volume/go/src/hello
-
-# Install goland to provide entrypoint of this Dockerfile.
-WORKDIR /usr/local
+# Install goland to provide an entrypoint.
+WORKDIR /opt
 RUN curl \
     --fail \
     --location \
@@ -53,20 +42,21 @@ RUN curl \
  && tar --extract --file "goland-${VERSION_GOLAND}.tar.gz" \
  && rm --force "goland-${VERSION_GOLAND}.tar.gz" "goland-${VERSION_GOLAND}.tar.gz.sha256" \
  && mv GoLand-* goland \
- && sed --in-place "s/.*idea.config.path=.*/idea.config.path=\~\/\.GoLand\/config\//" /usr/local/goland/bin/idea.properties \
- && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" /usr/local/goland/bin/idea.properties
-ENV PATH="${PATH}:/usr/local/goland/bin"
+ && sed --in-place "s/.*idea.config.path=.*/idea.config.path=\~\/\.GoLand\/config\//" goland/bin/idea.properties \
+ && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" goland/bin/idea.properties
+ENV PATH="${PATH}:/opt/goland/bin"
 
-# Prepare user home to link runtime data to persisted volumes.
+# Prepare user home to link runtime data to persistent directories.
 WORKDIR /etc/skel
-ENV GOPATH="/volume/go" \
+ENV GOROOT="/usr/local/go" \
+    GOPATH="/volume/go" \
+    GOBIN="/volume/go/bin" \
     VOL_GIT_CONF="/volume/.gitconfig" \
     VOL_GO="/volume/go" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
     VOL_JAVA_CONF="/volume/.java"
+RUN for volume in "${VOL_GIT_CONF}" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done
 
-RUN for volume in ${VOL_GIT_CONF} ${VOL_GO} ${VOL_GOLAND_CONF} ${VOL_JAVA_CONF}; do ln --symbolic "${volume}"; done
-
-VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
 WORKDIR "${GOPATH}"
+VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
 ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
