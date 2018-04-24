@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
@@ -6,11 +6,12 @@ ENV KEY_SERVER="hkp://keyserver.ubuntu.com:80"\
     VERSION_GOSU=1.10 \
     # Avoid selection dialogs such as required when run `dpkg-reconfigure locales` by setting Debian globals.
     DEBCONF_NONINTERACTIVE_SEEN=true \
-    DEBIAN_FRONTEND=noninteractive
+    DEBIAN_FRONTEND=noninteractive \
+    LANG=C.UTF-8
 
 # Avoid "debconf: delaying package configuration, since apt-utils is not installed" by installing apt-utils first. 
-RUN apt-get update --quiet --quiet \
- && apt-get install --quiet --quiet --yes --no-install-recommends \
+RUN apt-get update --quiet --quiet --yes \
+  && apt-get install --quiet --quiet --yes --no-install-recommends \
     apt-utils \
     language-pack-en
 
@@ -21,11 +22,11 @@ ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
 
-RUN apt-get install --quiet --quiet --yes --no-install-recommends \
-    # ca-certificates come with curl
+RUN apt-get update --quiet --quiet --yes \
+ && apt-get install --quiet --quiet --yes --no-install-recommends \
     curl \
     dirmngr \
-    language-pack-en \
+    gnupg-agent \
     software-properties-common \
     unzip \
     xz-utils

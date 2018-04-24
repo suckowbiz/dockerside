@@ -29,11 +29,6 @@ services:
     image: suckowbiz/base-av
     depends_on:
       - base
-  base-builder:
-    build: base/builder
-    image: suckowbiz/base-builder
-    depends_on:
-      - base
   caddy:
     build: caddy
     image: suckowbiz/caddy
@@ -49,11 +44,6 @@ services:
     image: suckowbiz/chrome
     depends_on:
       - "base-av"
-  clementine:
-    build: clementine
-    image: suckowbiz/clementine
-    depends_on:
-      - "base-av"
   gimp:
     build: gimp
     image: suckowbiz/gimp
@@ -63,7 +53,7 @@ services:
     build: git
     image: suckowbiz/git
     depends_on:
-      - "base-builder"
+      - "base"
   goland:
     build: goland
     image: suckowbiz/goland
@@ -72,11 +62,6 @@ services:
   keepass2:
     build: keepass2
     image: suckowbiz/keepass2
-    depends_on:
-      - "base-av"
-  idea:
-    build: idea
-    image: suckowbiz/idea
     depends_on:
       - "base-av"
   nginx:
@@ -99,16 +84,11 @@ services:
     image: suckowbiz/nfs
     depends_on:
       - "base"
-  steam:
-    build: steam
-    image: suckowbiz/steam
-    depends_on:
-      - "base-av"
   supertux:
     build: supertux
     image: suckowbiz/supertux
     depends_on:
-      - "base-builder"
+      - "base"
   tor:
     build: tor
     image: suckowbiz/tor

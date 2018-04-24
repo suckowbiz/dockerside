@@ -4,7 +4,7 @@ all:
 	$(COMPOSE) --no-cache 
 
 base:
-	$(COMPOSE) base base-av base-builder
+	$(COMPOSE) base base-av
 
 dev:  
 	$(COMPOSE) code goland

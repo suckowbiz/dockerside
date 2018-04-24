@@ -1,4 +1,4 @@
-FROM suckowbiz/base-builder
+FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
@@ -15,9 +15,11 @@ ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
 RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     asciidoc \
     autoconf \
+    build-essential \
     docbook \
     gettext \
     less \
+    libcurl4-openssl-dev \
     man \
     ssh \
     tcl \

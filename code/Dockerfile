@@ -1,4 +1,4 @@
-## These instructions serve the purpose to run Intellij IDEA.
+## These instructions serve the purpose to run vscode.
 FROM suckowbiz/base-av
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"

@@ -1,4 +1,4 @@
-FROM suckowbiz/base-builder
+FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
@@ -7,8 +7,10 @@ ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
 
 RUN apt-get update --quiet \
  && apt-get --quiet --quiet --yes --no-install-recommends install \
+    build-essential \
     cmake \
     git \
+    libcurl4-openssl-dev \
     libboost-all-dev \
     libglew-dev \
     libopenal-dev \

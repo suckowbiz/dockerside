@@ -4,12 +4,12 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 ENV VERSION_GO="1.10" \
     VERSION_GOLAND="2018.1.1"
 
+#     libappindicator1 \
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     git \
-    libappindicator1 \
-    libcurl3 \
-    libxss1 \
+    libxtst6 \
+    libxtst-dev \
     man \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \

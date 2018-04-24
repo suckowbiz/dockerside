@@ -12,7 +12,11 @@ ENV ENTRYPOINT_GROUPS="audio,video" \
 RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     expect \
     less \
+    libsnappy1v5 \
     libxss1 \
+    libxtst6 \
+    libqt5gui5 \
+    xdg-utils \
     wget
 
 WORKDIR /opt
@@ -22,7 +26,7 @@ RUN curl \
     --location \
     --show-error \
     --output pixum.tar.gz \
-    https://dls.photoprintit.com/api/getClient/1291-de_DE/hps/b303030303030303030303030303030303030303030303030353835343733327/linux \
+    https://dls.photoprintit.com/api/getClient/1291-de_DE/hps/c303030303030303030303030303030303030303030303030363036353833356/linux \
  && tar --extract --file pixum.tar.gz
 COPY context .
 RUN expect setup.exp 

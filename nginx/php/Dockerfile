@@ -15,8 +15,8 @@ RUN \
  # path expected for fpm socket
  mkdir --parent /var/run/php \
  # Secure php processor to disallow execution of closes script if requestet php can not be found.
- && sed --in-place "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.0/fpm/php.ini \
- && sed --in-place "s/;daemonize = yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf
+ && sed --in-place "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.ini \
+ && sed --in-place "s/;daemonize = yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm.conf
 
 COPY context /
 ENV ENTRYPOINT_AS_ROOT=yes

@@ -36,5 +36,4 @@ docker run \
   --env GIVEN_USER_ID="${UID}" \
   --publish 80:80 \
   --name "${CONTAINER_NAME}" \
-  --volume "${DOCUMENT_ROOT}":/usr/share/nginx/html \
   ${IMAGE_NAME}
