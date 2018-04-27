@@ -34,6 +34,11 @@ services:
     image: suckowbiz/caddy
     depends_on:
       - base
+  clementine:
+    build: clementine
+    image: suckowbiz/clementine
+    depends_on:
+      - "base-av"
   code:
     build: code
     image: suckowbiz/vscode
@@ -74,16 +79,16 @@ services:
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
-  pixum:
-    build: pixum
-    image: suckowbiz/pixum
-    depends_on:
-      - "base-av"
   nfs:
     build: nfs
     image: suckowbiz/nfs
     depends_on:
       - "base"
+  pixum:
+    build: pixum
+    image: suckowbiz/pixum
+    depends_on:
+      - "base-av"
   supertux:
     build: supertux
     image: suckowbiz/supertux

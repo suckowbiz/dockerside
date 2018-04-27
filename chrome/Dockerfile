@@ -24,7 +24,7 @@ RUN curl \
 
 WORKDIR /etc/skel
 RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
- && mkdir --parent .config/pulse \
+ && mkdir .config \
  && ln --symbolic "${USER_DATA_DIR}" ".config/${INSTALL_CANDIDATE}"
 
 VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]

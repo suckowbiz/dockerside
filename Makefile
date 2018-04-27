@@ -1,7 +1,7 @@
 COMPOSE=docker-compose build --no-cache
 
 all:
-	$(COMPOSE) --no-cache 
+	$(COMPOSE) 
 
 base:
 	$(COMPOSE) base base-av

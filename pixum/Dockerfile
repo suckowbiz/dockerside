@@ -26,7 +26,7 @@ RUN curl \
     --location \
     --show-error \
     --output pixum.tar.gz \
-    https://dls.photoprintit.com/api/getClient/1291-de_DE/hps/c303030303030303030303030303030303030303030303030363036353833356/linux \
+    https://dls.photoprintit.com/api/getClient/1291-de_DE/hps/a303030303030303030303030303030303030303030303030363037353432393/linux/6.2.6 \
  && tar --extract --file pixum.tar.gz
 COPY context .
 RUN expect setup.exp 
