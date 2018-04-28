@@ -9,7 +9,10 @@ ENV ENTRYPOINT_GROUPS="audio,video"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     # Advanced Linux Sound Architecture
-    alsa-* \
+    #alsa-* \
+    alsa-base \
+    alsa-oss \
+    alsa-tools \
     dbus-x11 \
     # Fonts with the same metrics as Times, Arial and Courier
     fonts-liberation \
@@ -18,7 +21,14 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     # Layout and rendering of internationalized text
     libpango1.0 \
     # simple abstract interface for playing event sounds
-    libcanberra-* \
+    #libcanberra-* \
+    libcanberra-gtk3-dev \
+    libcanberra-gtk3-module \
+    libcanberra-gtk-module \
+     # GStreamer backend for libcanberra
+    libcanberra-gstreamer \
+    # PulseAudio backend for libcanberra
+    libcanberra-pulse \
     libgtk2.0 \
     # desktop integration utilities from freedesktop.org
     xdg-utils \

@@ -30,6 +30,5 @@ RUN git clone --depth 1 --recurse-submodules https://github.com/SuperTux/supertu
 
 VOLUME "${SUPERTUX2_USER_DIR}"
 
-ENV ENTRYPOINT_GROUPS="audio,video"
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/opt/supertux/build/supertux2"]

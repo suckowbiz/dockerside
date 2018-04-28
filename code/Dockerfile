@@ -30,8 +30,6 @@ WORKDIR /etc/skel
 RUN ln --symbolic /Code Code \
  && ln --symbolic /opt/git/.gitconfig .gitconfig
 
-ENV ENTRYPOINT_GROUPS="audio,video"
-
 VOLUME ["/opt/git/.gitconfig", "/opt/vscode/extensions", "/opt/vscode/userdata", "/Code"]
 WORKDIR /Code
 

@@ -30,4 +30,4 @@ RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
 VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]
 
 WORKDIR "${USER_DOWNLOAD_DIR}"
-ENTRYPOINT ["/entrypoint.sh", "google-chrome", "--no-referrers", "--start-maximized"]
+ENTRYPOINT ["/entrypoint.sh", "google-chrome", "--start-maximized"]

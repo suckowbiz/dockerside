@@ -16,11 +16,9 @@ RUN ln --symbolic "${USER_MUSIC}" Music \
  && mkdir .config \
  && ln --symbolic "${USER_CONFIG}" .config/Clementine
 
-ENV ENTRYPOINT_GROUPS="audio,video" \
- # Get rid of "X Error: BadDrawable (invalid Pixmap or Window parameter) 9"
- QT_X11_NO_MITSHM=1
+# Get rid of "X Error: BadDrawable (invalid Pixmap or Window parameter) 9"
+ENV QT_X11_NO_MITSHM=1
 
-VOLUME ["${USER_MUSIC}"]
-VOLUME ["${USER_CONFIG}"]
+VOLUME ["${USER_MUSIC}", "${USER_CONFIG}"]
 
 ENTRYPOINT ["/entrypoint.sh", "clementine"]
