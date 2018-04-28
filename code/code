@@ -7,7 +7,6 @@ readonly CONTAINER_NAME='code'
 
 readonly GIT_CONFIG="${HOME}/.gitconfig"
 mkdir --parents \
-    "${PROJECTS_ROOT:=${HOME}/VSCodeProjects}" \
     "${USERDATA_ROOT:=${HOME}/.config/vscode/userdata}" \
     "${EXTENSIONS_ROOT:=${HOME}/.config/vscode/extensions}" \
 
