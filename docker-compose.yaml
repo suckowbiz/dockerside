@@ -1,26 +1,6 @@
 ---
 version: '3'
 services:
-  ansible:
-    build: ansible/control
-    image: suckowbiz/ansible
-    depends_on:
-      - "ansible-base"
-  ansible-base:
-    build: ansible/base
-    image: suckowbiz/ansible-base
-    depends_on:
-      - "base"
-  ansible-playbook:
-    build: ansible/playbook
-    image: suckowbiz/ansible-playbook
-    depends_on:
-      - "ansible-base"
-  ansible-vault:
-    build: ansible/vault
-    image: suckowbiz/ansible-vault
-    depends_on:
-      - "ansible-base"
   base:
     build: base/base
     image: suckowbiz/base
@@ -29,88 +9,8 @@ services:
     image: suckowbiz/base-av
     depends_on:
       - base
-  base-builder:
-    build: base/builder
-    image: suckowbiz/base-builder
-    depends_on:
-      - base
-  caddy:
-    build: caddy
-    image: suckowbiz/caddy
-    depends_on:
-      - base
-  code:
-    build: code
-    image: suckowbiz/vscode
-    depends_on:
-      - "base-av"
-  chrome:
-    build: chrome
-    image: suckowbiz/chrome
-    depends_on:
-      - "base-av"
-  clementine:
-    build: clementine
-    image: suckowbiz/clementine
-    depends_on:
-      - "base-av"
-  gimp:
-    build: gimp
-    image: suckowbiz/gimp
-    depends_on:
-      - "base-av"
-  git:
-    build: git
-    image: suckowbiz/git
-    depends_on:
-      - "base-builder"
-  goland:
-    build: goland
-    image: suckowbiz/goland
-    depends_on:
-      - "base-av"
-  keepass2:
-    build: keepass2
-    image: suckowbiz/keepass2
-    depends_on:
-      - "base-av"
-  idea:
-    build: idea
-    image: suckowbiz/idea
-    depends_on:
-      - "base-av"
-  nginx:
-    build: nginx/base
-    image: suckowbiz/nginx
-    depends_on:
-      - "base"
-  nginx-php:
-    build: nginx/php
-    image: suckowbiz/nginx-php
-    depends_on:
-      - "nginx"
   pixum:
     build: pixum
     image: suckowbiz/pixum
     depends_on:
       - "base-av"
-  nfs:
-    build: nfs
-    image: suckowbiz/nfs
-    depends_on:
-      - "base"
-  steam:
-    build: steam
-    image: suckowbiz/steam
-    depends_on:
-      - "base-av"
-  supertux:
-    build: supertux
-    image: suckowbiz/supertux
-    depends_on:
-      - "base-builder"
-  tor:
-    build: tor
-    image: suckowbiz/tor
-    depends_on:
-      - "base"

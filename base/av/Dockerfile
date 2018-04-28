@@ -16,7 +16,7 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     alsa-oss \
     alsa-tools \
     # GStreamer: open source multimedia framework
-    gstreamer1.0 \
+    #gstreamer1.0 \
     # simple abstract interface for playing event sounds
     libcanberra0 \
     # translates GTK+ widgets signals to event sounds

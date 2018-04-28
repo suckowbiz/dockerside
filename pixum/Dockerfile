@@ -13,6 +13,7 @@ RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     expect \
     less \
     libxss1 \
+    libsnappy1v5 \
     wget
 
 WORKDIR /opt

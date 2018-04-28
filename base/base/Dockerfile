@@ -24,6 +24,7 @@ ENV LC_ALL=en_US.UTF-8 \
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     # ca-certificates come with curl
     curl \
+    gnupg-agent \
     dirmngr \
     language-pack-en \
     software-properties-common \

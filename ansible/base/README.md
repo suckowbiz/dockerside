@@ -1,3 +1,0 @@
-# ansible
-
-Ansible base installation.

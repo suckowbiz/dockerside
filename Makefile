@@ -1,12 +1,8 @@
 COMPOSE=docker-compose build --no-cache
 
+.DEFAULT_GOAL := all
+
 all:
-	$(COMPOSE) --no-cache 
+	$(COMPOSE)
 
-base:
-	$(COMPOSE) base base-av base-builder
-
-dev:  
-	$(COMPOSE) code goland
-
-.PHONY: all base dev
+.PHONY: all
