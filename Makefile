@@ -1,7 +1,12 @@
 COMPOSE=docker-compose build --no-cache
 
+.DEFAULT_GOAL := all
+
 all:
 	$(COMPOSE) 
+
+chrome:
+	$(COMPOSE) chrome
 
 base:
 	$(COMPOSE) base base-av
