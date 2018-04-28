@@ -36,12 +36,15 @@ RUN curl --fail --location --show-error --silent --output git.tar.gz "${URL_GIT_
  && cd "git-${VERSION_GIT}" \
  && make configure \
  && ./configure --prefix=/usr \
- && make all doc \
- && make install install-doc install-html
+ && make all man \
+ && make install install-man
 
 WORKDIR /opt/git-${VERSION_GIT}/contrib/subtree
 RUN make \
- && make install install-doc
+ && make install install-man
+
+WORKDIR /opt
+RUN rm --force --recursive "git-${VERSION_GIT}" 
 
 WORKDIR /var/tmp
 RUN curl \
