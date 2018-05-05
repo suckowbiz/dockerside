@@ -50,6 +50,7 @@ xhost +local:root > /dev/null 2>&1
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 
 # shellcheck disable=SC2006,SC2046,SC2086
+#  --ipc=host \
 readonly CONTAINER_ID=$(docker run \
   --detach \
   --hostname ${CONTAINER_NAME} \
@@ -69,7 +70,6 @@ readonly CONTAINER_ID=$(docker run \
   `# Chrome` \
   ${DEV_VIDEO} \
   --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
-  --ipc=host \
   --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
   --volume "${USER_DOWNLOAD_DIR}":/var/lib/chrome/downloads \
   `# DBus` \

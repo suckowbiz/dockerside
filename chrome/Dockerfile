@@ -31,4 +31,4 @@ VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]
 
 WORKDIR "${USER_DOWNLOAD_DIR}"
 ENTRYPOINT ["/entrypoint.sh", "google-chrome"]
-CMD [ "--start-maximized", "--no-default-browser-check", "--no-first-run", "--incognito" ]
+CMD [ "--start-maximized", "--disable-dev-shm-usage", "--no-default-browser-check", "--no-first-run", "--incognito" ]
