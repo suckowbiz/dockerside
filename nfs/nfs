@@ -31,14 +31,18 @@ EOH
 
 docker rm --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 # Appropriate privilege (Linux: the CAP_SYS_ADMIN capability) is required to mount filesystems.
-docker run \
-  --cap-add SYS_ADMIN \
+readonly CONTAINER_ID=$(docker run \
   --detach \
-  --rm \
+  --hostname ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  `# NFS` \
+  --cap-add SYS_ADMIN \
   --env NFS_DOMAIN="${NFS_DOMAIN}" \
   --env NFS_URI="${NFS_URI}" \
-  --name "${CONTAINER_NAME}" \
   --security-opt apparmor:unconfined \
+  --rm \
   --tty \
   --volume "${NFS_MOUNT}":"/mnt":shared \
-  "${IMAGE_NAME}" "$@"
+  "${IMAGE_NAME}" "$@")
+echo "${CONTAINER_ID}"  

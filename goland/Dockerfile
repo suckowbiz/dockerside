@@ -4,7 +4,6 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 ENV VERSION_GO="1.10" \
     VERSION_GOLAND="2018.1.2"
 
-#     libappindicator1 \
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     git \

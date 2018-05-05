@@ -33,21 +33,26 @@ xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm -f -v ${CONTAINER_NAME} >/dev/null 2>&1 || true
-docker run \
+readonly CONTAINER_ID=$(docker run \
   --detach \
-  --device /dev/dri \
+  --hostname ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  `# Video` \
+  --device /dev/dri `# Direct GPU access improves gfx rendering.` \
   --env DISPLAY \
-  --env GIVEN_GROUP="$(id -gn "${USER}")" \
-  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  `# Entrypoint` \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
+  `# Code` \
   --ipc=host \
-  --name "${CONTAINER_NAME}" \
   --privileged \
-  --volume /etc/localtime:/etc/localtime:ro \
   --volume "${EXTENSIONS_ROOT}":/opt/vscode/extensions \
   --volume "${GIT_CONFIG}":/opt/git/.gitconfig \
   --volume "${PWD}":/Code \
-  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USERDATA_ROOT}":/opt/vscode/userdata \
-  ${IMAGE_NAME} "$@"
+  ${IMAGE_NAME} "$@")
+echo "${CONTAINER_ID}"

@@ -4,7 +4,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_DATA_DIR="/var/lib/chrome/data" \
     USER_DOWNLOAD_DIR="/var/lib/chrome/downloads" \
-    INSTALL_CANDIDATE=google-chrome-beta
+    INSTALL_CANDIDATE=google-chrome-stable
 
 # Install Google Chrome from third party ppa to have latest version.
 # (source: http://www.ubuntuupdates.org/ppa/google_chrome, https://www.google.com/linuxrepositories/)
@@ -30,4 +30,5 @@ RUN ln --symbolic "${USER_DOWNLOAD_DIR}" Downloads \
 VOLUME ["${USER_DOWNLOAD_DIR}", "${USER_DATA_DIR}"]
 
 WORKDIR "${USER_DOWNLOAD_DIR}"
-ENTRYPOINT ["/entrypoint.sh", "google-chrome", "--start-maximized"]
+ENTRYPOINT ["/entrypoint.sh", "google-chrome"]
+CMD [ "--start-maximized", "--no-default-browser-check", "--no-first-run", "--incognito" ]

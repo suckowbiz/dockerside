@@ -27,9 +27,9 @@ cat <<EOH
 ╚═╝└─┘└─┘└─┘┴─┘└─┘  ╚═╝┴ ┴┴└─└─┘┴ ┴└─┘
 ${IMAGE_NAME}
 
-=========
+========
 Volumes:
-=========
+========
 Downloads: '${USER_DOWNLOAD_DIR}'
 Settings.: '${USER_DATA_DIR}'
 
@@ -48,23 +48,34 @@ xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+
 # shellcheck disable=SC2006,SC2046,SC2086
-#   --ipc=host \
-docker run \
-  --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
+readonly CONTAINER_ID=$(docker run \
   --detach \
-  --device /dev/dri `# Direct GPU access improves gfx rendering to avoid fail e.g. on google maps usage.` \
-  ${DEV_VIDEO} \
-  --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" `#using /dev/snd in compbination with ipc=host failed the hosts sound!` \
+  --hostname ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  `# Audio` \
+  --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" \
+  `# Video` \
+  --device /dev/dri `# Direct GPU access improves gfx rendering.` \
   --env DISPLAY \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  `# Entrypoint` \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
   --env GIVEN_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
+  `# Chrome` \
+  ${DEV_VIDEO} \
+  --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
   --ipc=host \
-  --name "${CONTAINER_NAME}" \
-  --volume /etc/localtime:/etc/localtime:ro \
-  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
   --volume "${USER_DOWNLOAD_DIR}":/var/lib/chrome/downloads \
-  "${IMAGE_NAME}" "--incognito"
+  `# DBus` \
+  --env DBUS_SESSION_BUS_ADDRESS \
+  --security-opt apparmor:unconfined `# Solves: An AppArmor policy prevents this sender from sending this message to this recipient`\
+  --volume /var/run/dbus:/var/run/dbus `# Solves: Failed to connect to socket /var/run/dbus/system_bus_socket` \
+  --volume /run/user/${UID}/bus:/run/user/${UID}/bus \
+  "${IMAGE_NAME}")
+echo "${CONTAINER_ID}"

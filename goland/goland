@@ -22,9 +22,9 @@ cat <<EOH
 ╚═╝└─┘┴─┘┴ ┴┘└┘─┴┘
 $IMAGE_NAME
 
-=======
+========
 Volumes:
-=======
+========
 GoLand Conf.....: '${GOLAND_CONF}'
 GoLand Java Conf: '${JAVA_CONF}'
 GOPATH..........: '${GOPATH}'
@@ -38,20 +38,27 @@ xhost +local:root > /dev/null 2>&1
 # removing previous existing containers to enable start up
 #  --net=host \
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
-res=$(docker run \
+readonly CONTAINER_ID=$(docker run \
   --detach \
+  --hostname ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  `# Audio` \
+  --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" \
+  `# Video` \
+  --device /dev/dri `# Direct GPU access improves gfx rendering.` \
   --env DISPLAY \
-  --env GIVEN_GROUP="$(id -gn "${USER}")" \
-  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  `# Entrypoint` \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
-  --name "${CONTAINER_NAME}" \
+  `# Goland` \
   --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
-  --volume /etc/localtime:/etc/localtime:ro \
-  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   --volume "${GIT_CONF}:/volume/.gitconfig" \
   --volume "${GOLAND_CONF}:/volume/.GoLand" \
   --volume "${JAVA_CONF}:/volume/.java" \
   --volume "${GOPATH}:/volume/go" \
-  ${IMAGE_NAME})
-echo $res
+  "${IMAGE_NAME}")
+echo "${CONTAINER_ID}"
