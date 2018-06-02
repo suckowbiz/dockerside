@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# Intentionally created to run the below Docker Image.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly CONTAINER_NAME='chromix'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+readonly USER_DOWNLOAD_DIR="${HOME}/Downloads"
+if [[ ! -e "${USER_DOWNLOAD_DIR}" ]]; then
+    mkdir --parent "${USER_DOWNLOAD_DIR}"
+fi
+
+readonly USER_DATA_DIR="${HOME}/.config/${CONTAINER_NAME}"
+if [[ ! -e "${USER_DATA_DIR}" ]]; then
+    mkdir --parent "${USER_DATA_DIR}"
+fi
+
+# http://patorjk.com/software/taag/#p=display&h=0&f=Calvin%20S&t=Google%20Chrome
+cat <<EOH
+
+╔═╗┌─┐┌─┐┌─┐┬  ┌─┐  ╔═╗┬ ┬┬─┐┌─┐┌┬┐┌─┐
+║ ╦│ ││ ││ ┬│  ├┤   ║  ├─┤├┬┘│ ││││├┤ 
+╚═╝└─┘└─┘└─┘┴─┘└─┘  ╚═╝┴ ┴┴└─└─┘┴ ┴└─┘
+${IMAGE_NAME}
+
+========
+Volumes:
+========
+Downloads: '${USER_DOWNLOAD_DIR}'
+Settings.: '${USER_DATA_DIR}'
+
+EOH
+
+# Enable pulse audio TCP server to connect to it.
+readonly DOCKER_BRIDGE_IP='172.17.0.1'
+readonly PULSE_AUDIO_TCP_MODULE='module-native-protocol-tcp'
+readonly PULSE_AUDIO_TCP=$(pactl list modules |grep --silent "${PULSE_AUDIO_TCP_MODULE}"; echo $?)
+if [[ "$PULSE_AUDIO_TCP" = "1" ]]; then
+    pactl load-module "${PULSE_AUDIO_TCP_MODULE}" auth-ip-acl="${DOCKER_BRIDGE_IP}" auth-anonymous=1 1>/dev/null
+fi
+
+# enable passing display to be able to run any GUI
+xhost +local:root > /dev/null 2>&1
+
+# removing previous existing containers to enable start up
+docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+
+# shellcheck disable=SC2006,SC2046,SC2086
+readonly CONTAINER_ID=$(docker run \
+  --detach \
+  --hostname ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  `# Audio` \
+  --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" \
+  `# Video` \
+  --device /dev/dri `# Direct GPU access improves gfx rendering.` \
+  --env DISPLAY \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  `# Entrypoint` \
+  --env GIVEN_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER="${USER}" \
+  --env GIVEN_USER_ID="${UID}" \
+  `# Chrome` \
+  --cpus 0.5 \
+  --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
+  --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
+  --volume "${USER_DOWNLOAD_DIR}":/var/lib/chrome/downloads \
+  `# DBus` \
+  --env DBUS_SESSION_BUS_ADDRESS \
+  --security-opt apparmor:unconfined `# Solves: An AppArmor policy prevents this sender from sending this message to this recipient`\
+  --volume /var/run/dbus:/var/run/dbus `# Solves: Failed to connect to socket /var/run/dbus/system_bus_socket` \
+  --volume /run/user/${UID}/bus:/run/user/${UID}/bus \
+  "${IMAGE_NAME}")
+echo "${CONTAINER_ID}"
