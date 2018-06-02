@@ -14,4 +14,4 @@ base:
 dev:  
 	$(COMPOSE) code goland
 
-.PHONY: all base dev
+.PHONY: all chrome base dev

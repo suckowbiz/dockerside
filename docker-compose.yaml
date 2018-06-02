@@ -49,6 +49,11 @@ services:
     image: suckowbiz/chrome
     depends_on:
       - "base-av"
+  chromix:
+    build: chromix
+    image: suckowbiz/chromix
+    depends_on:
+      - "chrome"
   gimp:
     build: gimp
     image: suckowbiz/gimp
