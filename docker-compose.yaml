@@ -84,11 +84,6 @@ services:
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
-  nfs:
-    build: nfs
-    image: suckowbiz/nfs
-    depends_on:
-      - "base"
   supertux:
     build: supertux
     image: suckowbiz/supertux
