@@ -67,7 +67,6 @@ readonly CONTAINER_ID=$(docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   `# Chrome` \
-  --cpus 1 \
   ${DEV_VIDEO} \
   --cap-add SYS_ADMIN `# Enable privilege to utilize PID namespace features required by chrome. (see man clone)` \
   --volume "${USER_DATA_DIR}":/var/lib/chrome/data \
