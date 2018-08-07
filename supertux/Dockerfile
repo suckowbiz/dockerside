@@ -14,6 +14,7 @@ RUN apt-get update --quiet \
     libboost-all-dev \
     libglew-dev \
     libopenal-dev \
+    libpng-dev \
     libsdl2-dev \
     libsdl2-image-dev \
     libvorbis-dev

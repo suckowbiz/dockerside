@@ -46,15 +46,17 @@ RUN make \
 WORKDIR /opt
 RUN rm --force --recursive "git-${VERSION_GIT}" 
 
-WORKDIR /var/tmp
+WORKDIR /var/tmp/git-lfs
 RUN curl \
     --fail \
     --location \
     --show-error \
     --remote-name \
     https://github.com/git-lfs/git-lfs/releases/download/v${VERSION_GIT_LFS}/git-lfs-linux-amd64-v${VERSION_GIT_LFS}.tar.gz \
- && tar --extract --file git-lfs-linux-amd64-v${VERSION_GIT_LFS}.tar.gz \
- && git-lfs-v${VERSION_GIT_LFS}/install.sh \
+ && tar --extract --file git-lfs-linux-amd64-v${VERSION_GIT_LFS}.tar.gz
+
+WORKDIR /var/tmp
+RUN git-lfs/install.sh \
  && rm --recursive --force git-lfs*
 
 WORKDIR /etc/skel/
