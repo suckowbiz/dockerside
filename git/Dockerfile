@@ -2,8 +2,8 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GIT=2.17.1 \
-    VERSION_GIT_LFS=2.4.2 \
+ENV VERSION_GIT=2.18.0 \
+    VERSION_GIT_LFS=2.5.1 \
     GIT_HOME="/var/lib/git"
 
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
@@ -51,11 +51,10 @@ RUN curl \
     --fail \
     --location \
     --show-error \
-    --silent \
     --remote-name \
-    https://github.com/git-lfs/git-lfs/releases/download/v${VERSION_GIT_LFS}/git-lfs-linux-amd64-${VERSION_GIT_LFS}.tar.gz \
- && tar --extract --file git-lfs-linux-amd64-${VERSION_GIT_LFS}.tar.gz \
- && git-lfs-${VERSION_GIT_LFS}/install.sh \
+    https://github.com/git-lfs/git-lfs/releases/download/v${VERSION_GIT_LFS}/git-lfs-linux-amd64-v${VERSION_GIT_LFS}.tar.gz \
+ && tar --extract --file git-lfs-linux-amd64-v${VERSION_GIT_LFS}.tar.gz \
+ && git-lfs-v${VERSION_GIT_LFS}/install.sh \
  && rm --recursive --force git-lfs*
 
 WORKDIR /etc/skel/

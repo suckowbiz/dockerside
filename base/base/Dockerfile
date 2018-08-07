@@ -11,9 +11,9 @@ ENV KEY_SERVER="hkp://keyserver.ubuntu.com:80"\
 
 # Avoid "debconf: delaying package configuration, since apt-utils is not installed" by installing apt-utils first. 
 RUN apt-get update --quiet --quiet --yes \
-  && apt-get install --quiet --quiet --yes --no-install-recommends \
+&& apt-get install --quiet --quiet --yes --no-install-recommends \
     apt-utils \
-    language-pack-en
+    language-pack-en-base
 
 # Setting locales must happen after installation of language-pack-en since it 
 # generates and configurates locales first and avoids:
