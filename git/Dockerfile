@@ -2,8 +2,8 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GIT=2.18.0 \
-    VERSION_GIT_LFS=2.5.1 \
+ENV VERSION_GIT=2.19.0 \
+    VERSION_GIT_LFS=2.5.2 \
     GIT_HOME="/var/lib/git"
 
 ENV GIT_CONFIG_DIR="${GIT_HOME}/config" \
