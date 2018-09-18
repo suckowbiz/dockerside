@@ -1,8 +1,8 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.10.2" \
-    VERSION_GOLAND="2018.2"
+ENV VERSION_GO="1.11" \
+    VERSION_GOLAND="2018.2.2"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
@@ -55,6 +55,9 @@ ENV GOROOT="/usr/local/go" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
     VOL_JAVA_CONF="/volume/.java"
 RUN for volume in "${VOL_GIT_CONF}" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done
+
+# In case one runs "go tool tour" on 3999 the go tour server is listening.
+EXPOSE 3999
 
 WORKDIR "${GOPATH}"
 VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
