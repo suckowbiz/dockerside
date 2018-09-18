@@ -7,14 +7,20 @@ ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
 
 RUN apt-get update --quiet \
  && apt-get --quiet --quiet --yes --no-install-recommends install \
+    automake \
     build-essential \
     cmake \
     git \
-    libcurl4-openssl-dev \
     libboost-all-dev \
+    libcurl4-openssl-dev \
+    libfreetype6-dev \
+    libfribidi-dev \
     libglew-dev \
     libopenal-dev \
+    libogg-dev \
+    libphysfs-dev \
     libpng-dev \
+    libraqm-dev \
     libsdl2-dev \
     libsdl2-image-dev \
     libvorbis-dev
