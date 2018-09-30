@@ -11,8 +11,8 @@ ENV USER_DATA_DIR="/var/lib/chrome/data" \
 # (source: http://www.ubuntuupdates.org/ppa/google_chrome, https://www.google.com/linuxrepositories/)
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
 RUN curl \
-    --insecure \
     --fail \
+    --insecure \
     --location \
     --remote-name \
     --show-error \
