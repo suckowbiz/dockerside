@@ -7,8 +7,8 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
  && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
  && sh -c 'echo "deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
-# E.g. plantuml Plugin requires Graphviz
-# E.g. plantuml Plugin requires JAVA
+# Java - Platform for PlantUML running. Java development. 
+# Graphviz : PlantUML requires it to calculate positions in diagram.
 # rxvt-* This avoids having non printable chars like "[]"" in menu.
 RUN apt-get update --quiet \
  && apt-get install --quiet --quiet --yes --no-install-recommends \
@@ -19,7 +19,11 @@ RUN apt-get update --quiet \
     shellcheck \
     libxss1 \
     libgconf-2-4 \
-    openjdk-8-* \
+    openjdk-11-doc \
+    openjdk-11-jdk \
+    openjdk-11-source \
+    openjdk-11-demo \
+    openjdk-11-dbg \
     php \
     rxvt-unicode-256color \
  && apt-get clean --quiet \
