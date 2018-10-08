@@ -11,8 +11,6 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     dbus-x11 \
     # Intel i8xx, i9xx display driver
     xserver-xorg-video-intel \
-    # Fonts with the same metrics as Times, Arial and Courier
-    fonts-liberation \
     # Light Themes (Ambiance and Radiance)
     light-themes \
     # Layout and rendering of internationalized text
@@ -28,4 +26,4 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     # desktop integration utilities from freedesktop.org
     xdg-utils \
     #  X.Org X server
-    xorg 
+    xorg
