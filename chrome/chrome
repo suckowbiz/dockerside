@@ -36,7 +36,7 @@ Settings.: '${USER_DATA_DIR}'
 EOH
 
 # Enable pulse audio TCP server to connect to it.
-readonly DOCKER_BRIDGE_IP='172.17.0.1'
+readonly DOCKER_BRIDGE_IP=$(docker network inspect --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}' bridge)
 readonly PULSE_AUDIO_TCP_MODULE='module-native-protocol-tcp'
 readonly PULSE_AUDIO_TCP=$(pactl list modules |grep --silent "${PULSE_AUDIO_TCP_MODULE}"; echo $?)
 if [[ "$PULSE_AUDIO_TCP" = "1" ]]; then

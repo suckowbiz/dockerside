@@ -56,6 +56,11 @@ ENV GOROOT="/usr/local/go" \
     VOL_JAVA_CONF="/volume/.java"
 RUN for volume in "${VOL_GIT_CONF}" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done
 
+# Add support for integration of go modules
+# See https://www.jetbrains.com/help/go/create-a-project-with-vgo-integration.html
+RUN go get -u golang.org/x/vgo
+ENV GO111MODULE=on
+
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
