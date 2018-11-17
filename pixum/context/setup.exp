@@ -2,12 +2,13 @@ spawn ./install.pl
 
 set timeout -1
 
-expect "*Weiter mit \<CR\>."
+expect "*Weiter mit *"
 send "\n"
 send "q"
 
 expect "*Akzeptieren Sie die EULA?*"
 send "ja"
+send "\n"
 send "\n"
 
 expect "Wo soll * installiert werden? *"
@@ -17,7 +18,7 @@ expect "Das angegebene Verzeichnis existiert nicht. Soll es angelegt werden? *"
 send "JA"
 send "\n"
 
-expect "Wollen Sie die Installation fortsetzen und die benötigten Daten aus dem Internet herunter laden? *"
+expect "Wollen Sie die Installation fortsetzen *"
 send "JA"
 send "\n"
 
