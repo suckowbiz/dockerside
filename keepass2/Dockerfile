@@ -2,9 +2,7 @@ FROM suckowbiz/base-av
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-RUN add-apt-repository ppa:jtaylor/keepass
-RUN apt-get update --quiet --quiet \
- && apt-get --quiet --quiet --yes --no-install-recommends install \
+RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     keepass2
 
 ENV KEEPASS2_HOME=/var/lib/keepass2
