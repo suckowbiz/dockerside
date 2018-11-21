@@ -6,6 +6,7 @@ ENV VERSION_GO="1.11" \
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
+    chromium-browser \
     git \
     libxtst6 \
     libxtst-dev \
