@@ -7,6 +7,9 @@ set -e
 readonly CONTAINER_NAME='chrome'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
+readonly RUNNING_CONTAINER_ID=$(docker ps --quiet --filter "name=${CONTAINER_NAME}")
+[[ "${RUNNING_CONTAINER_ID}" = "" ]] || exit
+
 readonly USER_DOWNLOAD_DIR="${HOME}/Downloads"
 if [[ ! -e "${USER_DOWNLOAD_DIR}" ]]; then
     mkdir --parent "${USER_DOWNLOAD_DIR}"
