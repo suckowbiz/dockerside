@@ -4,9 +4,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_PICTURES=/var/lib/gimp/pictures
 
-RUN add-apt-repository --yes ppa:otto-kesselgulasch/gimp-edge \
- && apt-get update --quiet --quiet \
- && apt-get install --quiet --quiet --yes --no-install-recommends \
+RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     gimp \
     gimp-ufraw \
     gimp-help-en \
