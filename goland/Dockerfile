@@ -1,8 +1,8 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.11" \
-    VERSION_GOLAND="2018.2.3"
+ENV VERSION_GO="1.11.2" \
+    VERSION_GOLAND="2018.3.1"
 
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
