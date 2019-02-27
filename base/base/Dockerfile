@@ -3,7 +3,7 @@ FROM ubuntu:18.10
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV KEY_SERVER="hkp://keyserver.ubuntu.com:80"\
-    VERSION_GOSU=1.10 \
+    VERSION_GOSU=1.11 \
     # Avoid selection dialogs such as required when run `dpkg-reconfigure locales` by setting Debian globals.
     DEBCONF_NONINTERACTIVE_SEEN=true \
     DEBIAN_FRONTEND=noninteractive \
