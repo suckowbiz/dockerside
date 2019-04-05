@@ -7,12 +7,13 @@ set -e
 readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
-readonly GIT_CONF="${HOME}/.gitconfig"
 readonly BASE_CONF="${HOME}/.config"
 mkdir --parent \
+  "${GIT_CONF:=${BASE_CONF}/GoLand/gitconfig}" \
   "${GOPATH:=${HOME}/go}" \
   "${GOLAND_CONF:=${BASE_CONF}/GoLand}" \
   "${JAVA_CONF:=${BASE_CONF}/GoLand/java}" || true
+touch ${GIT_CONF}/.gitconfig
 
 # http://patorjk.com/software/taag/#p=display&h=0&f=Calvin%20S&t=Goland
 cat <<EOH
@@ -54,7 +55,7 @@ readonly CONTAINER_ID=$(docker run \
   --env GIVEN_USER_ID="${UID}" \
   `# Goland` \
   --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
-  --volume "${GIT_CONF}:/volume/.gitconfig" \
+  --volume "${GIT_CONF}:/volume/gitconfig" \
   --volume "${GOLAND_CONF}:/volume/.GoLand" \
   --volume "${JAVA_CONF}:/volume/.java" \
   --volume "${GOPATH}:/volume/go" \

@@ -21,6 +21,7 @@ RUN apt-get --quiet --quiet --yes --no-install-recommends install \
     less \
     libcurl4-openssl-dev \
     man \
+    man-db \
     ssh \
     tcl \
     tk \

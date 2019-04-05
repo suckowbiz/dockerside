@@ -1,34 +1,41 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.11.2" \
-    VERSION_GOLAND="2018.3.1"
+ENV VERSION_GO="1.12.1" \
+    VERSION_GOLAND="2019.1"
 
+# Markdown preview requires javafx (wich requires libxslt).
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     chromium-browser \
     git \
     libxtst6 \
     libxtst-dev \
+    libxslt1.1 \
     man \
+    openjfx \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
 
-# Install the go tools to provide golang environment: https://golang.org/doc/install#install
+COPY context /
+
+# Install the go distribution to provide golang environment.
+# Reference: https://golang.org/doc/install#install
 RUN curl \
     --fail \
     --location \
     --show-error \
-    "https://storage.googleapis.com/golang/go${VERSION_GO}.linux-amd64.tar.gz" | tar --directory /usr/local --extract --gzip
+    "https://dl.google.com/go/go${VERSION_GO}.linux-amd64.tar.gz" | tar --directory /usr/local --extract --gzip
 ENV PATH="${PATH}:/usr/local/go/bin"
 
-# Get important development tools to help finding issues when coding in go.
-ENV GOBIN="/usr/local/go/bin"
-RUN go get -t golang.org/x/tools/cmd/goimports \
- && go get -u github.com/alecthomas/gometalinter \
- && gometalinter --install \
-ENV GOBIN=""
+# Run a test to verify that Go is installed correctly.
+WORKDIR /root/go/src/hello
+RUN go build \
+  && ./hello > hello.actual \
+  && diff hello.actual hello.expected \
+  && test "$?" = "0" || (echo "Go installation seems broken"; exit 1) \
+  && go clean -i
 
 # Install goland to provide an entrypoint.
 WORKDIR /opt
@@ -48,23 +55,26 @@ ENV PATH="${PATH}:/opt/goland/bin"
 
 # Prepare user home to link runtime data to persistent directories.
 WORKDIR /etc/skel
+# In case /volume/gitconfig/.gitconfig is being written by git it will try to create a .gitconfig.lock file which must not fail.
+RUN mkdir --parent /volume/gitconfig \
+  && chmod 777 /volume/gitconfig
+ENV GOPATH="/volume/go"
 ENV GOROOT="/usr/local/go" \
-    GOPATH="/volume/go" \
-    GOBIN="/volume/go/bin" \
-    VOL_GIT_CONF="/volume/.gitconfig" \
-    VOL_GO="/volume/go" \
+    GOBIN="${GOPATH}/bin" \
+    PATH="${PATH}:${GOPATH}/bin" \
+    VOL_GIT_CONF="/volume/gitconfig" \
+    VOL_GO="${GOPATH}" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
     VOL_JAVA_CONF="/volume/.java"
-RUN for volume in "${VOL_GIT_CONF}" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done
+RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done
+VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
 
-# Add support for integration of go modules
+# Add support for integration of go modules.
 # See https://www.jetbrains.com/help/go/create-a-project-with-vgo-integration.html
 RUN go get -u golang.org/x/vgo
-ENV GO111MODULE=on
+ENV GO111MODULE=auto
 
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
-WORKDIR "${GOPATH}"
-VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
 ENTRYPOINT ["/entrypoint.sh", "goland.sh"]

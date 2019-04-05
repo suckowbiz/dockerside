@@ -48,7 +48,7 @@ locate_git_repository_root() {
 # To make everything work it is required to let GIT know where to find the repository root, the repository itself (.git)
 # and the current location within the repository.
 
-# ~/.config/git/config is on of the placed git searches for config. Here used to be able to mount a directory into container
+# ~/.config/git/config is one of the places git searches for config. Here used to be able to mount a directory into container
 # which is required because git creates .gitlock files there and this fails if the parent is not writable.
 # (source: https://git-scm.com/book/it/v2/Customizing-Git-Git-Configuration)
 readonly USER_GIT_CONFIG_ROOT="${HOME}/.config/git"
