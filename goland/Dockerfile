@@ -53,6 +53,18 @@ RUN curl \
  && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" goland/bin/idea.properties
 ENV PATH="${PATH}:/opt/goland/bin"
 
+# Go Modules requires VGO.
+RUN GO111MODULE=off go get golang.org/x/vgo
+
+# Git completion to ease working with git.
+RUN curl \
+    --fail \
+    --location \
+    --show-error \
+    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+    -o /git-completion.bash \
+  && chmod +x /git-completion.bash
+
 # Prepare user home to link runtime data to persistent directories.
 WORKDIR /etc/skel
 # In case /volume/gitconfig/.gitconfig is being written by git it will try to create a .gitconfig.lock file which must not fail.
