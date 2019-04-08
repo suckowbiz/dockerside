@@ -23,6 +23,7 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     # PulseAudio backend for libcanberra
     libcanberra-pulse \
     libgtk2.0 \
+    vim \
     # desktop integration utilities from freedesktop.org
     xdg-utils \
     #  X.Org X server
