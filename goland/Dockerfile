@@ -53,9 +53,6 @@ RUN curl \
  && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" goland/bin/idea.properties
 ENV PATH="${PATH}:/opt/goland/bin"
 
-# Go Modules requires VGO.
-RUN GO111MODULE=off go get golang.org/x/vgo
-
 # Git completion to ease working with git.
 RUN curl \
     --fail \
@@ -83,7 +80,7 @@ VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"
 
 # Add support for integration of go modules.
 # See https://www.jetbrains.com/help/go/create-a-project-with-vgo-integration.html
-RUN go get -u golang.org/x/vgo
+RUN GO111MODULE=off go get -u golang.org/x/vgo
 ENV GO111MODULE=auto
 
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
