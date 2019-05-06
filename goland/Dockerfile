@@ -2,7 +2,7 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV VERSION_GO="1.12.4" \
-    VERSION_GOLAND="2019.1"
+    VERSION_GOLAND="2019.1.1"
 
 # Markdown preview requires javafx (wich requires libxslt).
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
@@ -59,7 +59,7 @@ RUN curl \
     --location \
     --show-error \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
-    -o /git-completion.bash \
+    --output /git-completion.bash \
   && chmod +x /git-completion.bash
 
 # Prepare user home to link runtime data to persistent directories.
