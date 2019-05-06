@@ -52,11 +52,11 @@ WORKDIR /etc/skel
 RUN mkdir --parent /volume/gitconfig \
   && chmod 777 /volume/gitconfig
 ENV VOL_GIT_CONF="/volume/gitconfig" \
-    VOL_WORKDIR="/volume/workdir" \
+    VOL_WORKSPACE="/volume/workspace" \
     VOL_WEBSTORM_CONF="/volume/.WebStorm" \
     VOL_JAVA_CONF="/volume/.java"
-RUN for volume in "${VOL_GIT_CONF}/.gitconfig"  "${VOL_WORKDIR}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done \
+RUN for volume in "${VOL_GIT_CONF}/.gitconfig"  "${VOL_WORKSPACE}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done \
   && ln --symbolic "${VOL_WEBSTORM_CONF}" ".WebStorm${VERSION_WEBSTORM_MAJOR}"
-VOLUME ["${VOL_GIT_CONF}", "${VOL_WEBSTORM_CONF}", "${VOL_JAVA_CONF}", "${VOL_WORKDIR}"]
+VOLUME ["${VOL_GIT_CONF}", "${VOL_WEBSTORM_CONF}", "${VOL_JAVA_CONF}", "${VOL_WORKSPACE}"]
 
 ENTRYPOINT ["/entrypoint.sh", "webstorm.sh"]
