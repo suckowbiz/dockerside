@@ -1,4 +1,4 @@
-COMPOSE=docker-compose build --no-cache
+COMPOSE=docker-compose build --parallel --no-cache
 
 .DEFAULT_GOAL := all
 

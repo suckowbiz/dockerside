@@ -54,6 +54,7 @@ readonly CONTAINER_ID=$(docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   `# WebStorm` \
+  --security-opt=seccomp:unconfined `# required to run browser`\
   --volume "${GIT_CONF}:/volume/gitconfig" \
   --volume "${WEBSTORM_CONF}:/volume/.WebStorm" \
   --volume "${JAVA_CONF}:/volume/.java" \
