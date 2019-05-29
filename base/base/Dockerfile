@@ -39,8 +39,8 @@ RUN curl \
     --show-error \
     --remote-name \
     https://github.com/tianon/gosu/releases/download/${VERSION_GOSU}/gosu-amd64{,.asc} \
- && gpg --keyserver "${KEY_SERVER}" --recv-keys BF357DD4 \
- && gpg --verify gosu-amd64.asc gosu-amd64 \
+ && gpg --batch --keyserver "${KEY_SERVER}" --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+ && gpg --batch --verify gosu-amd64.asc gosu-amd64 \
  && rm --force gosu-amd64.asc \
  && mv gosu-amd64 gosu \
  && chown root gosu \

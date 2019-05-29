@@ -1,8 +1,9 @@
-FROM suckowbiz/base-av
+FROM suckowbiz/base-dev
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.12.4" \
-    VERSION_GOLAND="2019.1.1"
+ENV VERSION_GO="1.12.5" \
+    VERSION_GOLAND="2019.1.2" \
+    VERSION_GOLANGCI_LINT="1.16.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
@@ -62,6 +63,27 @@ RUN curl \
     --output /git-completion.bash \
   && chmod +x /git-completion.bash
 
+# go bash completion to ease working with the go tool.
+RUN go get -u github.com/posener/complete/gocomplete \
+ && GOBIN=/usr/local/bin go install github.com/posener/complete/gocomplete \
+ && echo "complete -C gocomplete go" >> /etc/bash.bashrc
+
+# Install goimports to have it available for configuration as file watcher within GoLand.
+RUN go get golang.org/x/tools/cmd/goimports \
+ && GOBIN=/usr/local/bin go install golang.org/x/tools/cmd/goimports
+
+# Install golangci-lint to have it available for configuration as file watcher within GoLand.
+RUN curl \
+    --fail \
+    --location \
+    --remote-name \
+    --show-error \
+    https://github.com/golangci/golangci-lint/releases/download/v${VERSION_GOLANGCI_LINT}/golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386.tar.gz \
+  && tar --extract --file golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386.tar.gz \
+  && chmod +x golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386/golangci-lint \
+  && mv golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386/golangci-lint /usr/local/bin/golangci-lint \
+  && rm --force --recursive golangci-lint-*
+
 # Prepare user home to link runtime data to persistent directories.
 WORKDIR /etc/skel
 # In case /volume/gitconfig/.gitconfig is being written by git it will try to create a .gitconfig.lock file which must not fail.
@@ -79,11 +101,9 @@ RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" 
 VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
 
 # Add support for integration of go modules.
-# See https://www.jetbrains.com/help/go/create-a-project-with-vgo-integration.html
-# vgo must be installed with the current user via: GO111MODULE=off go get golang.org/x/vgo
 ENV GO111MODULE=on
 
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
-ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
+ENTRYPOINT ["/start.sh"]
