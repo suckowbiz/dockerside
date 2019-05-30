@@ -1,11 +1,29 @@
-# gogland
+# goland
 
-[Jet Brains Gogland IDE](https://www.jetbrains.com/go/) **Early Build** version baked together with Go development related dependencies such as Go Runtime.
+[Jet Brains Goland IDE](https://www.jetbrains.com/go/) baked together with Go development related dependencies.
 
-## Run
+# Requirements
 
-Download run script to have `gogland` available:
+- Installed Docker Runtime
+- Ubuntu Operating System
+
+## Getting Started
+
+Download run script to have `goland` command available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/gogland/gogland > /var/tmp/gogland && sudo mv /var/tmp/gogland /usr/local/bin/ && sudo chmod +x /usr/local/bin/gogland
+# Download the run script to provide required Docker run options.
+curl \
+  --fail \
+  --location \
+  --show-error \
+  https://raw.githubusercontent.com/suckowbiz/dockerside/master/goland/goland \
+  > /var/tmp/goland
+
+# Move the download script and add add it to your PATH. This makes it available from command line.
+sudo mv /var/tmp/goland /usr/local/bin/
+sudo chmod +x /usr/local/bin/goland
+
+# Execute the start script to run GoLand.
+goland
 ```
