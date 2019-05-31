@@ -2,6 +2,11 @@
 
 [SuperTux](https://supertuxproject.org/), the free classic 2D jump'n run sidescroller game.
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Getting Started
 
 Download run script to have `supertux` command available:

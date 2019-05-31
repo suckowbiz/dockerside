@@ -29,11 +29,6 @@ services:
     image: suckowbiz/base-av
     depends_on:
       - base
-  base-dev:
-    build: base/dev
-    image: suckowbiz/base-dev
-    depends_on:
-      - base-av
   caddy:
     build: caddy
     image: suckowbiz/caddy

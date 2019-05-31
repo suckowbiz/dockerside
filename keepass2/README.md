@@ -2,6 +2,11 @@
 
 KeePass2, the free, open source, light-weight and easy-to-use password manager.
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Getting Started
 
 Download run script to have `keepass2` command available:

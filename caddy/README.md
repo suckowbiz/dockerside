@@ -13,6 +13,11 @@ Caddy is configured with the Caddyfile. The Caddyfile is a text file that tells 
 
 `2015` is exposed as the default port.
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Getting Started
 
 Download run script to have `caddy` command available:

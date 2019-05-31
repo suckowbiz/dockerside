@@ -2,6 +2,11 @@
 
 NGINX with PHP 7 support.
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Getting Started
 
 Download run script to have `nginx-php` command available:

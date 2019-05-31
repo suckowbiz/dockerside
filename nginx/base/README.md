@@ -6,6 +6,11 @@ NGINX.
 
 - `<current working directory>`as DOCUMENT_ROOT
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Getting Started
 
 Download run script to have `nginx` command available:

@@ -2,6 +2,11 @@
 
 [Jet Brains WebStorm IDE](https://www.jetbrains.com/webstorm/) version baked together with development related dependencies such as nodejs and npm.
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Getting Started
 
 Download run script to have `webstorm` command available:
