@@ -1,4 +1,4 @@
-FROM suckowbiz/base-dev
+FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV VERSION_WEBSTORM_MAJOR="2019.1" \
