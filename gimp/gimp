@@ -6,6 +6,10 @@ set -e
 
 readonly CONTAINER_NAME='gimp'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+# Update local copy with latest remote version.
+docker pull ${IMAGE_NAME}
+
 readonly USER_PICTURES="${HOME}/Pictures"
 if [[ ! -e "${USER_PICTURES}" ]]; then
     mkdir --parent "${USER_PICTURES}"

@@ -7,6 +7,9 @@ set -e
 readonly CONTAINER_NAME='chromix'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
+# Update local copy with latest remote version.
+docker pull ${IMAGE_NAME}
+
 readonly RUNNING_CONTAINER_ID=$(docker ps --quiet --filter "name=${CONTAINER_NAME}")
 [[ "${RUNNING_CONTAINER_ID}" = "" ]] || exit
 

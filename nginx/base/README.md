@@ -6,10 +6,23 @@ NGINX.
 
 - `<current working directory>`as DOCUMENT_ROOT
 
-## Run
+## Getting Started
 
-Download run script to have `nginx` available:
+Download run script to have `nginx` command available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/base/nginx > /var/tmp/nginx && sudo mv /var/tmp/nginx /usr/local/bin/ && sudo chmod +x /usr/local/bin/nginx
+# Download the run script to provide required Docker run options.
+curl \
+  --fail \
+  --location \
+  --show-error \
+  https://raw.githubusercontent.com/suckowbiz/dockerside/master/nginx/base/nginx \
+  > /var/tmp/nginx
+
+# Move the download script and add add it to your PATH. This makes it available from command line.
+sudo mv /var/tmp/nginx /usr/local/bin/
+sudo chmod +x /usr/local/bin/nginx
+
+# Execute the start script to run nginx.
+nginx
 ```

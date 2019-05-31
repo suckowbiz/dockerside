@@ -7,6 +7,9 @@ set -e
 readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
+# Update local copy with latest remote version.
+docker pull ${IMAGE_NAME}
+
 readonly BASE_CONF="${HOME}/.config"
 mkdir --parent \
   "${GIT_CONF:=${BASE_CONF}/GoLand/gitconfig}" \

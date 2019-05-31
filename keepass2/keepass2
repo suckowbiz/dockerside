@@ -7,6 +7,9 @@ set -e
 readonly CONTAINER_NAME='keepass2'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
+# Update local copy with latest remote version.
+docker pull ${IMAGE_NAME}
+
 readonly KEEPASS_DATA="${HOME}/KeePass"
 if [[ ! -e "${KEEPASS_DATA}" ]]; then
     mkdir --parent "${KEEPASS_DATA}"

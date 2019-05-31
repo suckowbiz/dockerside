@@ -2,10 +2,28 @@
 
 Clementine free audio player.
 
-## Run
+# Requirements
 
-Download run script to have `clementine` available:
+- Docker Runtime
+- Ubuntu Operating System
+
+## Getting Started
+
+Download run script to have `clementine` command available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/clementine/clementine > /var/tmp/clementine && sudo mv /var/tmp/clementine /usr/local/bin/ && sudo chmod +x /usr/local/bin/clementine
+# Download the run script to provide required Docker run options.
+curl \
+  --fail \
+  --location \
+  --show-error \
+  https://raw.githubusercontent.com/suckowbiz/dockerside/master/clementine/clementine \
+  > /var/tmp/clementine
+
+# Move the download script and add add it to your PATH. This makes it available from command line.
+sudo mv /var/tmp/clementine /usr/local/bin/
+sudo chmod +x /usr/local/bin/clementine
+
+# Execute the start script to run clementine.
+clementine
 ```

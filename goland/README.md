@@ -4,7 +4,7 @@
 
 # Requirements
 
-- Installed Docker Runtime
+- Docker Runtime
 - Ubuntu Operating System
 
 ## Getting Started

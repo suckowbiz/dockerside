@@ -9,6 +9,7 @@ ENV VERSION_GO="1.12.5" \
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     chromium-browser \
+    docker.io \
     git \
     libxtst6 \
     libxtst-dev \
@@ -106,4 +107,5 @@ ENV GO111MODULE=on
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
+ENV ENTRYPOINT_GROUPS="audio,video,docker"
 ENTRYPOINT ["/start.sh"]

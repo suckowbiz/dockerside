@@ -2,18 +2,36 @@
 
 Distributed version control system.
 
+# Requirements
+
+- Docker Runtime
+- Ubuntu Operating System
+
 ## Volumes
 
 - `~/.config/git` to persist global configuration.
 - `~/.ssh` to provide SSH settings.
 - `<current working directory>` to mount as git repository.
 
-## Run
+## Getting Started
 
-Download run script to have `git` available:
+Download run script to have `git` command available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/git/git > /var/tmp/git && sudo mv /var/tmp/git /usr/local/bin/ && sudo chmod +x /usr/local/bin/git
+# Download the run script to provide required Docker run options.
+curl \
+  --fail \
+  --location \
+  --show-error \
+  https://raw.githubusercontent.com/suckowbiz/dockerside/master/git/git \
+  > /var/tmp/git
+
+# Move the download script and add add it to your PATH. This makes it available from command line.
+sudo mv /var/tmp/git /usr/local/bin/
+sudo chmod +x /usr/local/bin/git
+
+# Execute the start script to run git.
+git
 ```
 
 ## Usage Example
@@ -27,7 +45,7 @@ git --version
 Example:
 
 ```bash
-tobias@T430s:~/Workspace/Docker/github.com/suckowbiz/dockerside$ [master]
+$ ~/Workspace/Docker/github.com/suckowbiz/dockerside$ [master]
 ```
 
 To add git branch name to your `PS1` prompt add to end of `~/.bashrc`:

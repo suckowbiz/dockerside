@@ -35,7 +35,6 @@ services:
     depends_on:
       - base-av
   caddy:
-  caddy:
     build: caddy
     image: suckowbiz/caddy
     depends_on:

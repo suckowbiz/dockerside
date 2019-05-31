@@ -5,6 +5,9 @@ set -e
 readonly IMAGE_NAME='suckowbiz/vscode'
 readonly CONTAINER_NAME='code'
 
+# Update local copy with latest remote version.
+docker pull ${IMAGE_NAME}
+
 readonly GIT_CONFIG="${HOME}/.gitconfig"
 if [[ ! -e "${GIT_CONFIG}" ]]; then
   touch "${GIT_CONFIG}"

@@ -2,12 +2,25 @@
 
 ([Tor](https://www.torproject.org/)) Socks 5 Proxy.
 
-## Run
+## Getting Started
 
-Download run script to have `tor` available:
+Download run script to have `tor` command available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/tor/tor > /var/tmp/tor && sudo mv /var/tmp/tor /usr/local/bin/ && sudo chmod +x /usr/local/bin/tor
+# Download the run script to provide required Docker run options.
+curl \
+  --fail \
+  --location \
+  --show-error \
+  https://raw.githubusercontent.com/suckowbiz/dockerside/master/tor/tor \
+  > /var/tmp/tor
+
+# Move the download script and add add it to your PATH. This makes it available from command line.
+sudo mv /var/tmp/tor /usr/local/bin/
+sudo chmod +x /usr/local/bin/tor
+
+# Execute the start script to run tor.
+tor
 ```
 
 ## Usage Example

@@ -12,6 +12,7 @@ ENV VERSION_WEBSTORM="${VERSION_WEBSTORM_MAJOR}${VERSION_WEBSTORM_MINOR}"
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     chromium-browser \
+    docker.io \
     git \
     libxtst6 \
     libxtst-dev \
@@ -59,4 +60,5 @@ RUN for volume in "${VOL_GIT_CONF}/.gitconfig"  "${VOL_WORKSPACE}" "${VOL_JAVA_C
   && ln --symbolic "${VOL_WEBSTORM_CONF}" ".WebStorm${VERSION_WEBSTORM_MAJOR}"
 VOLUME ["${VOL_GIT_CONF}", "${VOL_WEBSTORM_CONF}", "${VOL_JAVA_CONF}", "${VOL_WORKSPACE}"]
 
+ENV ENTRYPOINT_GROUPS="audio,video,docker"
 ENTRYPOINT ["/entrypoint.sh", "webstorm.sh"]
