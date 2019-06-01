@@ -2,6 +2,8 @@
 
 The Visual Studio Code IDE.
 
+<img src="https://code.visualstudio.com/opengraphimg/opengraph-home.png" alt="screenshot" width="800" />
+
 # Requirements
 
 - Docker Runtime

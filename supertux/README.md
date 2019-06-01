@@ -2,6 +2,8 @@
 
 [SuperTux](https://supertuxproject.org/), the free classic 2D jump'n run sidescroller game.
 
+<img src="https://www.supertux.org/images/0_5_1/0_5_1_3.png" alt="screenshot" width="800" />
+
 # Requirements
 
 - Docker Runtime

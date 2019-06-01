@@ -2,6 +2,8 @@
 
 Google Chrome browser.
 
+<img src="https://www.google.com/chrome/static/images/benefits/module-4/connected_global_desktop-2x.png" alt="screenshot" width="800" />
+
 # Requirements
 
 - Docker Runtime

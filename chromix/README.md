@@ -2,6 +2,8 @@
 
 Citrix Workspace-App running on Chrome.
 
+<img src="https://lh3.googleusercontent.com/HHS4rNTJA7YX7sIhkzs1gMkxcpxCTOiAvPLBKqB7RN42JeXWV3R7DZ583wbuflyGAEGUHrz8gA=w640-h400-e365" alt="screenshot" width="800" />
+
 # Requirements
 
 - Docker Runtime

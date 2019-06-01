@@ -2,6 +2,8 @@
 
 [Jet Brains Goland IDE](https://www.jetbrains.com/go/) baked together with Go development related dependencies.
 
+<img src="https://www.jetbrains.com/go/img/screenshots/go_overview.png" alt="screenshot" width="800" />
+
 # Requirements
 
 - Docker Runtime

@@ -2,6 +2,8 @@
 
 Clementine free audio player.
 
+<img src="https://clementine-player.github.io/pages/images/screenshots/clementine-1.2-1.png" alt="screenshot" width="800" />
+
 # Requirements
 
 - Docker Runtime

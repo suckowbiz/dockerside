@@ -1,6 +1,8 @@
 # gimp
 
-Gimp image editor (with [doctormo Photoshop look and feel](https://github.com/doctormo/GimpPs)).
+Gimp image editor.
+
+<img src="https://www.gimp.org/release-notes/images/2.10-update-ui.jpg" alt="screenshot" width="800" />
 
 # Requirements
 
