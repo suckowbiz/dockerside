@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/goland.svg)
+
 # goland
 
 [Jet Brains Goland IDE](https://www.jetbrains.com/go/) baked together with Go development related dependencies.

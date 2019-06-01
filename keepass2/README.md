@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/keepass2.svg)
+
 # keepass2
 
 KeePass2, the free, open source, light-weight and easy-to-use password manager.

@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/clementine.svg)
+
 # clementine
 
 Clementine free audio player.

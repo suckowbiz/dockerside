@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/tor.svg)
+
 # tor
 
 ([Tor](https://www.torproject.org/)) Socks 5 Proxy.

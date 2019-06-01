@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/caddy.svg)
+
 # caddy
 
 Caddy is the HTTP/2 web server with automatic HTTPS.

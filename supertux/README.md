@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/supertux.svg)
+
 # supertux
 
 [SuperTux](https://supertuxproject.org/), the free classic 2D jump'n run sidescroller game.
