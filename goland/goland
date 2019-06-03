@@ -10,6 +10,9 @@ readonly CONTAINER_NAME='goland'
 # Update local copy with latest remote version.
 docker pull ${IMAGE_NAME}
 
+# Increase inode count to speed up file watches.
+sysctl -w fs.inotify.max_user_watches=524288
+
 readonly BASE_CONF="${HOME}/.config"
 mkdir --parent \
   "${GIT_CONF:=${BASE_CONF}/GoLand/gitconfig}" \

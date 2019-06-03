@@ -2,7 +2,7 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV VERSION_GO="1.12.5" \
-    VERSION_GOLAND="2019.1.2" \
+    VERSION_GOLAND="2019.1.3" \
     VERSION_GOLANGCI_LINT="1.16.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
@@ -108,4 +108,4 @@ ENV GO111MODULE=on
 EXPOSE 3999
 
 ENV ENTRYPOINT_GROUPS="audio,video,docker"
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["entrypoint.sh"]

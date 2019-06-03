@@ -41,7 +41,7 @@ services:
       - "base-av"
   code:
     build: code
-    image: suckowbiz/vscode
+    image: suckowbiz/code
     depends_on:
       - "base-av"
   chrome:

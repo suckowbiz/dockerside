@@ -2,7 +2,7 @@
 #
 # Runs Docker container as stated below.
 set -e
-readonly IMAGE_NAME='suckowbiz/vscode'
+readonly IMAGE_NAME='suckowbiz/code'
 readonly CONTAINER_NAME='code'
 
 # Update local copy with latest remote version.
