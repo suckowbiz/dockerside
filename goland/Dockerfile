@@ -108,4 +108,4 @@ ENV GO111MODULE=on
 EXPOSE 3999
 
 ENV ENTRYPOINT_GROUPS="audio,video,docker"
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
