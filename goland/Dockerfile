@@ -1,7 +1,7 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.12.5" \
+ENV VERSION_GO="1.12.6" \
     VERSION_GOLAND="2019.1.3" \
     VERSION_GOLANGCI_LINT="1.16.0"
 
