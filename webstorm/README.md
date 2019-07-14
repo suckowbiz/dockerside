@@ -1,6 +1,10 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/goland.svg)
+
 # webstorm
 
 [Jet Brains WebStorm IDE](https://www.jetbrains.com/webstorm/) version baked together with development related dependencies such as nodejs and npm.
+
+<img src="https://www.jetbrains.com/webstorm/img/screenshots/webstorm-main.png" alt="screenshot" width="800" />
 
 # Requirements
 

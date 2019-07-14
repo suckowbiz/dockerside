@@ -55,6 +55,7 @@ readonly CONTAINER_ID=$(docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   `# Code` \
+  --net=host \
   --ipc=host \
   --privileged \
   --volume "${EXTENSIONS_ROOT}":/opt/vscode/extensions \
