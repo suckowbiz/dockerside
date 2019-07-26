@@ -61,6 +61,7 @@ readonly CONTAINER_ID=$(docker run \
   --hostname ${CONTAINER_NAME} \
   --name "${CONTAINER_NAME}" \
   --volume /etc/localtime:/etc/localtime:ro \
+  --volume /etc/machine-id:/etc/machine-id:ro \
   `# Audio` \
   --env "PULSE_SERVER=tcp:${DOCKER_BRIDGE_IP}:4713" \
   `# Video` \
