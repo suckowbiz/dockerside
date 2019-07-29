@@ -11,7 +11,7 @@ readonly CONTAINER_NAME='goland'
 docker pull ${IMAGE_NAME}
 
 # Increase inode count to speed up file watches.
-sysctl -w fs.inotify.max_user_watches=524288
+sudo sysctl -w fs.inotify.max_user_watches=524288
 
 readonly BASE_CONF="${HOME}/.config"
 mkdir --parent \
