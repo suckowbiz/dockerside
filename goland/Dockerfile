@@ -107,5 +107,5 @@ ENV GO111MODULE=on
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
-ENV ENTRYPOINT_GROUPS="audio,video,sudo"
+ENV ENTRYPOINT_GROUPS="audio,video,docker"
 ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
