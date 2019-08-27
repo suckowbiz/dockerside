@@ -16,6 +16,7 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     libxslt1.1 \
     man \
     openjfx \
+    sudo \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
@@ -107,5 +108,5 @@ ENV GO111MODULE=on
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
-ENV ENTRYPOINT_GROUPS="audio,video,docker"
+ENV ENTRYPOINT_GROUPS="audio,video,docker,sudo"
 ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
