@@ -61,6 +61,7 @@ readonly CONTAINER_ID=$(docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   `# Goland` \
+  --privileged `#is required for Docker-in-Docker to function properly` \
   --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
   --volume "${GIT_CONF}:/volume/gitconfig" \
   --volume "${GOLAND_CONF}:/volume/.GoLand" \
