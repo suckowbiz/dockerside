@@ -8,7 +8,7 @@ readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
 # Update local copy with latest remote version.
-docker pull ${IMAGE_NAME}
+#docker pull ${IMAGE_NAME}
 
 # Increase inode count to speed up file watches.
 sudo sysctl -w fs.inotify.max_user_watches=524288
@@ -52,16 +52,17 @@ readonly CONTAINER_ID=$(docker run \
   --name "${CONTAINER_NAME}" \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /var/run/docker.sock:/var/run/docker.sock \
-  --privileged `#is required for Docker-in-Docker to function properly` \
   `# Video` \
   --device /dev/dri `# Direct GPU access improves gfx rendering.` \
   --env DISPLAY \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
   `# Entrypoint` \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
+  --env HOST_GROUP=hostdocker \
+  --env HOST_GROUP_ID="$(cut -d: -f3 < <(getent group docker))" \
   `# Goland` \
   --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
   --volume "${GIT_CONF}:/volume/gitconfig" \

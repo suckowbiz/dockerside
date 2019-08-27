@@ -6,17 +6,18 @@ ENV VERSION_GO="1.12.9" \
     VERSION_GOLANGCI_LINT="1.17.1"
 
 # Markdown preview requires javafx (wich requires libxslt).
+# Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     chromium-browser \
     docker.io \
     git \
+    ifupdown2 \
     libxtst6 \
     libxtst-dev \
     libxslt1.1 \
     man \
     openjfx \
-    sudo \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
@@ -108,5 +109,7 @@ ENV GO111MODULE=on
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
-ENV ENTRYPOINT_GROUPS="audio,video,docker,sudo"
+ENV ENTRYPOINT_GROUPS="audio,video,docker,sudo" \
+    ENTRYPOINT_WORKDIR="${VOL_GO}"
+
 ENTRYPOINT ["/entrypoint.sh", "goland.sh"]

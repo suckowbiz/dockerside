@@ -21,13 +21,17 @@ if [[ "${GIVEN_USER_ID}" = "0" ]]; then
     fi
 fi
 
+if [[ ! "${HOST_GROUP_ID}" = "" ]]; then
+    groupadd --gid "${HOST_GROUP_ID}" "${HOST_GROUP}"
+    usermod -a -G "${HOST_GROUP}" "${GIVEN_USER}"
+fi
+
 if [[ ! "${ENTRYPOINT_WORKDIR}" = "" ]]; then
     # Intentionally added to set a WORKDIR on Container start.
     cd "${ENTRYPOINT_WORKDIR}"
 fi
 
 # 'gosu' is used to run the executable on behalf of the just created user. (gosu has 1:1 parity with "docker --user")
-# (idea.sh itself runs a foreground process utilizing 'exec')
 if [[ "${ENTRYPOINT_AS_ROOT:=no}" = "yes" ]]; then
     gosu root "$@"
 else
