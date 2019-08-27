@@ -19,7 +19,18 @@ mkdir --parent \
   "${GOPATH:=${HOME}/go}" \
   "${GOLAND_CONF:=${BASE_CONF}/GoLand}" \
   "${JAVA_CONF:=${BASE_CONF}/GoLand/java}" || true
-touch ${GIT_CONF}/.gitconfig
+touch "${GIT_CONF}/.gitconfig"
+
+SSH_PATH=""
+if [[ -L "${HOME}/.ssh" ]]; then
+  readonly possiblePath=$(readlink -f "${HOME}/.ssh")
+  if [[ -d "${possiblePath}" ]]; then
+    SSH_PATH=$possiblePath
+  fi
+elif [[ -d "${HOME}/.ssh" ]]; then
+  SSH_PATH="${HOME}/.ssh"
+fi
+
 
 # http://patorjk.com/software/taag/#p=display&h=0&f=Calvin%20S&t=Goland
 cat <<EOH
@@ -37,14 +48,19 @@ GoLand Conf.....: '${GOLAND_CONF}'
 GoLand Java Conf: '${JAVA_CONF}'
 GOPATH..........: '${GOPATH}'
 Git Conf........: '${GIT_CONF}'
+SSH ............: '${SSH_PATH}'
 
 EOH
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
 
+SSH_CONF_VOLUME=""
+if [[ ! "${SSH_PATH}" = "" ]]; then
+  SSH_CONF_VOLUME="--volume ${SSH_PATH}:/volume/.ssh"
+fi
+
 # removing previous existing containers to enable start up
-#  --net=host \
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 readonly CONTAINER_ID=$(docker run \
   --detach \
@@ -69,5 +85,6 @@ readonly CONTAINER_ID=$(docker run \
   --volume "${GOLAND_CONF}:/volume/.GoLand" \
   --volume "${JAVA_CONF}:/volume/.java" \
   --volume "${GOPATH}:/volume/go" \
+  ${SSH_CONF_VOLUME} \
   "${IMAGE_NAME}")
 echo "${CONTAINER_ID}"

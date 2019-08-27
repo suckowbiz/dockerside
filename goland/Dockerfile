@@ -7,6 +7,7 @@ ENV VERSION_GO="1.12.9" \
 
 # Markdown preview requires javafx (wich requires libxslt).
 # Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
+# Using git requires "ssh" in case of a SSH connection.
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     build-essential \
     chromium-browser \
@@ -18,6 +19,7 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     libxslt1.1 \
     man \
     openjfx \
+    ssh \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
@@ -99,9 +101,10 @@ ENV GOROOT="/usr/local/go" \
     VOL_GIT_CONF="/volume/gitconfig" \
     VOL_GO="${GOPATH}" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
-    VOL_JAVA_CONF="/volume/.java"
-RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}"; do ln --symbolic "${volume}"; done
-VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}"]
+    VOL_JAVA_CONF="/volume/.java" \
+    VOL_SSH="/volume/.ssh"
+RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}" "${VOL_SSH}"; do ln --symbolic "${volume}"; done
+VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}", "${VOL_SSH}"]
 
 # Add support for integration of go modules.
 ENV GO111MODULE=on
