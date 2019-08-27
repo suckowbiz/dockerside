@@ -32,6 +32,7 @@ $IMAGE_NAME
 ========
 Volumes:
 ========
+Docker Socket...: '/var/run/docker.sock'
 GoLand Conf.....: '${GOLAND_CONF}'
 GoLand Java Conf: '${JAVA_CONF}'
 GOPATH..........: '${GOPATH}'
@@ -51,6 +52,7 @@ readonly CONTAINER_ID=$(docker run \
   --name "${CONTAINER_NAME}" \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /var/run/docker.sock:/var/run/docker.sock \
+  --privileged `#is required for Docker-in-Docker to function properly` \
   `# Video` \
   --device /dev/dri `# Direct GPU access improves gfx rendering.` \
   --env DISPLAY \
@@ -61,7 +63,6 @@ readonly CONTAINER_ID=$(docker run \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   `# Goland` \
-  --privileged `#is required for Docker-in-Docker to function properly` \
   --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
   --volume "${GIT_CONF}:/volume/gitconfig" \
   --volume "${GOLAND_CONF}:/volume/.GoLand" \
