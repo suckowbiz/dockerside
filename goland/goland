@@ -8,7 +8,7 @@ readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
 # Update local copy with latest remote version.
-#docker pull ${IMAGE_NAME}
+docker pull ${IMAGE_NAME}
 
 # Increase inode count to speed up file watches.
 sudo sysctl -w fs.inotify.max_user_watches=524288
