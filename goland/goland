@@ -7,20 +7,34 @@ set -e
 readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
-# Update local copy with latest remote version.
-docker pull ${IMAGE_NAME}
+# Pull latest Docker image to have the latest version.
+readonly ONLINE=$(ip r|grep "default\|0.0.0.0" 1>/dev/null; echo $?)
+if [[ "${ONLINE}" = "0" ]]; then
+    docker pull ${IMAGE_NAME}
+fi
 
-# Increase inode count to speed up file watches.
-sudo sysctl -w fs.inotify.max_user_watches=524288
+echo -e "\nIncreasing fs.inotify.max_user_watches to 524288 as sugested by Goland to speed up file watches."
+sudo sysctl --write fs.inotify.max_user_watches=524288 1>/dev/null
 
+# Create directories if not exist to avoid Docker creates them with root ownership.
 readonly BASE_CONF="${HOME}/.config"
 mkdir --parent \
   "${GIT_CONF:=${BASE_CONF}/GoLand/gitconfig}" \
   "${GOPATH:=${HOME}/go}" \
   "${GOLAND_CONF:=${BASE_CONF}/GoLand}" \
   "${JAVA_CONF:=${BASE_CONF}/GoLand/java}" || true
-touch "${GIT_CONF}/.gitconfig"
 
+# Copy over user defined gitconfig to provide the host environment into Goland.
+# To enable bidirectional updates it is required not to mount a file but a directory containing the .gitconfig.
+if [[ -f "${HOME}/.gitconfig" ]]; then
+    echo "copying ${HOME}/.gitconfig to ${GIT_CONF}/.gitconfig"
+    cp "${HOME}/.gitconfig" "${GIT_CONF}/.gitconfig"
+else
+    touch "${GIT_CONF}/.gitconfig"
+fi
+
+# Mount local .ssh directory only in case it is present.
+# Applies checks to avoid issues with dead symbolic links.
 SSH_PATH=""
 if [[ -L "${HOME}/.ssh" ]]; then
   readonly possiblePath=$(readlink -f "${HOME}/.ssh")
@@ -31,6 +45,10 @@ elif [[ -d "${HOME}/.ssh" ]]; then
   SSH_PATH="${HOME}/.ssh"
 fi
 
+SSH_BANNER=""
+if [[ ! "${SSH_PATH}" = "" ]]; then
+    SSH_Banner="SSH ............: '${SSH_PATH}'"
+fi
 
 # http://patorjk.com/software/taag/#p=display&h=0&f=Calvin%20S&t=Goland
 cat <<EOH
@@ -48,7 +66,7 @@ GoLand Conf.....: '${GOLAND_CONF}'
 GoLand Java Conf: '${JAVA_CONF}'
 GOPATH..........: '${GOPATH}'
 Git Conf........: '${GIT_CONF}'
-SSH ............: '${SSH_PATH}'
+${SSH_BANNER}
 
 EOH
 
