@@ -5,8 +5,11 @@ set -e
 readonly IMAGE_NAME='suckowbiz/code'
 readonly CONTAINER_NAME='code'
 
-# Update local copy with latest remote version.
-docker pull ${IMAGE_NAME}
+# Pull latest Docker image to have the latest version.
+readonly ONLINE=$(ip r|grep "default\|0.0.0.0" 1>/dev/null; echo $?)
+if [[ "${ONLINE}" = "0" ]]; then
+    docker pull ${IMAGE_NAME}
+fi
 
 readonly GIT_CONFIG="${HOME}/.gitconfig"
 if [[ ! -e "${GIT_CONFIG}" ]]; then
