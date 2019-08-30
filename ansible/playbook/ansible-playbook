@@ -13,6 +13,23 @@ if [[ "${ONLINE}" = "0" ]]; then
     docker pull ${IMAGE_NAME}
 fi
 
+# Mount local .ssh directory only in case it is present.
+# Applies checks to avoid issues with dead symbolic links.
+SSH_PATH=""
+if [[ -L "${HOME}/.ssh" ]]; then
+  readonly possiblePath=$(readlink -f "${HOME}/.ssh")
+  if [[ -d "${possiblePath}" ]]; then
+    SSH_PATH=$possiblePath
+  fi
+elif [[ -d "${HOME}/.ssh" ]]; then
+  SSH_PATH="${HOME}/.ssh"
+fi
+
+SSH_BANNER=""
+if [[ ! "${SSH_PATH}" = "" ]]; then
+    SSH_Banner="SSH ............: '${SSH_PATH}'"
+fi
+
 # http://patorjk.com/software/taag/#p=display&h=0&f=Calvin%20S&t=Ansible%20Playbook
 cat <<EOH
 
@@ -21,10 +38,20 @@ cat <<EOH
 ╩ ╩┘└┘└─┘┴└─┘┴─┘└─┘  ╩  ┴─┘┴ ┴ ┴ └─┘└─┘└─┘┴ ┴
 ${IMAGE_NAME}
 
+========
+Volumes:
+========
+${SSH_BANNER}
+
 EOH
 
 # enable passing display to be able to run any GUI
 xhost +local:root > /dev/null 2>&1
+
+SSH_CONF_VOLUME=""
+if [[ ! "${SSH_PATH}" = "" ]]; then
+  SSH_CONF_VOLUME="--volume ${SSH_PATH}:/volume/.ssh"
+fi
 
 # removing previous existing containers to enable start up
 docker rm --force --volumes "${CONTAINER_NAME}" >/dev/null 2>&1 || true
@@ -41,4 +68,5 @@ docker run \
   --net host \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  ${SSH_CONF_VOLUME} \
   "${IMAGE_NAME}" "$@"
