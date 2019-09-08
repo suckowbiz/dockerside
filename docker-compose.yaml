@@ -34,11 +34,6 @@ services:
     image: suckowbiz/caddy
     depends_on:
       - base
-  calibre:
-    build: calibre
-    image: suckowbiz/calibre
-    depends_on:
-      - "base-av"
   clementine:
     build: clementine
     image: suckowbiz/clementine
