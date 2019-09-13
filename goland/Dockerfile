@@ -3,7 +3,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV VERSION_GO="1.13" \
     VERSION_GOLAND="2019.2.1" \
-    VERSION_GOLANGCI_LINT="1.17.1"
+    VERSION_GOLANGCI_LINT="1.18.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
 # Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
