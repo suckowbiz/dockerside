@@ -9,6 +9,7 @@ ENV VERSION_GO="1.13" \
 # Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
 # Using git requires "ssh" in case of a SSH connection.
 RUN apt-get install --quiet --quiet --yes --no-install-recommends \
+    bash-completion \
     build-essential \
     chromium-browser \
     docker.io \
