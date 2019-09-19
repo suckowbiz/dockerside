@@ -16,7 +16,6 @@ RUN apt-get update --quiet \
     git \
     gvfs-bin \
     graphviz \
-    shellcheck \
     libxss1 \
     libgconf-2-4 \
     openjdk-11-doc \
@@ -26,9 +25,17 @@ RUN apt-get update --quiet \
     openjdk-11-dbg \
     php \
     rxvt-unicode-256color \
+    xz-utils \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt
+RUN curl -fLOSs https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz \
+ && tar --extract --file shellcheck-stable.linux.x86_64.tar.xz \
+ && rm --force shellcheck-stable.linux.x86_64.tar.xz
+
+ENV PATH="${PATH}:/opt/shellcheck-stable/"
 
 WORKDIR /etc/skel
 RUN ln --symbolic /Code Code \
