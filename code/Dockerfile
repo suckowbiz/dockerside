@@ -31,7 +31,12 @@ RUN apt-get update --quiet \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
-RUN curl -fLOSs https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz \
+RUN curl \
+    --fail \
+    --location \
+    --remote-name \
+    --show-error \
+    https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz \
  && tar --extract --file shellcheck-stable.linux.x86_64.tar.xz \
  && rm --force shellcheck-stable.linux.x86_64.tar.xz
 
