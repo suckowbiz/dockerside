@@ -1,8 +1,8 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.13" \
-    VERSION_GOLAND="2019.2.2" \
+ENV VERSION_GO="1.13.1" \
+    VERSION_GOLAND="2019.2.3" \
     VERSION_GOLANGCI_LINT="1.18.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
