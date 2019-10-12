@@ -21,6 +21,7 @@ RUN apt-get install --quiet --quiet --yes --no-install-recommends \
     man \
     openjfx \
     ssh \
+    zip \
  && apt-get clean --quiet \
  && apt-get autoremove --quiet \
  && rm -rf /var/lib/apt/lists/*
