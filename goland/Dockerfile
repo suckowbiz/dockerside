@@ -1,9 +1,9 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.13.1" \
+ENV VERSION_GO="1.13.3" \
     VERSION_GOLAND="2019.2.3" \
-    VERSION_GOLANGCI_LINT="1.18.0"
+    VERSION_GOLANGCI_LINT="1.21.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
 # Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
