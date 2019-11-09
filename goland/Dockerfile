@@ -2,7 +2,7 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV VERSION_GO="1.13.3" \
-    VERSION_GOLAND="2019.2.4" \
+    VERSION_GOLAND="2019.2.5" \
     VERSION_GOLANGCI_LINT="1.21.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
