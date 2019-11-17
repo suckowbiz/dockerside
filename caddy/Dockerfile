@@ -2,7 +2,7 @@ FROM suckowbiz/base
 
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV CADDY_VERSION=v1.0.3
+ENV CADDY_VERSION=v1.0.4
 ENV CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download \
     CADDY_REMOTE_NAME="caddy_${CADDY_VERSION}_linux_amd64" \
     # if set, Caddy will use this folder to store assets instead of the default $HOME/.caddy.
