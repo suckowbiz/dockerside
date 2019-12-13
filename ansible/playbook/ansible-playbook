@@ -41,6 +41,7 @@ ${IMAGE_NAME}
 ========
 Volumes:
 ========
+Workdir ........: '${PWD}'
 ${SSH_BANNER}
 
 EOH

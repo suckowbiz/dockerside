@@ -21,6 +21,11 @@ cat <<EOH
 ╩ ╩┘└┘└─┘┴└─┘┴─┘└─┘   ╚╝ ┴ ┴└─┘┴─┘ ┴ 
 ${IMAGE_NAME}
 
+========
+Volumes:
+========
+Workdir ........: '${PWD}'
+
 EOH
 
 # enable passing display to be able to run any GUI
