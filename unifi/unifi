@@ -48,8 +48,8 @@ xhost +local:root > /dev/null 2>&1
 
 # removing previous existing containers to enable start up
 docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
-#  --detach \
 readonly CONTAINER_ID=$(docker run \
+  --detach \
   --volume "${UNIFI_DIR}":/usr/lib/unifi \
   --volume "${UNIFI_DATA_DIR}":/var/lib/unifi \
   --volume "${UNIFI_LOG_DIR}":/var/log/unifi \
