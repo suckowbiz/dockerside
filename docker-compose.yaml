@@ -94,6 +94,11 @@ services:
     image: suckowbiz/tor
     depends_on:
       - "base"
+  unifi:
+    build: unifi
+    image: suckowbiz/unifi
+    depends_on:
+      - "base"
   webstorm:
     build: webstorm
     image: suckowbiz/webstorm
