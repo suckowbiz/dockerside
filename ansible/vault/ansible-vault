@@ -43,6 +43,7 @@ docker run \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
   --volume "${PWD}":/opt \
+  --volume "/tmp":/tmp \
   --net host \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
