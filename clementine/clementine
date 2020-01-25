@@ -8,16 +8,17 @@ readonly CONTAINER_NAME='clementine'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 # Pull latest Docker image to have the latest version.
-readonly ONLINE=$(ip r|grep "default\|0.0.0.0" 1>/dev/null; echo $?)
-if [[ "${ONLINE}" = "0" ]]; then
-    docker pull ${IMAGE_NAME}
-fi
+ip r|grep "default\|0.0.0.0" 1>/dev/null && docker pull "${IMAGE_NAME}"
 
 readonly USER_CONFIG="${HOME}/.config/Clementine"
 if [[ ! -e "${USER_CONFIG}" ]]; then
     mkdir --parent "${USER_CONFIG}"
     touch "${USER_CONFIG}/Clementine.conf"
     echo -e "[MainWindow]\nkeeprunning=false\n" >> "${USER_CONFIG}/Clementine.conf"
+fi
+
+if [[ ! -e "${XDG_RUNTIME_DIR}" ]]; then
+    mkdir --parent "${XDG_RUNTIME_DIR}"
 fi
 
 readonly USER_MUSIC="${HOME}/Music"

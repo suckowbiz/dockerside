@@ -8,10 +8,7 @@ readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
 # Pull latest Docker image to have the latest version.
-readonly ONLINE=$(ip r|grep "default\|0.0.0.0" 1>/dev/null; echo $?)
-if [[ "${ONLINE}" = "0" ]]; then
-    docker pull ${IMAGE_NAME}
-fi
+ip r|grep "default\|0.0.0.0" 1>/dev/null && docker pull "${IMAGE_NAME}"
 
 echo -e "\nIncreasing fs.inotify.max_user_watches to 524288 as sugested by Goland to speed up file watches."
 sudo sysctl --write fs.inotify.max_user_watches=524288 1>/dev/null

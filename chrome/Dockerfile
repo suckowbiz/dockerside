@@ -1,20 +1,18 @@
 FROM suckowbiz/base-av
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
+ARG INSTALL_CANDIDATE=google-chrome
+ARG INSTALL_CANDIDATE_VERSION=stable
+
 ENV USER_DATA_DIR="/var/lib/chrome/data" \
-    USER_DOWNLOAD_DIR="/var/lib/chrome/downloads" \
-    INSTALL_CANDIDATE=google-chrome \
-    INSTALL_CANDIDATE_VERSION=stable
+    USER_DOWNLOAD_DIR="/var/lib/chrome/downloads"
 
-# Set locale default time to have German Browser Time in place :).
-RUN ln --symbolic --force /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
- && dpkg-reconfigure tzdata
-
-# Install Google Chrome from third party ppa to have latest version.
+# Install Google Chrome (with German Browser Time) from third party ppa to have latest version.
 # (source: http://www.ubuntuupdates.org/ppa/google_chrome, https://www.google.com/linuxrepositories/)
-RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
-RUN curl \
+RUN ln --symbolic --force /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+ && dpkg-reconfigure tzdata \
+ && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+ && curl \
     --fail \
     --insecure \
     --location \

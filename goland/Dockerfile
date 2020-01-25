@@ -1,17 +1,17 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV VERSION_GO="1.13.6" \
-    VERSION_GOLAND="2019.3.1" \
-    VERSION_GOLANGCI_LINT="1.22.2"
+ARG VERSION_GO="1.13.6"
+ARG VERSION_GOLAND="2019.3.1"
+ARG VERSION_GOLANGCI_LINT="1.22.2"
 
 # Markdown preview requires javafx (wich requires libxslt).
 # Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
 # Using git requires "ssh" in case of a SSH connection.
-RUN apt-get install --quiet --quiet --yes --no-install-recommends \
+RUN apt-get install --quiet --quiet --no-install-recommends \
     bash-completion \
     build-essential \
-    chromium-browser \
+    firefox \
     docker.io \
     git \
     ifupdown2 \

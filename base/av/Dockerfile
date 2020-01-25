@@ -1,11 +1,10 @@
 FROM suckowbiz/base
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # A/V rendering requires group membership to access drm and load drivers.
 ENV ENTRYPOINT_GROUPS="audio,video"
 
-RUN apt-get install --quiet --quiet --yes --no-install-recommends \
+RUN apt-get install --quiet --quiet --no-install-recommends \
     # Advanced Linux Sound Architecture
     alsa-base \
     dbus-x11 \

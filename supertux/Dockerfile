@@ -1,12 +1,11 @@
 FROM suckowbiz/base
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Conventionally named SUPERTUX USER DIRECTORY
 ENV SUPERTUX2_USER_DIR="/var/lib/supertux2"
 
 RUN apt-get update --quiet \
- && apt-get --quiet --quiet --yes --no-install-recommends install \
+ && apt-get --quiet --quiet --no-install-recommends install \
     automake \
     build-essential \
     cmake \

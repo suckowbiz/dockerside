@@ -6,7 +6,9 @@ set -e
 
 readonly CONTAINER_NAME='unifi'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
-readonly DOCUMENT_ROOT="${PWD}"
+
+# Pull latest Docker image to have the latest version.
+ip r|grep "default\|0.0.0.0" 1>/dev/null && docker pull "${IMAGE_NAME}"
 
 readonly UNIFI_DATA_DIR="${HOME}/.config/unifi/data"
 if [[ ! -e "${UNIFI_DATA_DIR}" ]]; then

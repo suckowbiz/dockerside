@@ -59,11 +59,6 @@ services:
     image: suckowbiz/gimp
     depends_on:
       - "base-av"
-  git:
-    build: git
-    image: suckowbiz/git
-    depends_on:
-      - "base"
   goland:
     build: goland
     image: suckowbiz/goland
@@ -99,8 +94,3 @@ services:
     image: suckowbiz/unifi
     depends_on:
       - "base"
-  webstorm:
-    build: webstorm
-    image: suckowbiz/webstorm
-    depends_on:
-      - "base-av"

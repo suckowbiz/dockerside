@@ -1,5 +1,4 @@
 FROM suckowbiz/chrome
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 COPY context /

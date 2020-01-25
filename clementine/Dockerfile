@@ -1,5 +1,4 @@
 FROM suckowbiz/base-av
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_MUSIC=/var/lib/clementine/music \
@@ -8,7 +7,7 @@ ENV USER_MUSIC=/var/lib/clementine/music \
 RUN apt-get --quiet --quiet update \ 
  && apt-get --quiet --assume-yes install \
     clementine \
-    libssl1.0-dev \
+    libssl-dev \
     libclutter-gst-2.0
 
 WORKDIR /etc/skel

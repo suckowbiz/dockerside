@@ -8,10 +8,7 @@ readonly CONTAINER_NAME='gimp'
 readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 # Pull latest Docker image to have the latest version.
-readonly ONLINE=$(ip r|grep "default\|0.0.0.0" 1>/dev/null; echo $?)
-if [[ "${ONLINE}" = "0" ]]; then
-    docker pull ${IMAGE_NAME}
-fi
+ip r|grep "default\|0.0.0.0" 1>/dev/null && docker pull "${IMAGE_NAME}"
 
 readonly USER_PICTURES="${HOME}/Pictures"
 if [[ ! -e "${USER_PICTURES}" ]]; then

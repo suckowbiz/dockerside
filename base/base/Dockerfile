@@ -1,17 +1,19 @@
-FROM ubuntu:18.10
-
+FROM ubuntu:20.04
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV KEY_SERVER="hkp://keyserver.ubuntu.com:80"\
-    VERSION_GOSU=1.11 \
-    # Avoid selection dialogs such as required when run `dpkg-reconfigure locales` by setting Debian globals.
+ARG VERSION_GOSU=1.11
+
+# Avoid selection dialogs such as required when run `dpkg-reconfigure locales` by setting Debian globals.
+ENV LANG=C.UTF-8 \
+    KEY_SERVER="hkp://keyserver.ubuntu.com:80" \
     DEBCONF_NONINTERACTIVE_SEEN=true \
     DEBIAN_FRONTEND=noninteractive \
-    LANG=C.UTF-8
+    # Avoid: "Warning: apt-key output should not be parsed (stdout is not a terminal)"
+    APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=any-value
 
 # Avoid "debconf: delaying package configuration, since apt-utils is not installed" by installing apt-utils first. 
-RUN apt-get update --quiet --quiet --yes \
-&& apt-get install --quiet --quiet --yes --no-install-recommends \
+RUN apt-get update --quiet --quiet \
+ && apt-get install --quiet --quiet --no-install-recommends \
     apt-utils \
     language-pack-en-base
 
@@ -22,8 +24,7 @@ ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
 
-RUN apt-get update --quiet --quiet --yes \
- && apt-get install --quiet --quiet --yes --no-install-recommends \
+RUN apt-get install --quiet --quiet --no-install-recommends \
     curl \
     dirmngr \
     gnupg-agent \

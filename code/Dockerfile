@@ -1,6 +1,5 @@
 ## These instructions serve the purpose to run vscode.
 FROM suckowbiz/base-av
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
@@ -11,18 +10,13 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
 # Graphviz : PlantUML requires it to calculate positions in diagram.
 # rxvt-* This avoids having non printable chars like "[]"" in menu.
 RUN apt-get update --quiet \
- && apt-get install --quiet --quiet --yes --no-install-recommends \
+ && apt-get install --quiet --quiet --no-install-recommends \
     code \
     git \
     gvfs-bin \
     graphviz \
     libxss1 \
     libgconf-2-4 \
-    openjdk-11-doc \
-    openjdk-11-jdk \
-    openjdk-11-source \
-    openjdk-11-demo \
-    openjdk-11-dbg \
     php \
     rxvt-unicode-256color \
     xz-utils \

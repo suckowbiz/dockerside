@@ -1,26 +1,25 @@
 FROM suckowbiz/base
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ENV CADDY_VERSION=v1.0.4
-ENV CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download \
-    CADDY_REMOTE_NAME="caddy_${CADDY_VERSION}_linux_amd64" \
-    # if set, Caddy will use this folder to store assets instead of the default $HOME/.caddy.
-    CADDYPATH=/var/lib/caddy/.caddy \
-    PATH="${PATH}:/var/lib/caddy"
-ENV CADDY_TARBALL=${CADDY_REMOTE_NAME}.tar.gz
-
-RUN apt-get install --quiet --quiet --yes --no-install-recommends \
-    libcap2-bin
-RUN mkdir --parent "${CADDYPATH}"
+ARG CADDY_VERSION=v1.0.4
+ARG CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download
+ARG CADDY_REMOTE_NAME="caddy_${CADDY_VERSION}_linux_amd64"
+   
+# if set, Caddy will use this folder to store assets instead of the default $HOME/.caddy.
+ENV CADDYPATH=/var/lib/caddy/.caddy \
+    PATH="${PATH}:/var/lib/caddy" \
+    CADDY_TARBALL=${CADDY_REMOTE_NAME}.tar.gz
 
 WORKDIR /var/lib/caddy
-RUN curl \
-        --fail \
-        --location \
-        --remote-name \
-        --show-error \
-        "${CADDY_DOWNLOAD_ROOT}/${CADDY_VERSION}/${CADDY_TARBALL}" \
+RUN apt-get install --quiet --quiet --no-install-recommends \
+    libcap2-bin \
+ && mkdir --parent "${CADDYPATH}" \
+ && curl \
+      --fail \
+      --location \
+      --remote-name \
+      --show-error \
+      "${CADDY_DOWNLOAD_ROOT}/${CADDY_VERSION}/${CADDY_TARBALL}" \
  && tar --extract --file "${CADDY_TARBALL}" \
  && rm --force "${CADDY_TARBALL}" \
  && ls -la \

@@ -1,25 +1,33 @@
 FROM suckowbiz/base
-
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Unifiy currently requires mongodb 3.4
 # https://community.ui.com/releases/UniFi-Network-Controller-5-12-35/45726736-ee4c-4172-877a-a2303f5d3627
-ENV VERSION_UNIFY=5.12.35 \
-    VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR=3.4 \
-    VERSION_MONGODB_ORG_SERVER_PATCH=23
-ENV UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
+ARG VERSION_UNIFY=5.12.35
+ARG VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR=3.4
+ARG VERSION_MONGODB_ORG_SERVER_PATCH=24
+ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
 
-RUN apt-get update --quiet \
- && apt-get install --yes curl
-# Provide mongodb as a requirement to unifi network controller
-RUN curl \
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# Provide mongodb as a requirement to unifi network controller (mongodb requires libssl1.0 but Ubuntu comes with libssl1.1!)
+RUN curl  --fail \
+    --insecure \
+    --location \
+    --remote-name \
+    --show-error \
+    http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu6.2_amd64.deb \
+ && apt-get install --yes \
+    ./libssl1.0.0_1.0.2n-1ubuntu6.2_amd64.deb \
+    openjdk-8-jre \
+ && curl \
     --fail \
     --insecure \
     --location \
     --remote-name \
     --show-error \
     https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}/multiverse/binary-amd64/mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb \
-  && apt-get install --quiet --quiet ./mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb \
+  && apt-get install --yes ./mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb \
   && rm --force ./mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb
 
 # Install unifi to provide the binary for execution
