@@ -18,7 +18,7 @@ RUN curl  --fail \
     --show-error \
     http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.3_amd64.deb \
  && apt-get install --yes \
-    ./libssl1.0.0_1.0.2n-1ubuntu6.2_amd64.deb \
+    ./libssl1.0.0_1.0.2n-1ubuntu5.3_amd64.deb \
     openjdk-8-jre \
  && curl \
     --fail \
