@@ -1,7 +1,7 @@
 FROM suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG CADDY_VERSION=v1.0.4
+ARG CADDY_VERSION=v1.0.5
 ARG CADDY_DOWNLOAD_ROOT=https://github.com/mholt/caddy/releases/download
 ARG CADDY_REMOTE_NAME="caddy_${CADDY_VERSION}_linux_amd64"
    
