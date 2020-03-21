@@ -1,9 +1,9 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG VERSION_GO="1.13.6"
-ARG VERSION_GOLAND="2019.3.1"
-ARG VERSION_GOLANGCI_LINT="1.22.2"
+ARG VERSION_GO="1.14.1"
+ARG VERSION_GOLAND="2019.3.3"
+ARG VERSION_GOLANGCI_LINT="1.24.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
 # Using testcontainers-go requires to have "ip" command available. It's provided with ifupdown2.
@@ -70,10 +70,16 @@ RUN curl \
     --output /git-completion.bash \
   && chmod +x /git-completion.bash
 
+# Provide a Git prompt to ease working with Git.
+COPY bashrc.partial /var/tmp/bashrc.partial
+RUN cat /var/tmp/bashrc.partial >> /etc/bash.bashrc \
+ && rm --force /var/tmp/bashrc.partial
+
 # go bash completion to ease working with the go tool.
 RUN go get -u github.com/posener/complete/gocomplete \
  && GOBIN=/usr/local/bin go install github.com/posener/complete/gocomplete \
  && echo "complete -C gocomplete go" >> /etc/bash.bashrc
+
 
 # Install goimports to have it available for configuration as file watcher within GoLand.
 RUN go get golang.org/x/tools/cmd/goimports \
