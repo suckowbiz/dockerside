@@ -33,8 +33,8 @@ readonly CONTAINER_ID=$(docker run \
   --hostname ${CONTAINER_NAME} \
   --name "${CONTAINER_NAME}" \
   `# Entrypoint` \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_GROUP="$(id -gn "${USER}")" \
+  --env GIVEN_GROUP_ID="$(id -g "${USER}")" \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   `# NGINX-PHP` \
