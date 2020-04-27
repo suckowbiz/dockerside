@@ -2,7 +2,7 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GO="1.14.2"
-ARG VERSION_GOLAND="2020.1"
+ARG VERSION_GOLAND="2020.1.1"
 ARG VERSION_GOLANGCI_LINT="1.24.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
@@ -56,7 +56,8 @@ RUN curl \
  && rm --force "goland-${VERSION_GOLAND}.tar.gz" "goland-${VERSION_GOLAND}.tar.gz.sha256" \
  && mv GoLand-* goland \
  && sed --in-place "s/.*idea.config.path=.*/idea.config.path=\~\/\.GoLand\/config\//" goland/bin/idea.properties \
- && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" goland/bin/idea.properties
+ && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" goland/bin/idea.properties \
+ && sed --in-place "s/.*idea.log.path=.*/idea.log.path=\~\/\.GoLand\/log\//" goland/bin/idea.properties
 ENV PATH="${PATH}:/opt/goland/bin"
 
 # Git completion to ease working with git.
