@@ -4,7 +4,7 @@
 
 Ubiquity UniFi Network Management Controller [https://www.ui.com/software/](https://www.ui.com/software/).
 
-<img src="https://unifi-network.ui.com/static/media/display.1f010538.png" alt="screenshot" width="800" />
+<img src="https://prd-www-cdn.ubnt.com/media/images/dashboard/frames/unifi-image@2x.png" alt="screenshot" width="800" />
 
 # Requirements
 
