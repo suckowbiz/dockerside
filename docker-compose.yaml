@@ -69,6 +69,11 @@ services:
     image: suckowbiz/keepass2
     depends_on:
       - "base-av"
+  logster:
+    build: logster
+    image: suckowbiz/logster
+    depends_on:
+      - "base"
   nginx:
     build: nginx/base
     image: suckowbiz/nginx
