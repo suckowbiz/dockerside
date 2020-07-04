@@ -16,18 +16,5 @@ Google Chrome browser.
 Download run script to have `chrome` available:
 
 ```bash
-# Download the run script to provide required Docker run options.
-curl \
-  --fail \
-  --location \
-  --show-error \
-  https://raw.githubusercontent.com/suckowbiz/dockerside/master/chrome/chrome \
-  > /var/tmp/chrome
-
-# Move the download script and add add it to your PATH. This makes it available from command line.
-sudo mv /var/tmp/chrome /usr/local/bin/
-sudo chmod +x /usr/local/bin/chrome
-
-# Execute the start script to run chrome.
-chrome
+sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/chrome/chrome -o /usr/local/bin/chrome && sudo chmod +x /usr/local/bin/chrome
 ```

@@ -16,20 +16,7 @@ Ubiquity UniFi Network Management Controller [https://www.ui.com/software/](http
 Download run script to have `unifi` available:
 
 ```bash
-# Download the run script to provide required Docker run options.
-curl \
-  --fail \
-  --location \
-  --show-error \
-  https://raw.githubusercontent.com/suckowbiz/dockerside/master/unifi/unifi \
-  > /var/tmp/unifi
-
-# Move the download script and add add it to your PATH. This makes it available from command line.
-sudo mv /var/tmp/unifi /usr/local/bin/
-sudo chmod +x /usr/local/bin/unifi
-
-# Execute the start script to run unifi.
-unifi
+sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/unifi/unifi -o /usr/local/bin/unifi && sudo chmod +x /usr/local/bin/unifi
 ```
 
 

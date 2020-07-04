@@ -7,5 +7,5 @@ Ansible vault executor.
 Download run script to have `ansible-vault` available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/ansible/vault/ansible-vault > /var/tmp/ansible-vault && sudo mv /var/tmp/ansible-vault /usr/local/bin/ && sudo chmod +x /usr/local/bin/ansible-vault
+sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/ansible/vault/ansible-vault -o /usr/local/bin/ansible-vault && sudo chmod +x /usr/local/bin/ansible-vault
 ```

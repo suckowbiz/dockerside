@@ -9,20 +9,7 @@
 Download run script to have `tor` command available:
 
 ```bash
-# Download the run script to provide required Docker run options.
-curl \
-  --fail \
-  --location \
-  --show-error \
-  https://raw.githubusercontent.com/suckowbiz/dockerside/master/tor/tor \
-  > /var/tmp/tor
-
-# Move the download script and add add it to your PATH. This makes it available from command line.
-sudo mv /var/tmp/tor /usr/local/bin/
-sudo chmod +x /usr/local/bin/tor
-
-# Execute the start script to run tor.
-tor
+sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/tor/tor -o /usr/local/bin/tor && sudo chmod +x /usr/local/bin/tor
 ```
 
 ## Usage Example

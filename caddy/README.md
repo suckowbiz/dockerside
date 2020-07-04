@@ -25,18 +25,5 @@ Caddy is configured with the Caddyfile. The Caddyfile is a text file that tells 
 Download run script to have `caddy` command available:
 
 ```bash
-# Download the run script to provide required Docker run options.
-curl \
-  --fail \
-  --location \
-  --show-error \
-  https://raw.githubusercontent.com/suckowbiz/dockerside/master/caddy/caddy \
-  > /var/tmp/caddy
-
-# Move the download script and add add it to your PATH. This makes it available from command line.
-sudo mv /var/tmp/caddy /usr/local/bin/
-sudo chmod +x /usr/local/bin/caddy
-
-# Execute the start script to run caddy.
-caddy
+sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/caddy/caddy -o /usr/local/bin/caddy && sudo chmod +x /usr/local/bin/caddy
 ```

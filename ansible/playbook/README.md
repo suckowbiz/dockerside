@@ -7,5 +7,5 @@ Ansible Playbook executor.
 Download run script to have `ansible-playbook` available:
 
 ```bash
-curl -fLSs -o - https://raw.githubusercontent.com/suckowbiz/dockerside/master/ansible/playbook/ansible-playbook > /var/tmp/ansible-playbook && sudo mv /var/tmp/ansible-playbook /usr/local/bin/ && sudo chmod +x /usr/local/bin/ansible-playbook
+sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/ansible/playbook/ansible-playbook -o /usr/local/bin/ansible-playbook && sudo chmod +x /usr/local/bin/ansible-playbook
 ```
