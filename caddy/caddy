@@ -47,5 +47,5 @@ docker run \
   --publish 2015:2015 \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume "${CADDYFILE}":/var/lib/caddy/Caddyfile:ro \
-  --volume "${CADDYPATH}":/var/lib/caddy/.caddy \
+  --volume "${CADDYPATH}":/var/lib/caddy/caddy \
   "${IMAGE_NAME}" "$@"
