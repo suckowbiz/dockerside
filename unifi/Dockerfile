@@ -3,7 +3,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Unifiy currently requires mongodb 3.4
 # https://community.ui.com/releases/UniFi-Network-Controller-5-12-35/45726736-ee4c-4172-877a-a2303f5d3627
-ARG VERSION_UNIFY=5.12.72
+ARG VERSION_UNIFY=5.13.32
 ARG VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR=3.4
 ARG VERSION_MONGODB_ORG_SERVER_PATCH=24
 ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
