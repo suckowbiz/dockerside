@@ -1,12 +1,13 @@
 FROM golang:buster AS builder
 ENV VERSION_CADDY=2.1.1 \
-    VERSION_XCADDY=0.1.4
+    VERSION_XCADDY=0.1.5
 RUN curl \
         --fail \
         --location \
         --show-error \
-        https://github.com/caddyserver/xcaddy/releases/download/v${VERSION_XCADDY}/xcaddy_v${VERSION_XCADDY}_linux_amd64 \
-        --output xcaddy \
+        https://github.com/caddyserver/xcaddy/releases/download/v${VERSION_XCADDY}/xcaddy_${VERSION_XCADDY}_linux_amd64.tar.gz \
+        --output xcaddy.tar.gz \
+ && tar --extract --file xcaddy.tar.gz \
  && chmod +x xcaddy
 RUN ./xcaddy build v${VERSION_CADDY} \
         --output /usr/local/bin/caddy \
