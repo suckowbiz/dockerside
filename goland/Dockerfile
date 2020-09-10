@@ -1,9 +1,9 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG VERSION_GO="1.14.7"
+ARG VERSION_GO="1.15.2"
 ARG VERSION_GOLAND="2020.2.2"
-ARG VERSION_GOLANGCI_LINT="1.30.0"
+ARG VERSION_GOLANGCI_LINT="1.31.0"
 
 # Markdown preview requires javafx (wich requires libxslt).
 # Using git requires "ssh" in case of a SSH connection.
