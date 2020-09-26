@@ -6,6 +6,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 ARG VERSION_UNIFY=5.13.32
 ARG VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR=3.4
 ARG VERSION_MONGODB_ORG_SERVER_PATCH=24
+ARG VERSION_LIBSSL=1.0.0_1.0.2n-1ubuntu5.4
 ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -16,9 +17,9 @@ RUN curl  --fail \
     --location \
     --remote-name \
     --show-error \
-    http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.3_amd64.deb \
+    http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl${VERSION_LIBSSL}_amd64.deb \
  && apt-get install --yes \
-    ./libssl1.0.0_1.0.2n-1ubuntu5.3_amd64.deb \
+    ./libssl${VERSION_LIBSSL}_amd64.deb \
     openjdk-8-jre \
  && curl \
     --fail \
