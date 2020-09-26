@@ -23,11 +23,11 @@ Since persistence or system resources are involved almost all of the Dockerfiles
 
 ## Run
 
-I build Dockerimages from most of the Dockerfiles and made them available on my account at docker hub [https://hub.docker.com/u/suckowbiz/](https://hub.docker.com/u/suckowbiz/).
+I built Dockerimages from most of the Dockerfiles and made them available on my account at docker hub [https://hub.docker.com/u/suckowbiz/](https://hub.docker.com/u/suckowbiz/).
 
 ## License
 
-icensed under MIT to allow doing anything with proper attribution and without warranty.
+Licensed under MIT to allow doing anything with proper attribution and without warranty.
 
 ## Code Conventions
 
