@@ -1,5 +1,5 @@
 FROM golang:buster AS builder
-ENV VERSION_CADDY=2.1.1 \
+ENV VERSION_CADDY=2.2.0 \
     VERSION_XCADDY=0.1.5
 RUN curl \
         --fail \
