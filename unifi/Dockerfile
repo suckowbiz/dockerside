@@ -1,35 +1,15 @@
 FROM suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-# Unifiy currently requires mongodb 3.4
-# https://community.ui.com/releases/UniFi-Network-Controller-5-12-35/45726736-ee4c-4172-877a-a2303f5d3627
-ARG VERSION_UNIFY=5.13.32
-ARG VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR=3.4
-ARG VERSION_MONGODB_ORG_SERVER_PATCH=24
-ARG VERSION_LIBSSL=1.0.0_1.0.2n-1ubuntu5.4
+# Unifiy currently requires mongodb 3.6 and java 8 (comes with ubuntu)
+# https://community.ui.com/releases/UniFi-Network-Controller-6-0-23/6ee72622-e3ca-4ebe-9e82-97fe7cca2094
+ARG VERSION_UNIFY=6.0.23
+ARG VERSION_MONGODB=3.6
 ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-# Provide mongodb as a requirement to unifi network controller (mongodb requires libssl1.0 but Ubuntu comes with libssl1.1!)
-RUN curl  --fail \
-    --insecure \
-    --location \
-    --remote-name \
-    --show-error \
-    http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl${VERSION_LIBSSL}_amd64.deb \
- && apt-get install --yes \
-    ./libssl${VERSION_LIBSSL}_amd64.deb \
-    openjdk-8-jre \
- && curl \
-    --fail \
-    --insecure \
-    --location \
-    --remote-name \
-    --show-error \
-    https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}/multiverse/binary-amd64/mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb \
-  && apt-get install --yes ./mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb \
-  && rm --force ./mongodb-org-server_${VERSION_MONGODB_ORG_SERVER_MAJOR_MINOR}.${VERSION_MONGODB_ORG_SERVER_PATCH}_amd64.deb
+RUN apt-get install --quiet --quiet mongodb=1:3.6.* openjdk-8-jre
 
 # Install unifi to provide the binary for execution
 RUN curl \

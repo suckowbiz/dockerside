@@ -43,7 +43,7 @@ UNIFI DATA ...: ${UNIFI_DATA_DIR}
 UNIFI LOG ....: ${UNIFI_LOG_DIR}
 UNIFI RUN ....: ${UNIFI_RUN_DIR}
 
-Point your browser to: http://localhost:8080 to login into UniFi Network Controller.
+To login into UniFi Network Controller, point your browser to: http://localhost:8443
 
 EOH
 
