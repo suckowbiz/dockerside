@@ -3,21 +3,21 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GO="1.15.3"
 ARG VERSION_GOLAND="2020.2.3"
-ARG VERSION_GOLANGCI_LINT="1.32.0"
+ARG VERSION_GOLANGCI_LINT="1.32.2"
 
-# Markdown preview requires javafx (wich requires libxslt).
-# Using git requires "ssh" in case of a SSH connection.
+# ssh - using git requires it in case of a SSH connection.
+# libnss3 - resolves: 2020-11-21 10:19:48,529 [  14778]  ERROR - pplication.impl.LaterInvocator - /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory java.lang.UnsatisfiedLinkError: /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory
 RUN apt-get install --quiet --quiet --no-install-recommends \
     bash-completion \
     build-essential \
     firefox \
     docker.io \
     git \
+    libnss3 \
     libxtst6 \
     libxtst-dev \
-    libxslt1.1 \
     man \
-    openjfx \
+    shellcheck \
     ssh \
     zip \
  && apt-get clean --quiet \
@@ -79,7 +79,6 @@ RUN cat /var/tmp/bashrc.partial >> /etc/bash.bashrc \
 RUN go get -u github.com/posener/complete/gocomplete \
  && GOBIN=/usr/local/bin go install github.com/posener/complete/gocomplete \
  && echo "complete -C gocomplete go" >> /etc/bash.bashrc
-
 
 # Install goimports to have it available for configuration as file watcher within GoLand.
 RUN go get golang.org/x/tools/cmd/goimports \
