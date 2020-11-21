@@ -1,47 +1,10 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG VERSION_GO="1.15.3"
-ARG VERSION_GOLAND="2020.2.3"
-ARG VERSION_GOLANGCI_LINT="1.32.2"
-
-# ssh - using git requires it in case of a SSH connection.
-# libnss3 - resolves: 2020-11-21 10:19:48,529 [  14778]  ERROR - pplication.impl.LaterInvocator - /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory java.lang.UnsatisfiedLinkError: /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory
-RUN apt-get install --quiet --quiet --no-install-recommends \
-    bash-completion \
-    build-essential \
-    firefox \
-    docker.io \
-    git \
-    libnss3 \
-    libxtst6 \
-    libxtst-dev \
-    man \
-    shellcheck \
-    ssh \
-    zip \
- && apt-get clean --quiet \
- && apt-get autoremove --quiet \
- && rm -rf /var/lib/apt/lists/*
-
-COPY context /
-
-# Install the go distribution to provide golang environment.
-# Reference: https://golang.org/doc/install#install
-RUN curl \
-    --fail \
-    --location \
-    --show-error \
-    "https://dl.google.com/go/go${VERSION_GO}.linux-amd64.tar.gz" | tar --directory /usr/local --extract --gzip
-ENV PATH="${PATH}:/usr/local/go/bin"
-
-# Run a test to verify that Go is installed correctly.
-WORKDIR /root/go/src/hello
-RUN go build \
-  && ./hello > hello.actual \
-  && diff hello.actual hello.expected \
-  && test "$?" = "0" || (echo "Go installation seems broken"; exit 1) \
-  && go clean -i
+ARG VERSION_GO=1.15.5
+ARG VERSION_GOLAND=2020.2.3
+ARG VERSION_GOLANGCI_LINT=1.32.2
+ARG VERSION_SHELLCHECK=0.7.1
 
 # Install goland to provide an entrypoint.
 WORKDIR /opt
@@ -60,6 +23,53 @@ RUN curl \
  && sed --in-place "s/.*idea.plugins.path=.*/idea.plugins.path=\~\/\.GoLand\/config\/plugins\//" goland/bin/idea.properties \
  && sed --in-place "s/.*idea.log.path=.*/idea.log.path=\~\/\.GoLand\/log\//" goland/bin/idea.properties
 ENV PATH="${PATH}:/opt/goland/bin"
+
+# ssh - using git requires it in case of a SSH connection.
+# libnss3 - resolves: 2020-11-21 10:19:48,529 [  14778]  ERROR - pplication.impl.LaterInvocator - /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory java.lang.UnsatisfiedLinkError: /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory
+RUN apt-get install --quiet --quiet --no-install-recommends \
+    bash-completion \
+    build-essential \
+    firefox \
+    docker.io \
+    git \
+    libnss3 \
+    libxtst6 \
+    libxtst-dev \
+    man \
+    ssh \
+    zip \
+ && apt-get clean --quiet \
+ && apt-get autoremove --quiet \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY context /
+
+# Install shellcheck to support Bash code analysis.
+RUN curl \
+    --fail \
+    --location \
+    --show-error \
+    https://github.com/koalaman/shellcheck/releases/download/v${VERSION_SHELLCHECK}/shellcheck-v${VERSION_SHELLCHECK}.linux.x86_64.tar.xz | tar --extract --xz \
+  && mv shellcheck-v${VERSION_SHELLCHECK}/shellcheck /usr/bin/shellcheck \
+  && rm --recursive --force shellcheck-v${VERSION_SHELLCHECK} \
+  && chmod +x /usr/bin/shellcheck
+
+# Install the go distribution to provide golang environment.
+# Reference: https://golang.org/doc/install#install
+RUN curl \
+    --fail \
+    --location \
+    --show-error \
+    "https://dl.google.com/go/go${VERSION_GO}.linux-amd64.tar.gz" | tar --directory /usr/local --extract --gzip
+ENV PATH="${PATH}:/usr/local/go/bin"
+
+# Run a test to verify that Go is installed correctly.
+WORKDIR /root/go/src/hello
+RUN go build \
+  && ./hello > hello.actual \
+  && diff hello.actual hello.expected \
+  && test "$?" = "0" || (echo "Go installation seems broken"; exit 1) \
+  && go clean -i
 
 # Git completion to ease working with git.
 RUN curl \
@@ -99,8 +109,8 @@ RUN curl \
 # Prepare user home to link runtime data to persistent directories.
 WORKDIR /etc/skel
 # In case /volume/gitconfig/.gitconfig is being written by git it will try to create a .gitconfig.lock file which must not fail.
-RUN mkdir --parent /volume/gitconfig \
-  && chmod 777 /volume/gitconfig
+RUN mkdir --parent /volume/gitconfig /volume/.local/share/JetBrains \
+  && chmod 777 /volume/gitconfig /volume/.local/share/JetBrains
 ENV GOPATH="/volume/go"
 ENV GOROOT="/usr/local/go" \
     GOBIN="${GOPATH}/bin" \
@@ -108,10 +118,13 @@ ENV GOROOT="/usr/local/go" \
     VOL_GIT_CONF="/volume/gitconfig" \
     VOL_GO="${GOPATH}" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
+    VOL_LOCAL="/volume/.local" \
     VOL_JAVA_CONF="/volume/.java" \
     VOL_SSH="/volume/.ssh"
-RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_JAVA_CONF}" "${VOL_SSH}"; do ln --symbolic "${volume}"; done
-VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_JAVA_CONF}", "${VOL_SSH}"]
+RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_LOCAL}" "${VOL_JAVA_CONF}" "${VOL_SSH}"; do \
+      ln --symbolic "${volume}"; \
+    done
+VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_LOCAL}", "${VOL_JAVA_CONF}", "${VOL_SSH}"]
 
 # Add support for integration of go modules.
 ENV GO111MODULE=on
