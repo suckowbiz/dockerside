@@ -3,7 +3,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Unifiy currently requires mongodb 3.6 and java 8 (comes with ubuntu)
 # https://community.ui.com/releases/UniFi-Network-Controller-6-0-23/6ee72622-e3ca-4ebe-9e82-97fe7cca2094
-ARG VERSION_UNIFY=6.0.23
+ARG VERSION_UNIFY=6.0.36
 ARG VERSION_MONGODB=3.6
 ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
 
