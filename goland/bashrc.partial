@@ -1,3 +1,6 @@
+# Keep the prompt short and informative.
+PROMPT_DIRTRIM=1
+
 # GIT bash integration
 # Credits: https://gist.github.com/midlan
 if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
