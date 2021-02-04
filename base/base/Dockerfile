@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM quay.io/baselibrary/ubuntu:20.04
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GOSU=1.11
