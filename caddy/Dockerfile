@@ -1,4 +1,4 @@
-FROM golang:buster AS builder
+FROM public.ecr.aws/shuttl/golang:1.15 AS builder
 ENV VERSION_CADDY=2.2.1 \
     VERSION_XCADDY=0.1.5
 RUN curl \
@@ -13,7 +13,7 @@ RUN ./xcaddy build v${VERSION_CADDY} \
         --output /usr/local/bin/caddy \
         --with github.com/caddy-dns/cloudflare
 
-FROM suckowbiz/base
+FROM quay.io/suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 COPY --from=builder /usr/local/bin/caddy /usr/local/bin/
 # If the XDG_DATA_HOME environment variable is set, data directory is $XDG_DATA_HOME/caddy.
