@@ -1,4 +1,4 @@
-[![Docker Repository on Quay](https://quay.io/repository/suckowbiz/base/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/base)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/base/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/base)
 
 # base
 

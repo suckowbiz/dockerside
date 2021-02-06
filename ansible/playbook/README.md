@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/ansible-playbook/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/ansible-playbook)
+
 # ansible-playbook
 
 Ansible Playbook executor.

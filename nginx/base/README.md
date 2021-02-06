@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/nginx-base/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/nginx-base)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/nginx/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/nginx)
 
 # nginx
 

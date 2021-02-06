@@ -1,3 +1,5 @@
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/ansible-vault/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/ansible-vault)
+
 # ansible-vault
 
 Ansible vault executor.
