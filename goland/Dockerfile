@@ -1,4 +1,4 @@
-FROM suckowbiz/base-av
+FROM quay.io/suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GO=1.15.6

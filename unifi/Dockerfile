@@ -1,4 +1,4 @@
-FROM suckowbiz/base
+FROM quay.io/suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Unifiy currently requires mongodb 3.6 and java 8 (comes with ubuntu)

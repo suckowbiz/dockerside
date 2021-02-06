@@ -1,4 +1,4 @@
-FROM suckowbiz/base
+FROM quay.io/suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 COPY context /
 ENTRYPOINT ["/entrypoint.sh"]

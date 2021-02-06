@@ -1,4 +1,4 @@
-FROM suckowbiz/base
+FROM quay.io/suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN apt-get install --quiet --quiet --no-install-recommends \

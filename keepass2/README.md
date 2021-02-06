@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/keepass2.svg)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/keepass2/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/keepass2)
 
 # keepass2
 

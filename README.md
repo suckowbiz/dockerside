@@ -23,7 +23,7 @@ Since persistence or system resources are involved almost all of the Dockerfiles
 
 ## Run
 
-I built Dockerimages from most of the Dockerfiles and made them available on my account at docker hub [https://hub.docker.com/u/suckowbiz/](https://hub.docker.com/u/suckowbiz/).
+I built Dockerimages from most of the Dockerfiles and made them available on my account at quay.io [https://quay.io/user/suckowbiz](https://quay.io/user/suckowbiz).
 
 ## License
 

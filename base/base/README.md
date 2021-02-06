@@ -1,3 +1,5 @@
+[![Docker Repository on Quay](https://quay.io/repository/suckowbiz/base/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/base)
+
 # base
 
 The parent Docker Image for all Dockerfiles. It contains a core entrypoint script that is common for all child Docker Images.

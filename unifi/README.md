@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/unifi.svg)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/unifi/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/unifi)
 
 # unifi
 

@@ -1,3 +1,5 @@
+[![Docker Repository on Quay](https://quay.io/repository/suckowbiz/base-av/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/base-av)
+
 # base-av
 
 Common base for audio/video applications.

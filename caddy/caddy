@@ -5,7 +5,7 @@
 set -e
 
 readonly CONTAINER_NAME='caddy'
-readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+readonly IMAGE_NAME="quay.io/suckowbiz/${CONTAINER_NAME}"
 readonly CADDYFILE="${PWD}/Caddyfile"
 readonly CADDYPATH="${PWD}/.caddy"
 

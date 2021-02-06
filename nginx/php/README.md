@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/suckowbiz/nginx-php.svg)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/nginx-php/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/nginx-php)
 
 # nginx-php
 
