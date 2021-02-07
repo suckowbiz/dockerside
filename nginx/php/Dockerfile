@@ -1,4 +1,4 @@
-FROM quay.io/suckowbiz/nginx
+FROM suckowbiz/nginx
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN apt-get install --quiet --quiet --no-install-recommends \

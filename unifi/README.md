@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/unifi/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/unifi)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/unifi.svg)](https://microbadger.com/images/suckowbiz/unifi "Get your own image badge on microbadger.com")
 
 # unifi
 

@@ -1,4 +1,4 @@
-FROM quay.io/suckowbiz/base-av
+FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG INSTALL_CANDIDATE=google-chrome

@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg)  [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/chromix/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/chromix)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/chromix.svg)](https://microbadger.com/images/suckowbiz/chromix "Get your own image badge on microbadger.com")
 
 # chrome
 

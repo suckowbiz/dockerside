@@ -9,8 +9,6 @@ services:
   ansible-base:
     build: ansible/base
     image: suckowbiz/ansible-base
-    depends_on:
-      - "base"
   ansible-playbook:
     build: ansible/playbook
     image: suckowbiz/ansible-playbook
@@ -27,28 +25,18 @@ services:
   base-av:
     build: base/av
     image: suckowbiz/base-av
-    depends_on:
-      - base
   caddy:
     build: caddy
     image: suckowbiz/caddy
-    depends_on:
-      - base
   clementine:
     build: clementine
     image: suckowbiz/clementine
-    depends_on:
-      - "base-av"
   code:
     build: code
     image: suckowbiz/code
-    depends_on:
-      - "base-av"
   chrome:
     build: chrome
     image: suckowbiz/chrome
-    depends_on:
-      - "base-av"
   chromix:
     build: chromix
     image: suckowbiz/chromix
@@ -57,28 +45,18 @@ services:
   gimp:
     build: gimp
     image: suckowbiz/gimp
-    depends_on:
-      - "base-av"
   goland:
     build: goland
     image: suckowbiz/goland
-    depends_on:
-      - "base-av"
   keepass2:
     build: keepass2
     image: suckowbiz/keepass2
-    depends_on:
-      - "base-av"
   logster:
     build: logster
     image: suckowbiz/logster
-    depends_on:
-      - "base"
   nginx:
     build: nginx/base
     image: suckowbiz/nginx
-    depends_on:
-      - "base"
   nginx-php:
     build: nginx/php
     image: suckowbiz/nginx-php
@@ -87,15 +65,9 @@ services:
   supertux:
     build: supertux
     image: suckowbiz/supertux
-    depends_on:
-      - "base"
   tor:
     build: tor
     image: suckowbiz/tor
-    depends_on:
-      - "base"
   unifi:
     build: unifi
     image: suckowbiz/unifi
-    depends_on:
-      - "base"

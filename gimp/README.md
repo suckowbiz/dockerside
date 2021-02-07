@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/gimp/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/gimp)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/gimp.svg)](https://microbadger.com/images/suckowbiz/gimp "Get your own image badge on microbadger.com")
 
 # gimp
 

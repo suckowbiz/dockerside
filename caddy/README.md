@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/caddy/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/caddy)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/caddy.svg)](https://microbadger.com/images/suckowbiz/caddy "Get your own image badge on microbadger.com")
 
 # caddy
 

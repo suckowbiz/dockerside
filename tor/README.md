@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/tor/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/tor)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/tor.svg)](https://microbadger.com/images/suckowbiz/tor "Get your own image badge on microbadger.com")
 
 # tor
 

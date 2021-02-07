@@ -5,7 +5,7 @@
 set -e
 
 readonly CONTAINER_NAME='chrome'
-readonly IMAGE_NAME="quay.io/suckowbiz/${CONTAINER_NAME}"
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 
 # Pull latest Docker image to have the latest version.
 ip r|grep "default\|0.0.0.0" 1>/dev/null && docker pull "${IMAGE_NAME}"

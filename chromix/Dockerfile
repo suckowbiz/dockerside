@@ -1,4 +1,4 @@
-FROM quay.io/suckowbiz/chrome
+FROM suckowbiz/chrome
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 COPY context /

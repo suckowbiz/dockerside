@@ -1,5 +1,5 @@
 ## These instructions serve the purpose to run vscode.
-FROM quay.io/suckowbiz/base-av
+FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \

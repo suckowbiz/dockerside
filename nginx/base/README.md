@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/nginx/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/nginx)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/nginx.svg)](https://microbadger.com/images/suckowbiz/nginx "Get your own image badge on microbadger.com")
 
 # nginx
 

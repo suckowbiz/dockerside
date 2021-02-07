@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![Docker Repository on Quay](https://quay.io/repository/suckowbiz/supertux/status "Docker Repository on Quay")](https://quay.io/repository/suckowbiz/supertux)
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/supertux.svg)](https://microbadger.com/images/suckowbiz/supertux "Get your own image badge on microbadger.com")
 
 # supertux
 

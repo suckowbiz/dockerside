@@ -1,4 +1,4 @@
-FROM quay.io/suckowbiz/base
+FROM suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Conventionally named SUPERTUX USER DIRECTORY
