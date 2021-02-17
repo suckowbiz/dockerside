@@ -65,7 +65,8 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 
 # Run a test to verify that Go is installed correctly.
 WORKDIR /root/go/src/hello
-RUN go build \
+RUN go mod init \
+  && go build \
   && ./hello > hello.actual \
   && diff hello.actual hello.expected \
   && test "$?" = "0" || (echo "Go installation seems broken"; exit 1) \
@@ -94,7 +95,7 @@ RUN go get -u github.com/posener/complete/gocomplete \
 RUN go get golang.org/x/tools/cmd/goimports \
  && GOBIN=/usr/local/bin go install golang.org/x/tools/cmd/goimports
 
-# Install golangci-lint to have it available for configuration as file watcher within GoLand.
+# Install golangci-lint to have it available for configuration within GoLand.
 RUN curl \
     --fail \
     --location \

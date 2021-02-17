@@ -19,12 +19,6 @@ services:
     image: suckowbiz/ansible-vault
     depends_on:
       - "ansible-base"
-  base:
-    build: base/base
-    image: suckowbiz/base
-  base-av:
-    build: base/av
-    image: suckowbiz/base-av
   caddy:
     build: caddy
     image: suckowbiz/caddy
