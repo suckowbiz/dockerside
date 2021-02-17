@@ -126,9 +126,6 @@ RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" 
     done
 VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_LOCAL}", "${VOL_JAVA_CONF}", "${VOL_SSH}"]
 
-# Add support for integration of go modules.
-ENV GO111MODULE=on
-
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
