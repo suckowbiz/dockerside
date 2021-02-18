@@ -1,4 +1,4 @@
-![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg) [![](https://images.microbadger.com/badges/image/suckowbiz/nginx-php.svg)](https://microbadger.com/images/suckowbiz/nginx-php "Get your own image badge on microbadger.com")
+![Ubuntu Linux](https://img.shields.io/badge/tested-ubuntu-green.svg)
 
 # nginx-php
 
