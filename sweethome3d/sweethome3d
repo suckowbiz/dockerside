@@ -13,7 +13,7 @@ readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
 readonly RUNNING_CONTAINER_ID=$(docker ps --quiet --filter "name=${CONTAINER_NAME}")
 [[ "${RUNNING_CONTAINER_ID}" = "" ]] || exit
 
-readonly USER_DATA_DIR="${HOME}/Downloads"
+readonly USER_DATA_DIR="${HOME}/SweetHome3D"
 if [[ ! -e "${USER_DATA_DIR}" ]]; then
     mkdir --parent "${USER_DATA_DIR}"
 fi
@@ -30,7 +30,7 @@ ${IMAGE_NAME}
 ========
 Volumes:
 ========
-Data Exchange: '${USER_DATA_DIR}'
+SweetHome3D: '${USER_DATA_DIR}'
 
 EOH
 

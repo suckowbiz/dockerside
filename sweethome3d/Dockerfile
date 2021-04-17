@@ -14,7 +14,7 @@ RUN curl -fL https://sourceforge.net/projects/sweethome3d/files/SweetHome3D/Swee
  && 7z x -y file.7z -o/opt -r
 
 WORKDIR /etc/skel
-RUN ln --symbolic "${USER_DATA_DIR}" Downloads
+RUN ln --symbolic "${USER_DATA_DIR}" SweetHome3D
 
 VOLUME ["${USER_DATA_DIR}"]
 
