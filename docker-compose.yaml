@@ -59,6 +59,9 @@ services:
   supertux:
     build: supertux
     image: suckowbiz/supertux
+  sweethome3d:
+    build: sweethome3d
+    image: suckowbiz/sweethome3d
   tor:
     build: tor
     image: suckowbiz/tor
