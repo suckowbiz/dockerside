@@ -4,7 +4,7 @@
 # (follows https://google.github.io/styleguide/shell.xml)
 set -e
 
-readonly IMAGE_NAME='/suckowbiz/goland'
+readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 
 # Pull latest Docker image to have the latest version.
