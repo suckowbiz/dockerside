@@ -27,6 +27,7 @@ readonly CONTAINER_ID=$(docker run \
   --detach \
   --hostname ${CONTAINER_NAME} \
   --name "${CONTAINER_NAME}" \
+  --rm \
   --publish 0.0.0.0:9050:9050 \
   "${IMAGE_NAME}" "ExcludeExitNodes" "{de},{at},{ch}")
 echo "${CONTAINER_ID}"

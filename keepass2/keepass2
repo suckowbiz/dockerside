@@ -45,6 +45,7 @@ readonly CONTAINER_ID=$(docker run \
   --detach \
   --hostname ${CONTAINER_NAME} \
   --name "${CONTAINER_NAME}" \
+  --rm \
   --volume /etc/localtime:/etc/localtime:ro \
     `# Video` \
   --device /dev/dri `# Direct GPU access improves gfx rendering.` \

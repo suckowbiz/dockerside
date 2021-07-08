@@ -45,6 +45,7 @@ docker run \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
   --publish 2015:2015 \
+  --rm \
   --volume /etc/localtime:/etc/localtime:ro \
   --volume "${CADDYFILE}":/var/lib/caddy/Caddyfile:ro \
   --volume "${CADDYPATH}":/var/lib/caddy/caddy \

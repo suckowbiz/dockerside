@@ -31,6 +31,7 @@ docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 readonly CONTAINER_ID=$(docker run \
   --detach \
   --hostname ${CONTAINER_NAME} \
+  --rm \
   --name "${CONTAINER_NAME}" \
   `# Entrypoint` \
   --env GIVEN_GROUP=$(id -gn "${USER}") \
