@@ -83,7 +83,7 @@ jobs:
         env:
           IMAGE: nginx-php7
         with:
-          context: "${{ github.workspace }}/nginx/php7"
+          context: "${{ github.workspace }}/nginx/php"
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
