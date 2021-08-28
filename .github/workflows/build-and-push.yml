@@ -29,9 +29,9 @@ jobs:
         env:
           IMAGE: ansible-base
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/ansible/base"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: ansible control
         uses: docker/build-push-action@v2
@@ -40,7 +40,7 @@ jobs:
         with:
           context: "${{ github.workspace }}/ansible/control"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: ansible playbook
         uses: docker/build-push-action@v2
@@ -49,7 +49,7 @@ jobs:
         with:
           context: "${{ github.workspace }}/ansible/playbook"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: ansible vault
         uses: docker/build-push-action@v2
@@ -58,16 +58,16 @@ jobs:
         with:
           context: "${{ github.workspace }}/ansible/vault"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: chromix
         uses: docker/build-push-action@v2
         env:
           IMAGE: chromix
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: nginx
         uses: docker/build-push-action@v2
@@ -76,7 +76,7 @@ jobs:
         with:
           context: "${{ github.workspace }}/nginx/base"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: nginx-php7
         uses: docker/build-push-action@v2
@@ -85,94 +85,94 @@ jobs:
         with:
           context: "${{ github.workspace }}/nginx/php7"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: gimp
         uses: docker/build-push-action@v2
         env:
           IMAGE: gimp
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: goland
         uses: docker/build-push-action@v2
         env:
           IMAGE: goland
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: clementine
         uses: docker/build-push-action@v2
         env:
           IMAGE: clementine
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: keepass2
         uses: docker/build-push-action@v2
         env:
           IMAGE: keepass2
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: logster
         uses: docker/build-push-action@v2
         env:
           IMAGE: logster
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: caddy
         uses: docker/build-push-action@v2
         env:
           IMAGE: caddy
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: unifi
         uses: docker/build-push-action@v2
         env:
           IMAGE: unifi
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: tor
         uses: docker/build-push-action@v2
         env:
           IMAGE: tor
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: sweethome3d
         uses: docker/build-push-action@v2
         env:
           IMAGE: sweethome3d
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: code
         uses: docker/build-push-action@v2
         env:
           IMAGE: code
         with:
-          context: "${{ github.workspace }}/$IMAGE"
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
-          tags: "suckowbiz/$IMAGE:latest"
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
