@@ -1,9 +1,9 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG VERSION_GO=1.16
-ARG VERSION_GOLAND=2021.1.3
-ARG VERSION_GOLANGCI_LINT=1.41.1
+ARG VERSION_GO=1.17
+ARG VERSION_GOLAND=2021.2
+ARG VERSION_GOLANGCI_LINT=1.42.0
 ARG VERSION_SHELLCHECK=0.7.2
 
 # Install goland to provide an entrypoint.
@@ -87,13 +87,11 @@ RUN cat /var/tmp/bashrc.partial >> /etc/bash.bashrc \
  && rm --force /var/tmp/bashrc.partial
 
 # go bash completion to ease working with the go tool.
-RUN go get -u github.com/posener/complete/gocomplete \
- && GOBIN=/usr/local/bin go install github.com/posener/complete/gocomplete \
- && echo "complete -C gocomplete go" >> /etc/bash.bashrc
+RUN GOBIN=/usr/local/bin go install github.com/posener/complete/gocomplete@v1 \
+  && echo "complete -C gocomplete go" >> /etc/bash.bashrc
 
 # Install goimports to have it available for configuration as file watcher within GoLand.
-RUN go get golang.org/x/tools/cmd/goimports \
- && GOBIN=/usr/local/bin go install golang.org/x/tools/cmd/goimports
+RUN GOBIN=/usr/local/bin go install golang.org/x/tools/cmd/goimports@v0.1.5
 
 # Install golangci-lint to have it available for configuration within GoLand.
 RUN curl \
