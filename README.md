@@ -1,6 +1,5 @@
 # dockerside
 
-![Docker Hub Publish](https://github.com/suckowbiz/dockerside/actions/workflows/build-and-push.yml/badge.svg?event=push) 
 ![Docker Hub Publish](https://github.com/suckowbiz/dockerside/actions/workflows/build-and-push.yml/badge.svg?event=schedule)
 
 Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfiles to run software I use(d).
