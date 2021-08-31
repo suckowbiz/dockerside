@@ -1,5 +1,5 @@
-FROM golang:1.15 AS builder
-ENV VERSION_CADDY=2.4.3 \
+FROM golang:1.17 AS builder
+ENV VERSION_CADDY=2.4.4 \
     VERSION_XCADDY=0.1.9
 RUN curl \
         --fail \
