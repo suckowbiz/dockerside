@@ -24,6 +24,10 @@ RUN curl \
  && sed --in-place "s/.*idea.log.path=.*/idea.log.path=\~\/\.GoLand\/log\//" goland/bin/idea.properties
 ENV PATH="${PATH}:/opt/goland/bin"
 
+# Goland: Enable transparent backround on icons when using remote x11 to have a nice environment even on remote X11.
+# https://intellij-support.jetbrains.com/hc/en-us/articles/4403466097042-Icons-do-not-have-transparent-background-slow-performance-over-remote-X11-server-connections
+RUN echo '-Dremote.x11.workaround=false' >> /opt/goland/bin/goland64.vmoptions
+
 # ssh - using git requires it in case of a SSH connection.
 # libnss3 - resolves: 2020-11-21 10:19:48,529 [  14778]  ERROR - pplication.impl.LaterInvocator - /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory java.lang.UnsatisfiedLinkError: /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory
 RUN apt-get install --quiet --quiet --no-install-recommends \
