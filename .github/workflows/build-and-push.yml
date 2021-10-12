@@ -69,6 +69,15 @@ jobs:
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
+        name: chrome
+        uses: docker/build-push-action@v2
+        env:
+          IMAGE: chrome
+        with:
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
+          push: true
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
+      -
         name: nginx
         uses: docker/build-push-action@v2
         env:
