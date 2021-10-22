@@ -2,8 +2,8 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GO=1.17
-ARG VERSION_GOLAND=2021.2.3
-ARG VERSION_GOLANGCI_LINT=1.42.0
+ARG VERSION_GOLAND=2021.2.4
+ARG VERSION_GOLANGCI_LINT=1.42.1
 ARG VERSION_SHELLCHECK=0.7.2
 
 # Install goland to provide an entrypoint.
