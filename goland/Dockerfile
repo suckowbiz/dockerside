@@ -103,10 +103,10 @@ RUN curl \
     --location \
     --remote-name \
     --show-error \
-    https://github.com/golangci/golangci-lint/releases/download/v${VERSION_GOLANGCI_LINT}/golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386.tar.gz \
-  && tar --extract --file golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386.tar.gz \
-  && chmod +x golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386/golangci-lint \
-  && mv golangci-lint-${VERSION_GOLANGCI_LINT}-linux-386/golangci-lint /usr/local/bin/golangci-lint \
+    https://github.com/golangci/golangci-lint/releases/download/v${VERSION_GOLANGCI_LINT}/golangci-lint-${VERSION_GOLANGCI_LINT}-linux-amd64.tar.gz \
+  && tar --extract --file golangci-lint-${VERSION_GOLANGCI_LINT}-linux-amd64.tar.gz \
+  && chmod +x golangci-lint-${VERSION_GOLANGCI_LINT}-linux-amd64/golangci-lint \
+  && mv golangci-lint-${VERSION_GOLANGCI_LINT}-linux-amd64/golangci-lint /usr/local/bin/golangci-lint \
   && rm --force --recursive golangci-lint-*
 
 # Prepare user home to link runtime data to persistent directories.
