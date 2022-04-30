@@ -1,15 +1,17 @@
 FROM suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-# Unifiy currently requires mongodb 3.6 and java 8 (comes with ubuntu)
-# https://community.ui.com/releases/UniFi-Network-Controller-6-0-23/6ee72622-e3ca-4ebe-9e82-97fe7cca2094
-ARG VERSION_UNIFY=6.1.71
-ARG VERSION_MONGODB=3.6
+# Sources:
+# https://help.ui.com/hc/en-us/articles/360012282453-UniFi-Self-host-the-Network-Application
+
+# Release Infos: https://community.ui.com/releases/UniFi-Network-Application-7-1-61/06f67c89-c798-423f-91a2-4cb2bca7694d
+# New Releases appear here (listed as "UniFi Network Application"): https://community.ui.com/releases
+ARG VERSION_UNIFY=7.1.61
 ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-RUN apt-get install --quiet --quiet mongodb=1:3.6.* openjdk-8-jre
+RUN apt-get install --quiet --quiet mongodb openjdk-8-jre
 
 # Install unifi to provide the binary for execution
 RUN curl \

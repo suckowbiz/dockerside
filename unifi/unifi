@@ -31,9 +31,9 @@ fi
 # http://patorjk.com/software/taag/#p=display&f=Calvin%20S&t=Unifi
 cat <<EOH
 
-╦ ╦┌┐┌┬┌─┐┬
-║ ║││││├┤ │
-╚═╝┘└┘┴└  ┴
+╦ ╦┌┐┌┬╔═╗┬  ╔╗╔┌─┐┌┬┐┬ ┬┌─┐┬─┐┬┌─  ╔═╗┌─┐┌─┐┬  ┬┌─┐┌─┐┌┬┐┬┌─┐┌┐┌
+║ ║││││╠╣ │  ║║║├┤  │ ││││ │├┬┘├┴┐  ╠═╣├─┘├─┘│  ││  ├─┤ │ ││ ││││
+╚═╝┘└┘┴╚  ┴  ╝╚╝└─┘ ┴ └┴┘└─┘┴└─┴ ┴  ╩ ╩┴  ┴  ┴─┘┴└─┘┴ ┴ ┴ ┴└─┘┘└┘
 ${IMAGE_NAME}
 
 ========
@@ -43,7 +43,19 @@ UNIFI DATA ...: ${UNIFI_DATA_DIR}
 UNIFI LOG ....: ${UNIFI_LOG_DIR}
 UNIFI RUN ....: ${UNIFI_RUN_DIR}
 
-To login into UniFi Network Controller, point your browser to: https://localhost:443
+###############################
+Web GUI: https://localhost:8443
+###############################
+
+Note: If a supported UniFi device is not listed within the application, it may be
+      required to re-register it. See example below.
+
+Example - Register UAC-AP-Pro Access Point
+
+  # First log in into the access point device:
+  >_ ssh ubnt@<device-ip>
+  # On the access point run:
+  >_ set-inform http://<network-application-ip>:8080/inform
 
 EOH
 
