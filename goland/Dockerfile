@@ -28,6 +28,7 @@ ENV PATH="${PATH}:/opt/goland/bin"
 # https://intellij-support.jetbrains.com/hc/en-us/articles/4403466097042-Icons-do-not-have-transparent-background-slow-performance-over-remote-X11-server-connections
 RUN echo '-Dremote.x11.workaround=false' >> /opt/goland/bin/goland64.vmoptions
 
+# libsecret-1-0 gnome-keyring - remember credentials with git
 # ssh - using git requires it in case of a SSH connection.
 # libnss3 - resolves: 2020-11-21 10:19:48,529 [  14778]  ERROR - pplication.impl.LaterInvocator - /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory java.lang.UnsatisfiedLinkError: /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory
 RUN apt-get install --quiet --quiet --no-install-recommends \
@@ -36,9 +37,11 @@ RUN apt-get install --quiet --quiet --no-install-recommends \
     firefox \
     docker.io \
     git \
+    gnome-keyring \
     libnss3 \
     libxtst6 \
     libxtst-dev \
+    libsecret-1-0 \
     man \
     ssh \
     zip \
