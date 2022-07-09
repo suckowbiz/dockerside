@@ -11,11 +11,11 @@ RUN apt-get update --quiet \
     cmake \
     git \
     libboost-all-dev \
-    libcglm-dev \
     libcurl4-openssl-dev \
     libfreetype6-dev \
     libfribidi-dev \
     libglew-dev \
+    libglm-dev \
     libopenal-dev \
     libogg-dev \
     libphysfs-dev \
