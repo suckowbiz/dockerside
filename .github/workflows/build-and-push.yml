@@ -185,3 +185,12 @@ jobs:
           context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
+      -
+        name: supertux
+        uses: docker/build-push-action@v2
+        env:
+          IMAGE: supertux
+        with:
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
+          push: true
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
