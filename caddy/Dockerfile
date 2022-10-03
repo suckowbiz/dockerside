@@ -1,6 +1,9 @@
-FROM golang:1.17 AS builder
-ENV VERSION_CADDY=2.4.4 \
-    VERSION_XCADDY=0.1.9
+FROM golang:1.19 AS builder
+# See: 
+# https://github.com/caddyserver/caddy
+# https://github.com/caddyserver/xcaddy
+ENV VERSION_CADDY=2.6.1 \
+    VERSION_XCADDY=0.3.1
 RUN curl \
         --fail \
         --location \
