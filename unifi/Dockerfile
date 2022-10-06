@@ -6,7 +6,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Release Infos: https://community.ui.com/releases/UniFi-Network-Application-7-1-61/06f67c89-c798-423f-91a2-4cb2bca7694d
 # New Releases appear here (listed as "UniFi Network Application"): https://community.ui.com/releases
-ARG VERSION_UNIFY=7.1.61
+ARG VERSION_UNIFY=7.2.94
 ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
