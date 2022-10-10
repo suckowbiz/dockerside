@@ -3,7 +3,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GO=1.18
 ARG VERSION_GOLAND=2022.2.3
-ARG VERSION_GOLANGCI_LINT=1.49.0
+ARG VERSION_GOLANGCI_LINT=1.50.0
 ARG VERSION_SHELLCHECK=0.8.0
 
 # Install goland to provide an entrypoint.
