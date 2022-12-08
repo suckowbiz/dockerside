@@ -2,7 +2,7 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ARG VERSION_GO=1.19
-ARG VERSION_GOLAND=2022.2.4
+ARG VERSION_GOLAND=2022.2.5
 ARG VERSION_GOLANGCI_LINT=1.50.0
 ARG VERSION_SHELLCHECK=0.8.0
 
@@ -98,7 +98,7 @@ RUN GOBIN=/usr/local/bin go install github.com/posener/complete/gocomplete@v1 \
   && echo "complete -C gocomplete go" >> /etc/bash.bashrc
 
 # Install goimports to have it available for configuration as file watcher within GoLand.
-RUN GOBIN=/usr/local/bin go install golang.org/x/tools/cmd/goimports@v0.1.5
+RUN GOBIN=/usr/local/bin go install golang.org/x/tools/cmd/goimports@latest
 
 # Install golangci-lint to have it available for configuration within GoLand.
 RUN curl \
