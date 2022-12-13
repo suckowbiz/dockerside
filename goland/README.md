@@ -6,7 +6,7 @@
 
 <img src="https://www.jetbrains.com/go/img/screenshots/go_overview.png" alt="screenshot" width="800" />
 
-# Requirements
+## Requirements
 
 - Docker Runtime
 - Ubuntu Operating System
@@ -18,3 +18,7 @@ Download run script to have `goland` command available:
 ```bash
 sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/goland/goland -o /usr/local/bin/goland && sudo chmod +x /usr/local/bin/goland
 ```
+
+## Root
+
+To run commands as root: `gosu root <cmd>`.

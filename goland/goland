@@ -98,7 +98,7 @@ readonly CONTAINER_ID=$(docker run \
   --env HOST_GROUP=hostdocker \
   --env HOST_GROUP_ID="$(cut -d: -f3 < <(getent group docker))" \
   `# Goland` \
-  --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland ` \
+  --security-opt=seccomp:unconfined `# allow ptrace etc which is required for debugging within goland` \
   --volume "${GIT_CONF}:/volume/gitconfig" \
   --volume "${GOLAND_CONF}:/volume/.GoLand" \
   --volume "${GOPATH}:/volume/go" \
