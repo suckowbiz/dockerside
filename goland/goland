@@ -17,6 +17,7 @@ sudo sysctl --write fs.inotify.max_user_watches=524288 1>/dev/null
 readonly BASE_CONF="${HOME}/.config"
 mkdir --parent \
   "${GIT_CONF:=${BASE_CONF}/GoLand/gitconfig}" \
+  "${JETBRAINS_CONFIG:=${BASE_CONF}/GoLand/config}" \
   "${GOPATH:=${HOME}/go}" \
   "${GOLAND_CONF:=${BASE_CONF}/GoLand}" \
   "${JAVA_CONF:=${BASE_CONF}/GoLand/java}" \
@@ -65,6 +66,7 @@ GoLand Java Conf: '${JAVA_CONF}'
 GOPATH..........: '${GOPATH}'
 Git Conf........: '${GIT_CONF}'
 JetBrains Local.: '${JETBRAINS_LOCAL}'
+JetBrains Config: '${JETBRAINS_CONFIG}'
 ${SSH_BANNER}
 
 EOH
@@ -104,6 +106,7 @@ readonly CONTAINER_ID=$(docker run \
   --volume "${GOPATH}:/volume/go" \
   --volume "${JAVA_CONF}:/volume/.java" \
   --volume "${JETBRAINS_LOCAL}:/volume/.local" \
+  --volume "${JETBRAINS_CONFIG}:/volume/.config" \
   ${SSH_CONF_VOLUME} \
   "${IMAGE_NAME}")
 echo "${CONTAINER_ID}"

@@ -124,13 +124,14 @@ ENV GOROOT="/usr/local/go" \
     VOL_GIT_CONF="/volume/gitconfig" \
     VOL_GO="${GOPATH}" \
     VOL_GOLAND_CONF="/volume/.GoLand" \
+    VOL_CONFIG="/volume/.config" \
     VOL_LOCAL="/volume/.local" \
     VOL_JAVA_CONF="/volume/.java" \
     VOL_SSH="/volume/.ssh"
-RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_LOCAL}" "${VOL_JAVA_CONF}" "${VOL_SSH}"; do \
+RUN for volume in "${VOL_GIT_CONF}/.gitconfig" "${VOL_CONFIG}" "${VOL_GO}" "${VOL_GOLAND_CONF}" "${VOL_LOCAL}" "${VOL_JAVA_CONF}" "${VOL_SSH}"; do \
       ln --symbolic "${volume}"; \
     done
-VOLUME ["${VOL_GIT_CONF}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_LOCAL}", "${VOL_JAVA_CONF}", "${VOL_SSH}"]
+VOLUME ["${VOL_GIT_CONF}", "${VOL_CONFIG}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "${VOL_LOCAL}", "${VOL_JAVA_CONF}", "${VOL_SSH}"]
 
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
