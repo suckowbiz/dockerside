@@ -16,16 +16,16 @@ jobs:
     steps:
       -
         name: Check out the repo to have $GITHUB_WORKSPACE filled with files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Log in to Docker Hub to be able to push Docker image
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: ansible base
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: ansible-base
         with:
@@ -34,7 +34,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: ansible control
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: ansible-control
         with:
@@ -43,7 +43,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: ansible playbook
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: ansible-playbook
         with:
@@ -52,7 +52,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: ansible vault
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: ansible-vault
         with:
@@ -61,7 +61,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: chromix
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: chromix
         with:
@@ -70,7 +70,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: chrome
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: chrome
         with:
@@ -79,7 +79,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: nginx
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: nginx
         with:
@@ -88,7 +88,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: nginx-php7
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: nginx-php7
         with:
@@ -97,7 +97,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: gimp
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: gimp
         with:
@@ -106,7 +106,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: goland
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: goland
         with:
@@ -115,7 +115,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: clementine
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: clementine
         with:
@@ -124,7 +124,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: keepass2
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: keepass2
         with:
@@ -133,7 +133,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: logster
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: logster
         with:
@@ -142,7 +142,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: caddy
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: caddy
         with:
@@ -151,7 +151,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: unifi
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: unifi
         with:
@@ -160,7 +160,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: tor
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: tor
         with:
@@ -169,7 +169,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: sweethome3d
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: sweethome3d
         with:
@@ -178,7 +178,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: code
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: code
         with:
@@ -187,7 +187,7 @@ jobs:
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
         name: supertux
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           IMAGE: supertux
         with:
