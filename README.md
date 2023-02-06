@@ -16,7 +16,6 @@ Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfil
 - Goland GO IDE [./goland](./goland)
 - KeePass2 password safe [./keepass2](./keepass2)
 - Logster log producing app [./logster](./logster)
-- NGINX web server [./nginx](./nginx)
 - SuperTux 2D jump'n run [./supertux](./supertux)
 - Sweet Home 3D [./sweethome3d](./sweethome3d)
 - Tor Proxy [./tor](./tor)

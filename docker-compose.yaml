@@ -42,6 +42,9 @@ services:
   goland:
     build: goland
     image: suckowbiz/goland
+  icaclient:
+    build: icaclient
+    image: suckowbiz/icaclient
   keepass2:
     build: keepass2
     image: suckowbiz/keepass2
@@ -56,6 +59,9 @@ services:
     image: suckowbiz/nginx-php
     depends_on:
       - "nginx"
+  pixum:
+    build: pixum
+    image: suckowbiz/pixum
   supertux:
     build: supertux
     image: suckowbiz/supertux
