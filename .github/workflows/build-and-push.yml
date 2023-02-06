@@ -60,39 +60,12 @@ jobs:
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
-        name: chromix
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: chromix
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
         name: chrome
         uses: docker/build-push-action@v3
         env:
           IMAGE: chrome
         with:
           context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: nginx
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: nginx
-        with:
-          context: "${{ github.workspace }}/nginx/base"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: nginx-php7
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: nginx-php7
-        with:
-          context: "${{ github.workspace }}/nginx/php"
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
