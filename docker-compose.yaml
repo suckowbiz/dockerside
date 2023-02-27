@@ -31,34 +31,18 @@ services:
   chrome:
     build: chrome
     image: suckowbiz/chrome
-  chromix:
-    build: chromix
-    image: suckowbiz/chromix
-    depends_on:
-      - "chrome"
   gimp:
     build: gimp
     image: suckowbiz/gimp
   goland:
     build: goland
     image: suckowbiz/goland
-  icaclient:
-    build: icaclient
-    image: suckowbiz/icaclient
   keepass2:
     build: keepass2
     image: suckowbiz/keepass2
   logster:
     build: logster
     image: suckowbiz/logster
-  nginx:
-    build: nginx/base
-    image: suckowbiz/nginx
-  nginx-php:
-    build: nginx/php
-    image: suckowbiz/nginx-php
-    depends_on:
-      - "nginx"
   pixum:
     build: pixum
     image: suckowbiz/pixum
