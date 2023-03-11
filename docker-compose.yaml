@@ -43,12 +43,6 @@ services:
   logster:
     build: logster
     image: suckowbiz/logster
-  pixum:
-    build: pixum
-    image: suckowbiz/pixum
-  supertux:
-    build: supertux
-    image: suckowbiz/supertux
   sweethome3d:
     build: sweethome3d
     image: suckowbiz/sweethome3d

@@ -11,7 +11,7 @@ on:
 jobs:
   # Mainly following: https://docs.github.com/en/actions/guides/publishing-docker-images
   build-and-push:
-    name: Push base Docker image to Docker Hub
+    name: Push Docker images to Docker Hub
     runs-on: ubuntu-latest
     steps:
       -
@@ -154,15 +154,6 @@ jobs:
         uses: docker/build-push-action@v3
         env:
           IMAGE: code
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: supertux
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: supertux
         with:
           context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
