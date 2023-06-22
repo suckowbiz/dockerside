@@ -2,27 +2,20 @@ FROM suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 # Sources:
-# https://help.ui.com/hc/en-us/articles/360012282453-UniFi-Self-host-the-Network-Application
+# https://help.ui.com/hc/en-us/articles/220066768-UniFi-How-to-Install-Update-via-APT-on-Debian-or-Ubuntu
 
-# Release Infos: https://community.ui.com/releases/UniFi-Network-Application-7-1-61/06f67c89-c798-423f-91a2-4cb2bca7694d
 # New Releases appear here (listed as "UniFi Network Application"): https://community.ui.com/releases
-ARG VERSION_UNIFY=7.2.94
-ARG UNIFY_DOWNLOAD_ROOT=https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb
+ARG VERSION_UNIFI=7.4.*
 
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+# Add gpg key to be able to trustfully update from the to be added repository
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 06E85760C0A52C50 \
+ && add-apt-repository 'deb [trusted=yes] https://www.ui.com/downloads/unifi/debian stable ubiquiti'
 
-RUN apt-get install --quiet --quiet mongodb openjdk-8-jre
-
-# Install unifi to provide the binary for execution
-RUN curl \
-    --fail \
-    --insecure \
-    --location \
-    --remote-name \
-    --show-error \
-    https://dl.ui.com/unifi/${VERSION_UNIFY}/unifi_sysvinit_all.deb \
- && apt-get install --quiet --quiet ./unifi_sysvinit_all.deb \
- && rm --force ./unifi_sysvinit_all.deb
+RUN apt-get update \
+ && apt-get install --quiet --quiet \
+    openjdk-11-jre-headless \
+    supervisor \
+    unifi=${VERSION_UNIFI}
 
 # HTTP portal redirection
 EXPOSE 8880
@@ -50,4 +43,4 @@ EXPOSE 8883
 
 COPY context /
 ENV ENTRYPOINT_AS_ROOT=yes
-ENTRYPOINT [ "/entrypoint.sh", "/etc/init.d/unifi", "start" ]
+ENTRYPOINT [ "supervisord" ]

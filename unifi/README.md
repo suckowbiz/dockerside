@@ -2,7 +2,7 @@
 
 # unifi
 
-Ubiquity UniFi Network Management Controller [https://www.ui.com/software/](https://www.ui.com/software/).
+Ubiquity UniFi Network Application [https://www.ui.com/software/](https://www.ui.com/software/).
 
 <img src="https://prd-www-cdn.ubnt.com/media/images/dashboard/frames/unifi-image@2x.png" alt="screenshot" width="800" />
 
@@ -19,9 +19,4 @@ Download run script to have `unifi` available:
 sudo curl --fail --location --show-error https://raw.githubusercontent.com/suckowbiz/dockerside/master/unifi/unifi -o /usr/local/bin/unifi && sudo chmod +x /usr/local/bin/unifi
 ```
 
-
-
-
-
-
-
+Execute `unifi` within a shell to run a container. See stdout for details.
