@@ -47,6 +47,9 @@ UNIFI RUN ....: ${UNIFI_RUN_DIR}
 Web GUI: https://localhost:8443
 ###############################
 
+Important: To stop unifi container, do it gracefully (docker stop unifi) to avoid corrupted
+or lost unifi data.
+
 Note: If a supported UniFi device is not listed within the application, it may be
       required to re-register it. See example below.
 
