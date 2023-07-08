@@ -2,7 +2,7 @@ FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
 ENV USER_DATA_DIR="/var/lib/sh3d" \
-    VERSION_SH3D="6.6"
+    VERSION_SH3D="7.1"
 
 ENV PATH="$PATH:/opt/SweetHome3D-${VERSION_SH3D}-portable/"
 
