@@ -5,7 +5,7 @@ LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 # https://help.ui.com/hc/en-us/articles/220066768-UniFi-How-to-Install-Update-via-APT-on-Debian-or-Ubuntu
 
 # New Releases appear here (listed as "UniFi Network Application"): https://community.ui.com/releases
-ARG VERSION_UNIFI=7.4.*
+ARG VERSION_UNIFI=7.5.*
 
 # Add gpg key to be able to trustfully update from the to be added repository
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 06E85760C0A52C50 \

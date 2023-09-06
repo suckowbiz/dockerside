@@ -70,7 +70,6 @@ docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
 readonly CONTAINER_ID=$(docker run \
   --detach \
   --rm \
-  --volume "${UNIFI_DIR}":/usr/lib/unifi \
   --volume "${UNIFI_DATA_DIR}":/var/lib/unifi \
   --volume "${UNIFI_LOG_DIR}":/var/log/unifi \
   --volume "${UNIFI_RUN_DIR}":/var/run/unifi \
