@@ -18,7 +18,6 @@ Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfil
 - Logster log producing app [./logster](./logster)
 - Sweet Home 3D [./sweethome3d](./sweethome3d)
 - Tor Proxy [./tor](./tor)
-- Unifi Network Management Controller [./unifi](./unifi)
 
 Since persistence or system resources are involved almost all of the Dockerfiles come with their own run scripts (named after the service).
 

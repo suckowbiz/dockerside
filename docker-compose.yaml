@@ -49,6 +49,3 @@ services:
   tor:
     build: tor
     image: suckowbiz/tor
-  unifi:
-    build: unifi
-    image: suckowbiz/unifi
