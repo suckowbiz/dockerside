@@ -2,7 +2,7 @@ FROM golang:1.21 AS builder
 # See: 
 # https://github.com/caddyserver/caddy
 # https://github.com/caddyserver/xcaddy
-ENV VERSION_CADDY=2.7.5 \
+ENV VERSION_CADDY=2.7.6 \
     VERSION_XCADDY=0.3.5
 RUN curl \
         --fail \
