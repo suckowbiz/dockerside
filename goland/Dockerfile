@@ -1,9 +1,9 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG VERSION_GO=1.23.1
-ARG VERSION_GOLAND=2024.1.6
-ARG VERSION_GOLANGCI_LINT=1.61.0
+ARG VERSION_GO=1.23.4
+ARG VERSION_GOLAND=2024.3.1
+ARG VERSION_GOLANGCI_LINT=1.62.2
 ARG VERSION_SHELLCHECK=0.10.0
 
 # Install goland to provide an entrypoint.
@@ -28,6 +28,14 @@ ENV PATH="${PATH}:/opt/goland/bin"
 # https://intellij-support.jetbrains.com/hc/en-us/articles/4403466097042-Icons-do-not-have-transparent-background-slow-performance-over-remote-X11-server-connections
 RUN echo '-Dremote.x11.workaround=false' >> /opt/goland/bin/goland64.vmoptions
 
+# Use Docker apt repository to install latest docker.
+RUN install -m 0755 -d /etc/apt/keyrings \
+ && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc \
+ && chmod a+r /etc/apt/keyrings/docker.asc \
+ && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    tee /etc/apt/sources.list.d/docker.list > /dev/null \
+ && apt-get update
+
 # libsecret-1-0 gnome-keyring - remember credentials with git
 # ssh - using git requires it in case of a SSH connection.
 # libnss3 - resolves: 2020-11-21 10:19:48,529 [  14778]  ERROR - pplication.impl.LaterInvocator - /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory java.lang.UnsatisfiedLinkError: /opt/goland/jbr/lib/libjcef.so: libnss3.so: cannot open shared object file: No such file or directory
@@ -35,7 +43,11 @@ RUN apt-get install --quiet --quiet --no-install-recommends \
     bash-completion \
     build-essential \
     firefox \
-    docker.io \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-compose-plugin \
     git \
     gnome-keyring \
     libnss3 \
@@ -139,4 +151,4 @@ EXPOSE 3999
 ENV ENTRYPOINT_GROUPS="audio,video,docker,sudo" \
     ENTRYPOINT_WORKDIR="${VOL_GO}"
 
-ENTRYPOINT ["/entrypoint.sh", "goland.sh"]
+ENTRYPOINT ["/entrypoint.sh", "goland"]
