@@ -114,15 +114,6 @@ jobs:
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
-        name: caddy
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: caddy
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
         name: tor
         uses: docker/build-push-action@v3
         env:

@@ -6,8 +6,7 @@ Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfil
 
 ## Dockerfiles
 
-- Ansible automation tool [./ansible](./ansible) 
-- Caddy web server [./caddy](./caddy)
+- Ansible automation tool [./ansible](./ansible)
 - Google Chome web browser [./chrome](./chrome)
 - chromix (chrome with citrix) [./chromix](./chromix)
 - Clementine music player [./clementine](./clementine)
