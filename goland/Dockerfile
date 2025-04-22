@@ -1,9 +1,9 @@
 FROM suckowbiz/base-av
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-ARG VERSION_GO=1.23.4
-ARG VERSION_GOLAND=2024.3.1
-ARG VERSION_GOLANGCI_LINT=1.62.2
+ARG VERSION_GO=1.24.2
+ARG VERSION_GOLAND=2025.1
+ARG VERSION_GOLANGCI_LINT=2.1.2
 ARG VERSION_SHELLCHECK=0.10.0
 
 # Install goland to provide an entrypoint.
@@ -18,10 +18,14 @@ RUN curl \
  && tar --extract --file "goland-${VERSION_GOLAND}.tar.gz" \
  && rm --force "goland-${VERSION_GOLAND}.tar.gz" "goland-${VERSION_GOLAND}.tar.gz.sha256" \
  && mv GoLand-* goland \
+ # Customize location of configuration and system files to survive restarts.
  && sed --in-place "s/.*idea.config.path=.*/idea.config.path=\~\/\.GoLand\/config\//" goland/bin/idea.properties \
  && sed --in-place "s/.*idea.system.path=.*/idea.system.path=\~\/\.GoLand\/system\//" goland/bin/idea.properties \
  && sed --in-place "s/.*idea.plugins.path=.*/idea.plugins.path=\~\/\.GoLand\/config\/plugins\//" goland/bin/idea.properties \
- && sed --in-place "s/.*idea.log.path=.*/idea.log.path=\~\/\.GoLand\/log\//" goland/bin/idea.properties
+ && sed --in-place "s/.*idea.log.path=.*/idea.log.path=\~\/\.GoLand\/log\//" goland/bin/idea.properties \
+ # Increase default memory to avoid having a IDE using 2048m HEAP as default.
+ && sed --in-place "s/-Xmx.*/-Xmx8g/" goland/bin/goland64.vmoptions \
+ && sed --in-place "s/-Xms.*/-Xms2g/" goland/bin/goland64.vmoptions
 ENV PATH="${PATH}:/opt/goland/bin"
 
 # Goland: Enable transparent backround on icons when using remote x11 to have a nice environment even on remote X11.
@@ -151,4 +155,5 @@ EXPOSE 3999
 ENV ENTRYPOINT_GROUPS="audio,video,docker,sudo" \
     ENTRYPOINT_WORKDIR="${VOL_GO}"
 
+# Contrary to the documentation GoLand itself claims it wants to be started by goland binary and not by goland.sh.
 ENTRYPOINT ["/entrypoint.sh", "goland"]
