@@ -152,7 +152,8 @@ VOLUME ["${VOL_GIT_CONF}", "${VOL_CONFIG}", "${VOL_GO}", "${VOL_GOLAND_CONF}", "
 # In case one runs "go tool tour" on 3999 the go tour server is listening.
 EXPOSE 3999
 
-ENV ENTRYPOINT_GROUPS="audio,video,docker,sudo" \
+ENV XDG_RUNTIME_DIR=/tmp \
+    GIVEN_USER_BUILT_IN_GROUPS="audio,video,docker,sudo" \
     ENTRYPOINT_WORKDIR="${VOL_GO}"
 
 # Contrary to the documentation GoLand itself claims it wants to be started by goland binary and not by goland.sh.

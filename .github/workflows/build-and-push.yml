@@ -60,15 +60,6 @@ jobs:
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
       -
-        name: chrome
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: chrome
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
         name: gimp
         uses: docker/build-push-action@v3
         env:
@@ -91,51 +82,6 @@ jobs:
         uses: docker/build-push-action@v3
         env:
           IMAGE: clementine
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: keepass2
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: keepass2
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: logster
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: logster
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: tor
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: tor
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: sweethome3d
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: sweethome3d
-        with:
-          context: "${{ github.workspace }}/${{ env.IMAGE }}"
-          push: true
-          tags: "suckowbiz/${{ env.IMAGE }}:latest"
-      -
-        name: code
-        uses: docker/build-push-action@v3
-        env:
-          IMAGE: code
         with:
           context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true

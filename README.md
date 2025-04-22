@@ -6,15 +6,12 @@ Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfil
 
 ## Dockerfiles
 
+(Note: Dockerfiles such as Chrome, Chromix, SweetHome 3D, tor, VSCode have been removed.)
+
 - Ansible automation tool [./ansible](./ansible)
-- Google Chome web browser [./chrome](./chrome)
 - Clementine music player [./clementine](./clementine)
-- VS Code IDE [./code](./code)
 - Gimp image manipulation program [./gimp](./gimp)
 - Goland GO IDE [./goland](./goland)
-- KeePass2 password safe [./keepass2](./keepass2)
-- Logster log producing app [./logster](./logster)
-- Sweet Home 3D [./sweethome3d](./sweethome3d)
 - Tor Proxy [./tor](./tor)
 
 Since persistence or system resources are involved almost all of the Dockerfiles come with their own run scripts (named after the service).

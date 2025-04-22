@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   ansible:
     build: ansible/control
@@ -22,27 +21,9 @@ services:
   clementine:
     build: clementine
     image: suckowbiz/clementine
-  code:
-    build: code
-    image: suckowbiz/code
-  chrome:
-    build: chrome
-    image: suckowbiz/chrome
   gimp:
     build: gimp
     image: suckowbiz/gimp
   goland:
     build: goland
     image: suckowbiz/goland
-  keepass2:
-    build: keepass2
-    image: suckowbiz/keepass2
-  logster:
-    build: logster
-    image: suckowbiz/logster
-  sweethome3d:
-    build: sweethome3d
-    image: suckowbiz/sweethome3d
-  tor:
-    build: tor
-    image: suckowbiz/tor

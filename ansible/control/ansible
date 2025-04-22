@@ -37,8 +37,8 @@ docker run \
   --tty \
   --interactive \
   --rm \
-  --env GIVEN_GROUP=$(id -gn "${USER}") \
-  --env GIVEN_GROUP_ID=$(id -g "${USER}") \
+  --env GIVEN_USER_GROUP=$(id -gn "${USER}") \
+  --env GIVEN_USER_GROUP_ID=$(id -g "${USER}") \
   --env GIVEN_USER="${USER}" \
   --env GIVEN_USER_ID="${UID}" \
   --name "${CONTAINER_NAME}" \
