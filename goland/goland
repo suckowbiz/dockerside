@@ -8,6 +8,8 @@ readonly IMAGE_NAME='suckowbiz/goland'
 readonly CONTAINER_NAME='goland'
 readonly BASE_CONF="${HOME}/.config"
 
+rm -f "${BASE_CONF}/GoLand/config/.lock"
+
 # Pull latest Docker image to have the latest version.
 ip r|grep "default\|0.0.0.0" 1>/dev/null && docker pull "${IMAGE_NAME}"
 
