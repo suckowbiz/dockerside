@@ -8,7 +8,6 @@ Dock(er)side is a place to group Dockerfiles. It contains Ubuntu based Dockerfil
 
 - Ansible automation tool [./ansible](./ansible)
 - Google Chome web browser [./chrome](./chrome)
-- chromix (chrome with citrix) [./chromix](./chromix)
 - Clementine music player [./clementine](./clementine)
 - VS Code IDE [./code](./code)
 - Gimp image manipulation program [./gimp](./gimp)
