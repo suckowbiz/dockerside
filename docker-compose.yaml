@@ -27,3 +27,6 @@ services:
   goland:
     build: goland
     image: suckowbiz/goland
+  tor:
+    build: tor
+    image: suckowbiz/tor

@@ -1,3 +1,3 @@
 .PHONY: images
 images:
-	docker compose build --parallel
+	docker compose build --no-cache --parallel

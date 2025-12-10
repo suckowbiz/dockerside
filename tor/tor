@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Run Docker container.
+# (follows https://google.github.io/styleguide/shell.xml)
+set -e
+
+readonly CONTAINER_NAME='tor'
+readonly IMAGE_NAME="suckowbiz/${CONTAINER_NAME}"
+
+# http://patorjk.com/software/taag/#p=display&h=0&f=Calvin%20S&t=Tor
+cat <<EOH
+
+╔╦╗┌─┐┬─┐
+ ║ │ │├┬┘
+ ╩ └─┘┴└─
+${IMAGE_NAME}
+
+======
+Ports:
+======
+Socks: 9050
+
+EOH
+
+docker rm --force --volumes ${CONTAINER_NAME} >/dev/null 2>&1 || true
+readonly CONTAINER_ID=$(docker run \
+  --detach \
+  --hostname ${CONTAINER_NAME} \
+  --name "${CONTAINER_NAME}" \
+  --rm \
+  --publish 0.0.0.0:9050:9050 \
+  "${IMAGE_NAME}" "ExcludeExitNodes" "{de},{at},{ch}")
+echo "${CONTAINER_ID}"
