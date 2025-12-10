@@ -86,3 +86,12 @@ jobs:
           context: "${{ github.workspace }}/${{ env.IMAGE }}"
           push: true
           tags: "suckowbiz/${{ env.IMAGE }}:latest"
+      -
+        name: tor
+        uses: docker/build-push-action@v3
+        env:
+          IMAGE: tor
+        with:
+          context: "${{ github.workspace }}/${{ env.IMAGE }}"
+          push: true
+          tags: "suckowbiz/${{ env.IMAGE }}:latest"
