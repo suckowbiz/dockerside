@@ -1,7 +1,8 @@
 FROM suckowbiz/base
 LABEL maintainer="Tobias Suckow <tobias@suckow.biz>"
 
-RUN apt-get install --quiet --quiet --no-install-recommends \
+RUN apt-get --quiet --quiet update \ 
+    apt-get install --quiet --quiet --no-install-recommends \
     tor \
     tor-geoipdb \
  && apt-get clean \
@@ -10,4 +11,4 @@ RUN apt-get install --quiet --quiet --no-install-recommends \
 EXPOSE 9050
 
 ENTRYPOINT ["tor", "SOCKSPort", "0.0.0.0:9050"]
-CMD ["ExcludeExitNodes", "{de},{at},{ch}"]
+CMD ["StrictNodes", "1", "ExitNodes", "{ca},{is},{pt},{cz},{ro},{bg}"]
