@@ -21,6 +21,12 @@ SOCKSPort 0.0.0.0:9050 # Bind to all interfaces
 
 # See: https://2019.www.torproject.org/docs/tor-manual.html.en
 
+ClientOnly 1
+ORPort 0
+DirPort 0
+ExitRelay 0
+BridgeRelay 0
+
 # If StrictNodes is set to 1, Tor will treat solely the ExcludeNodes
 # option as a requirement to follow for all the circuits you generate,
 # even if doing so will break functionality for you (StrictNodes applies
