@@ -8,7 +8,8 @@ RUN apt-get --quiet --quiet update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+COPY context /
+
 EXPOSE 9050
 
-ENTRYPOINT ["tor", "SOCKSPort", "0.0.0.0:9050"]
-CMD ["StrictNodes", "1", "ExitNodes", "{ca},{is},{pt},{cz},{ro},{bg}"]
+ENTRYPOINT ["tor"]

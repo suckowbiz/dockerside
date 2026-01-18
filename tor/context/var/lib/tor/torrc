@@ -1,0 +1,74 @@
+## Configuration file for a typical Tor user
+## Last updated 9 October 2013 for Tor 0.2.5.2-alpha.
+## (may or may not work for much older or much newer versions of Tor.)
+##
+## Lines that begin with "## " try to explain what's going on. Lines
+## that begin with just "#" are disabled commands: you can enable them
+## by removing the "#" symbol.
+##
+## See 'man tor', or https://www.torproject.org/docs/tor-manual.html,
+## for more options you can use in this file.
+##
+## Tor will look for this file in various places based on your platform:
+## https://www.torproject.org/docs/faq#torrc
+
+## Tor opens a socks proxy on port 9050 by default -- even if you don't
+## configure one below. Set "SocksPort 0" if you plan to run Tor only
+## as a relay, and not make any local application connections yourself.
+#SocksPort 9050 # Default: Bind to localhost:9050 for local connections.
+#SocksPort 192.168.0.1:9100 # Bind to this address:port too.
+SOCKSPort 0.0.0.0:9050 # Bind to all interfaces
+
+# See: https://2019.www.torproject.org/docs/tor-manual.html.en
+
+# If StrictNodes is set to 1, Tor will treat solely the ExcludeNodes
+# option as a requirement to follow for all the circuits you generate,
+# even if doing so will break functionality for you (StrictNodes applies
+# to neither ExcludeExitNodes nor to ExitNodes, nor to MiddleNodes). (Default: 0)
+StrictNodes 1
+
+############################################
+# Restrict exit nodes to selected countries#
+# (non-EU only)                            #
+############################################
+
+ExitNodes \
+  {ch}, # ch - Switzerland
+  {fi}, # fi - Finland
+  {nl}, # nl - Netherlands
+  {ca}, # ca - Canada
+  {no}, # no - Norway
+  {is}  # is - Iceland
+
+############################################
+# Exclude EU countries from ALL Tor relays #
+############################################
+
+ExcludeNodes \
+  {at}, # at - Austria
+  {be}, # be - Belgium
+  {bg}, # bg - Bulgaria
+  {hr}, # hr - Croatia
+  {cy}, # cy - Cyprus
+  {cz}, # cz - Czech Republic
+  {dk}, # dk - Denmark
+  {ee}, # ee - Estonia
+  {fi}, # fi - Finland
+  {fr}, # fr - France
+  {de}, # de - Germany
+  {gr}, # gr - Greece
+  {hu}, # hu - Hungary
+  {ie}, # ie - Ireland
+  {it}, # it - Italy
+  {lv}, # lv - Latvia
+  {lt}, # lt - Lithuania
+  {lu}, # lu - Luxembourg
+  {mt}, # mt - Malta
+  {nl}, # nl - Netherlands
+  {pl}, # pl - Poland
+  {pt}, # pt - Portugal
+  {ro}, # ro - Romania
+  {sk}, # sk - Slovakia
+  {si}, # si - Slovenia
+  {es}, # es - Spain
+  {se}  # se - Sweden
