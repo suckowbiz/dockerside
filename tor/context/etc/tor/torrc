@@ -17,7 +17,7 @@
 ## as a relay, and not make any local application connections yourself.
 #SocksPort 9050 # Default: Bind to localhost:9050 for local connections.
 #SocksPort 192.168.0.1:9100 # Bind to this address:port too.
-SOCKSPort 0.0.0.0:9050 # Bind to all interfaces
+SocksPort 0.0.0.0:9050 # Bind to all interfaces
 
 # See: https://2019.www.torproject.org/docs/tor-manual.html.en
 
